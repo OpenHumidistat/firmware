@@ -1,0 +1,7 @@
+### JetBrains
+.idea/
+
+### PlatformIO
+.pio
+CMakeListsPrivate.txt
+cmake-build-*/ 
