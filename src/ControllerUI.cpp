@@ -5,19 +5,7 @@ ControllerUI::ControllerUI(LiquidCrystal *liquidCrystal, const ButtonReader *but
 		liquidCrystal(*liquidCrystal),
 		buttonReader(*buttonReader),
 		humidistat(*humidistat) {
-	Serial.begin(9600);
 	this->liquidCrystal.begin(16, 2);
-
-	this->liquidCrystal.setCursor(0, 0);
-	this->liquidCrystal.print("H");
-	this->liquidCrystal.setCursor(9, 0);
-	this->liquidCrystal.print("%");
-	this->liquidCrystal.setCursor(11, 0);
-	this->liquidCrystal.print("T");
-	this->liquidCrystal.setCursor(0, 1);
-	this->liquidCrystal.print("p");
-	this->liquidCrystal.setCursor(0, 1);
-	this->liquidCrystal.print("p");
 }
 
 void ControllerUI::update() {
@@ -29,27 +17,44 @@ void ControllerUI::update() {
 
 void ControllerUI::updateDisplay() {
 	// Update current humidity and temperature readings
-	liquidCrystal.setCursor(1, 0);
-	liquidCrystal.print(humidistat.getHumidity(), 1);
+	{
+		char buf[6];
+		sprintf(buf, "H%4.1f", humidistat.getHumidity());
+		liquidCrystal.setCursor(0, 0);
+		liquidCrystal.print(buf);
+	}
 
-	liquidCrystal.setCursor(12, 0);
-	liquidCrystal.print(humidistat.getTemperature(), 1);
+	{
+		char buf[6];
+		sprintf(buf, "T%4.1f", humidistat.getTemperature());
+		liquidCrystal.setCursor(11, 0);
+		liquidCrystal.print(buf);
+	}
 
 	// Setpoint
-	liquidCrystal.setCursor(7, 0);
-	liquidCrystal.print("  ");
-	liquidCrystal.setCursor(6, 0);
-	liquidCrystal.print(humidistat.setpoint);
+	{
+		char buf[5];
+		sprintf(buf, "%3d%%", humidistat.setpoint);
+		liquidCrystal.setCursor(6, 0);
+		liquidCrystal.print(buf);
+	}
 
 	// Error
-	liquidCrystal.setCursor(4, 1);
-	liquidCrystal.print("  ");
-	liquidCrystal.setCursor(1, 1);
-	liquidCrystal.print(humidistat.getHumidity()-humidistat.setpoint, 1);
+	{
+		char buf[7];
+		sprintf(buf, "E% 5.1f", humidistat.setpoint-humidistat.getHumidity());
+		liquidCrystal.setCursor(0, 1);
+		liquidCrystal.print(buf);
+	}
 
 	// Control value
-	liquidCrystal.setCursor(7, 1);
-	liquidCrystal.print(humidistat.getCv());
+	{
+		char buf[4];
+		sprintf(buf, "%3d", humidistat.getCv());
+		liquidCrystal.setCursor(7, 1);
+		liquidCrystal.print(buf);
+	}
+
 }
 
 void ControllerUI::input() {
