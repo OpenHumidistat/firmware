@@ -13,14 +13,14 @@ private:
 	PID *pid;
 
 	double pv = 0; //!< Process variable
-	double cv = 0; //!< Control variable
+	double cv = 128; //!< Control variable
 	double sp = 0; //!< Setpoint
 
 	double Kp = 0;
 	double Ki = 0;
 	double Kd = 0;
 public:
-	uint8_t setpoint = 0; //!< Public setpoint
+	uint8_t setpoint = 50; //!< Public setpoint
 
 	/// Constructor.
 	/// \param dht Pointer to DHT instance
