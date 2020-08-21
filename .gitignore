@@ -5,3 +5,7 @@
 .pio
 CMakeListsPrivate.txt
 cmake-build-*/ 
+
+### Python
+__pycache__/
+venv/

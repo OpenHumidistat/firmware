@@ -5,6 +5,7 @@
 #include "ButtonReader.h"
 #include "ControllerUI.h"
 #include "Humidistat.h"
+#include "SerialLogger.h"
 
 // Pins
 const uint8_t PINS_LCD[] = {8, 9, 4, 5, 6, 7};
@@ -18,12 +19,15 @@ ButtonReader buttonReader(PIN_BTN);
 DHT dht(PIN_DHT, DHT22);
 Humidistat humidistat(&dht, 1, 1, 1);
 ControllerUI controllerUI(&liquidCrystal, &buttonReader, &humidistat);
+SerialLogger serialLogger(&humidistat);
 
 void setup() {
 	dht.begin();
+	serialLogger.begin();
 }
 
 void loop() {
 	controllerUI.update();
 	humidistat.update(PIN_S1, PIN_S2);
+	serialLogger.update();
 }
