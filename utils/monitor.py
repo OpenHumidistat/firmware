@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from SerialReader import SerialReader
 
 num_axes = 3
-ax_dist = [0, 0, 1, 2]
+ax_dist = [0, 0, 2, 1]
 
 plt.ion()
 fig, axs = plt.subplots(num_axes, sharex=True)
