@@ -9,14 +9,14 @@ private:
 	Humidistat &humidistat;
 
 	const char *header = "Humidity Setpoint Temperature ControlValue";
-	const unsigned long interval = 100; //!< Logging interval (in millis)
+	const unsigned long interval; //!< Logging interval (in millis)
 
-	unsigned long lastTime = 0;         //!< Last time line was written (in millis)
+	unsigned long lastTime = 0;   //!< Last time line was written (in millis)
 	bool ready = false;
 public:
 	/// Constructor.
 	/// \param humidistat Pointer to a Humidistat instance
-	explicit SerialLogger(Humidistat *humidistat);
+	explicit SerialLogger(Humidistat *humidistat, unsigned long interval);
 
 	/// Setup the serial interface
 	void begin();

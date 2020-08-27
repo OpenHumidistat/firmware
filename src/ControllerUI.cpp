@@ -42,7 +42,7 @@ void ControllerUI::updateDisplay() {
 	// Error
 	{
 		char buf[7];
-		sprintf(buf, "E% 5.1f", humidistat.setpoint-humidistat.getHumidity());
+		sprintf(buf, "E% 5.1f", humidistat.setpoint - humidistat.getHumidity());
 		liquidCrystal.setCursor(0, 1);
 		liquidCrystal.print(buf);
 	}
@@ -50,38 +50,49 @@ void ControllerUI::updateDisplay() {
 	// Control value
 	{
 		char buf[4];
-		sprintf(buf, "%3d", humidistat.getCv());
+		sprintf(buf, "%3d", humidistat.controlValue);
 		liquidCrystal.setCursor(7, 1);
 		liquidCrystal.print(buf);
 	}
 
+	// Active status
+	liquidCrystal.setCursor(15, 1);
+	liquidCrystal.print((int) humidistat.active);
 }
 
 void ControllerUI::input() {
 	lastTime = millis();
 
-	uint8_t &h = humidistat.setpoint;
+	if (humidistat.active) {
+		adjustValue(humidistat.setpoint, 100);
+	} else {
+		adjustValue(humidistat.controlValue, 100);
+	}
+}
 
+void ControllerUI::adjustValue(uint8_t &value, uint8_t max) {
 	switch (buttonReader.read()) {
 		case Buttons::UP:
-			h++;
+			if(value < max)
+				value++;
 			break;
 		case Buttons::DOWN:
-			if (h > 0)
-				h--;
+			if (value > 0)
+				(value)--;
 			break;
 		case Buttons::LEFT:
-			if (h >= 10)
-				h -= 10;
+			if (value >= 10)
+				value -= 10;
 			else
-				h = 0;
+				value = 0;
 			break;
 		case Buttons::RIGHT:
-			h += 10;
+			if(value <= max - 10)
+				value += 10;
 			break;
+		case Buttons::SELECT:
+			humidistat.active = !humidistat.active;
 		default:
 			break;
 	}
-	if (h > 100)
-		h = 100;
 }

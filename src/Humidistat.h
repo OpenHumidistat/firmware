@@ -12,22 +12,27 @@ private:
 	DHT &dht;
 	PID *pid;
 
+	const uint8_t lowValue;
+	const int sampleTime;
+
 	double pv = 0; //!< Process variable
-	double cv = 128; //!< Control variable
+	double cv = 0; //!< Control variable
 	double sp = 0; //!< Setpoint
 
 	double Kp = 0;
 	double Ki = 0;
 	double Kd = 0;
 public:
-	uint8_t setpoint = 50; //!< Public setpoint
+	uint8_t setpoint = 50;
+	uint8_t controlValue = (255 + lowValue) / 2;
+	bool active = false;
 
 	/// Constructor.
 	/// \param dht Pointer to DHT instance
 	/// \param Kp Proportional gain
 	/// \param Ki Integral gain
 	/// \param Kd Differential gain
-	explicit Humidistat(DHT *dht, double Kp, double Ki, double Kd);
+	explicit Humidistat(DHT *dht, uint8_t lowValue, int sampleTime, double Kp, double Ki, double Kd);
 
 	/// Copy constructor.
 	/// \param obj
@@ -54,10 +59,6 @@ public:
 	/// Read the temperature.
 	/// \return Temperature (Celsius)
 	float getTemperature() const;
-
-	/// Get the control (solenoid valve) value
-	/// \return control value
-	uint8_t getCv() const;
 };
 
 #endif //HUMIDISTAT_HUMIDISTAT_H

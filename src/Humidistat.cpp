@@ -1,12 +1,16 @@
 #include "Arduino.h"
 #include "Humidistat.h"
 
-Humidistat::Humidistat(DHT *dht, double Kp, double Ki, double Kd) : dht(*dht), Kp(Kp), Ki(Ki), Kd(Kd) {
+Humidistat::Humidistat(DHT *dht, uint8_t lowValue, int sampleTime, double Kp, double Ki, double Kd)
+		: dht(*dht), lowValue(lowValue), sampleTime(sampleTime), Kp(Kp), Ki(Ki), Kd(Kd) {
 	pid = new PID(&pv, &cv, &sp, Kp, Ki, Kd, DIRECT);
 	pid->SetMode(AUTOMATIC);
+	pid->SetOutputLimits(lowValue, 255);
+	pid->SetSampleTime(sampleTime);
 }
 
-Humidistat::Humidistat(const Humidistat &obj) : dht(obj.dht), pv(obj.pv), cv(obj.cv), sp(obj.sp), Kp(obj.Kp),
+Humidistat::Humidistat(const Humidistat &obj) : dht(obj.dht), lowValue(obj.lowValue), sampleTime(obj.sampleTime),
+                                                pv(obj.pv), cv(obj.cv), sp(obj.sp), Kp(obj.Kp),
                                                 Ki(obj.Ki), Kd(obj.Kd), setpoint(obj.setpoint) {
 	pid = new PID(*obj.pid);
 }
@@ -16,7 +20,7 @@ Humidistat::~Humidistat() {
 }
 
 Humidistat &Humidistat::operator=(const Humidistat &obj) {
-	if(this != &obj) {
+	if (this != &obj) {
 		dht = obj.dht;
 		pid = new PID(*obj.pid);
 
@@ -44,16 +48,17 @@ float Humidistat::getTemperature() const {
 void Humidistat::update(uint8_t pinS1, uint8_t pinS2) {
 	// Convert public int setpoint to double for PID
 	sp = (double) setpoint;
-	// Read humidity and run PID cycle
+	// Read humidity
 	pv = getHumidity();
 
-	if (pid->Compute()) {
-		// Convert double control value to int and write it to the pins
-		analogWrite(pinS1, getCv());
-		analogWrite(pinS2, 255 - getCv());
+	if (active) {
+		// Run PID cycle (pid writes into self->cv)
+		pid->Compute();
+		// Convert double control value to int
+		controlValue = (uint8_t) cv;
 	}
-}
 
-uint8_t Humidistat::getCv() const {
-	return (uint8_t) cv;
+	// Write it to the pins
+	analogWrite(pinS1, controlValue);
+	analogWrite(pinS2, 255 + lowValue - controlValue);
 }

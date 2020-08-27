@@ -1,7 +1,7 @@
 #include "Arduino.h"
 #include "SerialLogger.h"
 
-SerialLogger::SerialLogger(Humidistat *humidistat) : humidistat(*humidistat) {}
+SerialLogger::SerialLogger(Humidistat *humidistat, unsigned long interval) : humidistat(*humidistat), interval(interval) {}
 
 void SerialLogger::begin() {
 	Serial.begin(19200);
@@ -17,7 +17,7 @@ void SerialLogger::log() {
 			humidistat.getHumidity(),
 			humidistat.setpoint,
 			humidistat.getTemperature(),
-			humidistat.getCv()
+			humidistat.controlValue
 			);
 	Serial.println(buf);
 }
