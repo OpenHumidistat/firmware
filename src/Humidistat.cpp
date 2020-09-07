@@ -62,3 +62,7 @@ void Humidistat::update(uint8_t pinS1, uint8_t pinS2) {
 	analogWrite(pinS1, controlValue);
 	analogWrite(pinS2, 255 + lowValue - controlValue);
 }
+
+uint8_t Humidistat::getLowValue() const {
+	return lowValue;
+}

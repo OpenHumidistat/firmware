@@ -23,7 +23,7 @@ private:
 
 	/// Handle input.
 	void input();
-	void adjustValue(uint8_t &value, uint8_t max);
+	void adjustValue(uint8_t &value, uint8_t min, uint8_t max);
 
 public:
 	/// Constructor

@@ -59,6 +59,8 @@ public:
 	/// Read the temperature.
 	/// \return Temperature (Celsius)
 	float getTemperature() const;
+
+	uint8_t getLowValue() const;
 };
 
 #endif //HUMIDISTAT_HUMIDISTAT_H

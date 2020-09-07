@@ -64,31 +64,33 @@ void ControllerUI::input() {
 	lastTime = millis();
 
 	if (humidistat.active) {
-		adjustValue(humidistat.setpoint, 100);
+		adjustValue(humidistat.setpoint, 0, 100);
 	} else {
-		adjustValue(humidistat.controlValue, 100);
+		adjustValue(humidistat.controlValue, humidistat.getLowValue(), 255);
 	}
 }
 
-void ControllerUI::adjustValue(uint8_t &value, uint8_t max) {
+void ControllerUI::adjustValue(uint8_t &value, uint8_t min, uint8_t max) {
 	switch (buttonReader.read()) {
 		case Buttons::UP:
 			if(value < max)
 				value++;
 			break;
 		case Buttons::DOWN:
-			if (value > 0)
+			if (value > min)
 				(value)--;
 			break;
 		case Buttons::LEFT:
-			if (value >= 10)
+			if (value >= min + 10)
 				value -= 10;
 			else
-				value = 0;
+				value = min;
 			break;
 		case Buttons::RIGHT:
 			if(value <= max - 10)
 				value += 10;
+			else
+				value = max;
 			break;
 		case Buttons::SELECT:
 			humidistat.active = !humidistat.active;
