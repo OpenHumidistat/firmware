@@ -16,7 +16,8 @@ private:
 	const ButtonReader &buttonReader;
 	Humidistat &humidistat;
 	unsigned long lastTime = 0;              //!< Last time buttons were polled (in millis)
-	const unsigned long inputInterval = 100; //!< Polling interval for reading buttons (in millis)
+	const unsigned long inputInterval = 200; //!< Polling interval for reading buttons (in millis)
+	const unsigned long blinkInterval = 500; //!< Interval for blinking displays (in millis)
 
 	/// Update the values displayed on the LCD.
 	void updateDisplay();
