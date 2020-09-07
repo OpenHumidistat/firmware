@@ -24,6 +24,8 @@ private:
 
 	/// Handle input.
 	void input();
+
+	/// Read buttons and adjust a variable.
 	void adjustValue(uint8_t &value, uint8_t min, uint8_t max);
 
 public:

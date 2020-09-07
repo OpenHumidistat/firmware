@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+Connect to Humidistat Arduino over serial and plot data in real-time.
+"""
 
 import matplotlib.pyplot as plt
 

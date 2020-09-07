@@ -8,7 +8,7 @@ import pandas as pd
 
 class SerialReader:
 	"""
-	Connect to the Arduino and read CRLF-terminated, fixed-width formatted data.
+	Connect to the Humidistat Arduino and read CRLF-terminated, fixed-width formatted data.
 	Is a context manager for the connection.
 	"""
 	def __init__(self, port: str, baud_rate: int = 9600):
