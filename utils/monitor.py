@@ -2,10 +2,27 @@
 """
 Connect to Humidistat Arduino over serial and plot data in real-time.
 """
+import signal
+import sys
 
+import numpy as np
 import matplotlib.pyplot as plt
 
 from SerialReader import SerialReader
+
+
+def sigint_handler(signal, frame):
+	print("KeyboardInterrupt caught.")
+	plt.close('all')
+
+	# Write data to text file
+	print("Saving to file...")
+	np.savetxt('data.csv', np.array(data).transpose(), header=' '.join(sr.header))
+
+	sys.exit(0)
+
+
+signal.signal(signal.SIGINT, sigint_handler)
 
 num_axes = 3
 ax_dist = [0, 0, 2, 1]
