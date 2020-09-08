@@ -18,6 +18,8 @@ private:
 	unsigned long lastTime = 0;              //!< Last time buttons were polled (in millis)
 	const unsigned long inputInterval = 200; //!< Polling interval for reading buttons (in millis)
 	const unsigned long blinkInterval = 500; //!< Interval for blinking displays (in millis)
+	uint8_t tolerance = 1;                   //!< Tolerance in difference between process variable and setpoint outside
+	                                         //!< which the setpoint blinks (in percentage points)
 
 	/// Update the values displayed on the LCD.
 	void updateDisplay();
@@ -27,6 +29,9 @@ private:
 
 	/// Read buttons and adjust a variable.
 	void adjustValue(uint8_t &value, uint8_t min, uint8_t max);
+
+	/// Print blinking text.
+	void blink(uint8_t col, uint8_t row, char* buf);
 
 public:
 	/// Constructor

@@ -35,16 +35,13 @@ void ControllerUI::updateDisplay() {
 	{
 		char buf[5];
 		sprintf(buf, "%3d%%", humidistat.setpoint);
-		liquidCrystal.setCursor(6, 0);
-		liquidCrystal.print(buf);
-	}
-
-	// Error
-	{
-		char buf[7];
-		sprintf(buf, "E% 5.1f", humidistat.setpoint - humidistat.getHumidity());
-		liquidCrystal.setCursor(0, 1);
-		liquidCrystal.print(buf);
+		if(abs(humidistat.setpoint - humidistat.getHumidity()) > tolerance) {
+			blink(6, 0, buf);
+		}
+		else {
+			liquidCrystal.setCursor(6, 0);
+			liquidCrystal.print(buf);
+		}
 	}
 
 	// Control value
@@ -96,5 +93,20 @@ void ControllerUI::adjustValue(uint8_t &value, uint8_t min, uint8_t max) {
 			humidistat.active = !humidistat.active;
 		default:
 			break;
+	}
+}
+
+void ControllerUI::blink(uint8_t col, uint8_t row, char *buf) {
+	liquidCrystal.setCursor(col, row);
+	if(millis() % (2*blinkInterval) > blinkInterval) {
+		liquidCrystal.print(buf);
+	} else {
+		// Create char array of spaces with same length as buf
+		size_t len = strlen(buf);
+		char clrBuf[len+1];
+		memset(clrBuf, ' ', len);
+		clrBuf[len+1] = '\0';
+
+		liquidCrystal.print(clrBuf);
 	}
 }
