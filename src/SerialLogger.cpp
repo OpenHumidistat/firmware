@@ -28,15 +28,14 @@ void SerialLogger::update() {
 		char buf[8];
 		size_t numRead = Serial.readBytesUntil('\r', buf, 7);
 		buf[numRead] = '\0';
+
 		if(strcmp(buf, "RDY") == 0) {
 			// Print header and set ready state
 			Serial.println(header);
 			ready = true;
 		}
 	}
-	if(ready){
-		if (millis() - lastTime > interval) {
-			log();
-		}
-	}
+
+	if(ready && (millis() - lastTime > interval))
+		log();
 }
