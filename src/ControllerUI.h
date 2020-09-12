@@ -34,7 +34,7 @@ private:
 	void blink(uint8_t col, uint8_t row, char* buf);
 
 public:
-	/// Constructor
+	/// Constructor.
 	/// \param liquidCrystal Pointer to a LiquidCrystal instance
 	/// \param buttonReader Pointer to a ButtonReader instance
 	/// \param humidistat Pointer to a Humidistat instance

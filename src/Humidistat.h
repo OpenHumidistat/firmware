@@ -60,6 +60,8 @@ public:
 	/// \return Temperature (Celsius)
 	float getTemperature() const;
 
+	/// Get the lower bound of the control value.
+	/// \return Lower bound
 	uint8_t getLowValue() const;
 };
 
