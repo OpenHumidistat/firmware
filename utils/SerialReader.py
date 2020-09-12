@@ -17,23 +17,22 @@ class SerialReader:
 		:param port: Serial port device
 		:param baud_rate: Baud rate
 		"""
-		self.serial = serial.Serial(port, baud_rate)
-		self.serial.setDTR(False)
-		sleep(1)
-		self.serial.reset_input_buffer()
-		self.serial.setDTR(True)
+		self.serial = serial.Serial(port, baud_rate, timeout=1)
 
 		# The Arduino will reset if we open the serial port, so we wait for it to boot and signal to be ready
 		rec = self.serial.readline()
-		print(rec)
+		print('< ' + rec.decode())
 
-		# Indicate that we're ready
-		self.serial.write(b'RDY\r\n')
-		print('Connected.')
+		while True:
+			# Indicate that we're ready
+			self.serial.write(b'RDY\r\n')
+			print('> RDY')
 
-		# Receive header
-		self.header = self.serial.readline().decode().split()
-		print(self.header)
+			# Receive header
+			self.header = self.serial.readline().decode().split()
+			if self.header:
+				print("Connected.")
+				break
 
 	def __enter__(self):
 		return self
