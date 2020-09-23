@@ -4,7 +4,6 @@
 Humidistat::Humidistat(DHT *dht, uint8_t lowValue, int sampleTime, double Kp, double Ki, double Kd)
 		: dht(*dht), lowValue(lowValue), sampleTime(sampleTime), Kp(Kp), Ki(Ki), Kd(Kd) {
 	pid = new PID(&pv, &cv, &sp, Kp, Ki, Kd, DIRECT);
-	pid->SetMode(AUTOMATIC);
 	pid->SetOutputLimits(lowValue, 255);
 	pid->SetSampleTime(sampleTime);
 }
