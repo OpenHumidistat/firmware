@@ -4,6 +4,7 @@
 #include "LiquidCrystal.h"
 #include "ButtonReader.h"
 #include "Humidistat.h"
+#include "ThermistorReader.h"
 
 /// User interface (display and input) for humidistat for Ks0256 LCD keypad shield.
 /// Holds references to a LiquidCrystal instance for writing to display, a ButtonReader for keypad input, and Humidistat
@@ -15,6 +16,7 @@ private:
 	LiquidCrystal &liquidCrystal;
 	const ButtonReader &buttonReader;
 	Humidistat &humidistat;
+	ThermistorReader (&trs)[4];
 	unsigned long lastTime = 0;              //!< Last time buttons were polled (in millis)
 	const unsigned long inputInterval = 200; //!< Polling interval for reading buttons (in millis)
 	const unsigned long blinkInterval = 500; //!< Interval for blinking displays (in millis)
@@ -28,17 +30,31 @@ private:
 	void input();
 
 	/// Read buttons and adjust a variable.
+	/// \param value Value to adjust
+	/// \param min Lower limit
+	/// \param max Upper limit
 	void adjustValue(uint8_t &value, uint8_t min, uint8_t max);
 
 	/// Print blinking text.
-	void blink(uint8_t col, uint8_t row, char* buf);
+	/// \param col LCD column
+	/// \param row LCD row
+	/// \param buf Buffer of text to blink
+	void blink(uint8_t col, uint8_t row, char *buf);
+
+	/// Print temperature read from thermistors. Handles NaN values as 0
+	/// \param col LCD column
+	/// \param row LCD row
+	/// \param i ThermistorReader index
+	void printNTC(uint8_t col, uint8_t row, uint8_t i);
 
 public:
 	/// Constructor.
 	/// \param liquidCrystal Pointer to a LiquidCrystal instance
 	/// \param buttonReader Pointer to a ButtonReader instance
 	/// \param humidistat Pointer to a Humidistat instance
-	explicit ControllerUI(LiquidCrystal *liquidCrystal, const ButtonReader *buttonReader, Humidistat *humidistat);
+	/// \param trs Pointer to array of 4 ThermistorReader instances
+	explicit ControllerUI(LiquidCrystal *liquidCrystal, const ButtonReader *buttonReader, Humidistat *humidistat,
+	                      ThermistorReader (*trs)[4]);
 
 	/// Update the display and handle input: set Humidistat's setpoint
 	void update();
