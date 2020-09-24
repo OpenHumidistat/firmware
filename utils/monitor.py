@@ -17,7 +17,7 @@ def sigint_handler(signal, frame):
 
 	# Write data to text file
 	print("Saving to file...")
-	np.savetxt('data.csv', np.array(data).transpose(), header=' '.join(sr.header))
+	np.savetxt('data.csv', np.array(data).transpose(), header=' '.join(sr.header), comments='')
 
 	sys.exit(0)
 
