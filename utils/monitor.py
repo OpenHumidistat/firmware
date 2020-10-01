@@ -25,7 +25,7 @@ def sigint_handler(signal, frame):
 signal.signal(signal.SIGINT, sigint_handler)
 
 num_axes = 3
-ax_dist = [0, 0, 2, 1]
+ax_dist = [0, 0, 2, 1, 2, 2, 2, 2]
 
 plt.ion()
 fig, axs = plt.subplots(num_axes, sharex=True)

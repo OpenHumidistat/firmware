@@ -26,7 +26,7 @@ ButtonReader buttonReader(PIN_BTN);
 DHT dht(PIN_DHT, DHT22);
 Humidistat humidistat(&dht, 220, dt, 0.2, 0.02, 1);
 ControllerUI controllerUI(&liquidCrystal, &buttonReader, &humidistat, &trs);
-SerialLogger serialLogger(&humidistat, dt);
+SerialLogger serialLogger(&humidistat, &trs, dt);
 
 void setup() {
 	dht.begin();

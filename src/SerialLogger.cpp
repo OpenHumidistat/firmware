@@ -1,7 +1,8 @@
 #include "Arduino.h"
 #include "SerialLogger.h"
 
-SerialLogger::SerialLogger(Humidistat *humidistat, unsigned long interval) : humidistat(*humidistat), interval(interval) {}
+SerialLogger::SerialLogger(Humidistat *humidistat, ThermistorReader (*trs)[4], unsigned long interval) :
+		humidistat(*humidistat), trs(*trs), interval(interval) {}
 
 void SerialLogger::begin() {
 	Serial.begin(19200);
@@ -13,11 +14,15 @@ void SerialLogger::log() {
 	lastTime = millis();
 
 	char buf[50];
-	sprintf(buf, "%4.1f %3d %4.1f %3d",
+	sprintf(buf, "%f %3d %f %3d %f %f %f %f",
 			humidistat.getHumidity(),
 			humidistat.setpoint,
 			humidistat.getTemperature(),
-			humidistat.controlValue
+			humidistat.controlValue,
+			trs[0].readTemp(),
+			trs[1].readTemp(),
+			trs[2].readTemp(),
+			trs[3].readTemp()
 			);
 	Serial.println(buf);
 }
