@@ -9,7 +9,6 @@
 #include "ThermistorReader.h"
 
 // Pins
-const uint8_t PINS_LCD[] = {8, 9, 4, 5, 6, 7};
 const uint8_t PIN_DHT = 2;
 const uint8_t PIN_BTN = A0;
 const uint8_t PIN_S1 = 3;
