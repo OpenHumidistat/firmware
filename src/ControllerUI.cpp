@@ -11,10 +11,11 @@ ControllerUI::ControllerUI(LiquidCrystal *liquidCrystal, const ButtonReader *but
 }
 
 void ControllerUI::update() {
-	if (millis() - lastTime > inputInterval) {
-		updateDisplay();
+	if (millis() - lastPressed > inputInterval) {
 		input();
 	}
+	if (millis() - lastRefreshed > RefreshInterval)
+		updateDisplay();
 }
 
 void ControllerUI::updateDisplay() {
@@ -62,44 +63,50 @@ void ControllerUI::updateDisplay() {
 	printNTC(3, 1, 1);
 	printNTC(6, 1, 2);
 	printNTC(9, 1, 3);
+
+	lastRefreshed = millis();
 }
 
 void ControllerUI::input() {
-	lastTime = millis();
-
+	bool pressed;
 	if (humidistat.active) {
-		adjustValue(humidistat.setpoint, 0, 100);
+		pressed = adjustValue(humidistat.setpoint, 0, 100);
 	} else {
-		adjustValue(humidistat.controlValue, humidistat.getLowValue(), 255);
+		pressed = adjustValue(humidistat.controlValue, humidistat.getLowValue(), 255);
+	}
+	if (pressed) {
+		lastPressed = millis();
+		updateDisplay();
 	}
 }
 
-void ControllerUI::adjustValue(uint8_t &value, uint8_t min, uint8_t max) {
+bool ControllerUI::adjustValue(uint8_t &value, uint8_t min, uint8_t max) {
 	switch (buttonReader.read()) {
 		case Buttons::UP:
 			if (value < max)
 				value++;
-			break;
+			return true;
 		case Buttons::DOWN:
 			if (value > min)
 				(value)--;
-			break;
+			return true;
 		case Buttons::LEFT:
-			if (value >= min + 10)
-				value -= 10;
+			if (value >= min + 5)
+				value -= 5;
 			else
 				value = min;
-			break;
+			return true;
 		case Buttons::RIGHT:
-			if (value <= max - 10)
-				value += 10;
+			if (value <= max - 5)
+				value += 5;
 			else
 				value = max;
-			break;
+			return true;
 		case Buttons::SELECT:
 			humidistat.active = !humidistat.active;
+			return true;
 		default:
-			break;
+			return false;
 	}
 }
 

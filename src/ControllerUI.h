@@ -17,11 +17,13 @@ private:
 	const ButtonReader &buttonReader;
 	Humidistat &humidistat;
 	ThermistorReader (&trs)[4];
-	unsigned long lastTime = 0;              //!< Last time buttons were polled (in millis)
-	const unsigned long inputInterval = 200; //!< Polling interval for reading buttons (in millis)
-	const unsigned long blinkInterval = 500; //!< Interval for blinking displays (in millis)
-	uint8_t tolerance = 1;                   //!< Tolerance in difference between process variable and setpoint outside
-	                                         //!< which the setpoint blinks (in percentage points)
+	unsigned long lastRefreshed = 0;           //!< Last time display was updated (in millis)
+	unsigned long lastPressed = 0;             //!< Last time a button was pressed (in millis)
+	const unsigned long RefreshInterval = 100; //!< Interval for updating the display (in millis)
+	const unsigned long inputInterval = 200;   //!< Polling interval for reading buttons (in millis)
+	const unsigned long blinkInterval = 500;   //!< Interval for blinking displays (in millis)
+	uint8_t tolerance = 1;                     //!< Tolerance in difference between process variable and setpoint outside
+	                                           //!< which the setpoint blinks (in percentage points)
 
 	/// Update the values displayed on the LCD.
 	void updateDisplay();
@@ -33,7 +35,8 @@ private:
 	/// \param value Value to adjust
 	/// \param min Lower limit
 	/// \param max Upper limit
-	void adjustValue(uint8_t &value, uint8_t min, uint8_t max);
+	/// \return 1 if button was pressed, 0 if not
+	bool adjustValue(uint8_t &value, uint8_t min, uint8_t max);
 
 	/// Print blinking text.
 	/// \param col LCD column
