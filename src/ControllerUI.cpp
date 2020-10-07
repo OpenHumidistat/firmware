@@ -36,7 +36,7 @@ void ControllerUI::updateDisplay() {
 	// Setpoint
 	{
 		char buf[5];
-		sprintf(buf, "%3d%%", humidistat.setpoint);
+		sprintf(buf, "%3u%%", humidistat.setpoint);
 		if (abs(humidistat.setpoint - humidistat.getHumidity()) > tolerance) {
 			blink(6, 0, buf);
 		} else {
@@ -48,7 +48,7 @@ void ControllerUI::updateDisplay() {
 	// Control value
 	{
 		char buf[4];
-		sprintf(buf, "%3d", humidistat.controlValue);
+		sprintf(buf, "%3u", humidistat.controlValue);
 		liquidCrystal.setCursor(12, 0);
 		liquidCrystal.print(buf);
 	}
