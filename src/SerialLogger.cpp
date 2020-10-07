@@ -13,7 +13,7 @@ void SerialLogger::begin() {
 void SerialLogger::log() {
 	lastTime = millis();
 
-	char buf[50];
+	char buf[62];
 	sprintf(buf, "%f %3d %f %3d %f %f %f %f",
 			humidistat.getHumidity(),
 			humidistat.setpoint,
