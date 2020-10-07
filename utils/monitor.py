@@ -4,6 +4,7 @@ Connect to Humidistat Arduino over serial and plot data in real-time.
 """
 import signal
 import sys
+import argparse
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -11,18 +12,29 @@ import matplotlib.pyplot as plt
 from SerialReader import SerialReader
 
 
-def sigint_handler(signal, frame):
-	print("KeyboardInterrupt caught.")
-	plt.close('all')
+def saveto_sigint_handler(filename: str):
+	def sigint_handler(signal, frame):
+		print("KeyboardInterrupt caught.")
+		plt.close('all')
 
-	# Write data to text file
-	print("Saving to file...")
-	np.savetxt('data.csv', np.array(data).transpose(), header=' '.join(sr.header), comments='')
+		# Write data to text file
+		print(f"Saving to {filename}...")
+		np.savetxt(filename, np.array(data).transpose(), header=' '.join(sr.header), comments='')
 
-	sys.exit(0)
+		sys.exit(0)
+	return sigint_handler
 
 
-signal.signal(signal.SIGINT, sigint_handler)
+# Parse CLI arguments
+parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+parser.add_argument("-p", "--port", default='/dev/ttyUSB0', help="The serial port device to which the Arduino is "
+																 "connected.")
+parser.add_argument("-b", "--baud", type=int, default=19200, help="The symbol rate of the connection.")
+parser.add_argument("-o", "--output", default='data.csv.gz', help="Filename to save the data to. Will be automatically "
+																  "gzipped if it ends in .gz.")
+args = parser.parse_args()
+
+signal.signal(signal.SIGINT, saveto_sigint_handler(args.output))
 
 ax_dist = [0, 0, 2, 1, 2, 2, 2, 2]
 
@@ -31,7 +43,7 @@ fig, axs = plt.subplots(max(ax_dist) + 1, sharex=True)
 axs[-1].set_xlabel('Time (s)')
 fig.show()
 
-with SerialReader('/dev/ttyACM0', 19200) as sr:
+with SerialReader(args.port, args.baud) as sr:
 	# Setup list of lists using number of columns deduced from header
 	data = [[] for column in sr.header]
 
