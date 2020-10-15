@@ -46,14 +46,21 @@ float Humidistat::getTemperature() const {
 
 void Humidistat::update(uint8_t pinS1, uint8_t pinS2) {
 	pid->SetMode(active);
+
 	// Convert public int setpoint to double for PID
 	sp = (double) setpoint;
-	// Read humidity
-	pv = getHumidity();
-	// Put public controlValue into cv (only matters user adjusted controlValue)
+
+	// Read humidity (if not NaN)
+	float humidity = getHumidity();
+	if (!isnan(humidity))
+		pv = humidity;
+
+	// Put public controlValue into cv (only matters if user adjusted controlValue)
 	cv = controlValue;
+
 	// Run PID cycle if active (pid writes into self->cv)
 	pid->Compute();
+
 	// Convert double control value to int (only matters if PID is active)
 	controlValue = (uint8_t) cv;
 
