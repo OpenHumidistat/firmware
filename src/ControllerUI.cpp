@@ -11,9 +11,8 @@ ControllerUI::ControllerUI(LiquidCrystal *liquidCrystal, const ButtonReader *but
 }
 
 void ControllerUI::update() {
-	if (millis() - lastPressed > inputInterval) {
+	if (millis() - lastPressed > inputInterval)
 		input();
-	}
 	if (millis() - lastRefreshed > RefreshInterval)
 		updateDisplay();
 }
@@ -103,6 +102,7 @@ bool ControllerUI::adjustValue(uint8_t &value, uint8_t min, uint8_t max) {
 				value = max;
 			return true;
 		case Buttons::SELECT:
+			// Toggle active state
 			humidistat.active = !humidistat.active;
 			return true;
 		default:
