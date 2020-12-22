@@ -24,6 +24,7 @@ private:
 	const unsigned long blinkInterval = 500;   //!< Interval for blinking displays (in millis)
 	uint8_t tolerance = 1;                     //!< Tolerance in difference between process variable and setpoint outside
 	                                           //!< which the setpoint blinks (in percentage points)
+	uint8_t adjustStep = 5;                    //!< Step size by which to in-/de-crement for coarse adjustment
 
 	/// Update the values displayed on the LCD.
 	void updateDisplay();

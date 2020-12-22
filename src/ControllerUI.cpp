@@ -91,14 +91,14 @@ bool ControllerUI::adjustValue(uint8_t &value, uint8_t min, uint8_t max) {
 				(value)--;
 			return true;
 		case Buttons::LEFT:
-			if (value >= min + 5)
-				value -= 5;
+			if (value >= min + adjustStep)
+				value -= adjustStep;
 			else
 				value = min;
 			return true;
 		case Buttons::RIGHT:
-			if (value <= max - 5)
-				value += 5;
+			if (value <= max - adjustStep)
+				value += adjustStep;
 			else
 				value = max;
 			return true;
