@@ -39,9 +39,9 @@ void ControllerUI::updateDisplay() {
 		char buf[5];
 		sprintf(buf, "%3u%%", humidistat.setpoint);
 		if (abs(humidistat.setpoint - humidistat.getHumidity()) > tolerance) {
-			blink(6, 0, buf);
+			blink(7, 0, buf);
 		} else {
-			liquidCrystal.setCursor(6, 0);
+			liquidCrystal.setCursor(7, 0);
 			liquidCrystal.print(buf);
 		}
 	}
@@ -119,7 +119,7 @@ void ControllerUI::blink(uint8_t col, uint8_t row, char *buf) {
 		size_t len = strlen(buf);
 		char clrBuf[len + 1];
 		memset(clrBuf, ' ', len);
-		clrBuf[len + 1] = '\0';
+		clrBuf[len] = '\0';
 
 		liquidCrystal.print(clrBuf);
 	}
