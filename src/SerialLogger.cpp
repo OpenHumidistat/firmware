@@ -7,7 +7,7 @@ SerialLogger::SerialLogger(Humidistat *humidistat, ThermistorReader (*trs)[4], u
 void SerialLogger::begin() {
 	Serial.begin(19200);
 	// Indicate that we're ready
-	Serial.println("RDY");
+	Serial.println("RDY Humidistat version 2020.12.23");
 }
 
 void SerialLogger::log() {
