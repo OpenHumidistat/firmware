@@ -55,11 +55,11 @@ public:
 
 	/// Read the humidity.
 	/// \return Relative humidity (percent)
-	float getHumidity() const;
+	double getHumidity() const;
 
 	/// Read the temperature.
 	/// \return Temperature (Celsius)
-	float getTemperature() const;
+	double getTemperature() const;
 
 	/// Get the lower bound of the control value.
 	/// \return Lower bound

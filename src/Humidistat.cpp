@@ -36,11 +36,11 @@ Humidistat &Humidistat::operator=(const Humidistat &obj) {
 	return *this;
 }
 
-float Humidistat::getHumidity() const {
+double Humidistat::getHumidity() const {
 	return dht.readHumidity();
 }
 
-float Humidistat::getTemperature() const {
+double Humidistat::getTemperature() const {
 	return dht.readTemperature();
 }
 
@@ -51,7 +51,7 @@ void Humidistat::update(uint8_t pinS1, uint8_t pinS2) {
 	sp = (double) setpoint;
 
 	// Read humidity (if not NaN)
-	float humidity = getHumidity();
+	double humidity = getHumidity();
 	if (!isnan(humidity))
 		pv = humidity;
 
