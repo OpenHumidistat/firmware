@@ -23,9 +23,15 @@ private:
 	const uint16_t RefreshInterval = 100;      //!< Interval for updating the display (in millis)
 	const uint16_t inputInterval = 200;        //!< Polling interval for reading buttons (in millis)
 	const uint16_t blinkInterval = 500;        //!< Interval for blinking displays (in millis)
-	uint8_t tolerance = 1;                     //!< Tolerance in difference between process variable and setpoint outside
-	                                           //!< which the setpoint blinks (in percentage points)
+	const uint16_t splashDuration = 1000;      //!< Duration for which to show the splash screen (in millis)
+	const uint16_t infoDuration = 3000;        //!< Duration for which to show the info screen (in millis)
+	uint8_t tolerance = 1;                     //!< Tolerance in difference between process variable and setpoint
+	                                           //!< outside which the setpoint blinks (in percentage points)
 	uint8_t adjustStep = 5;                    //!< Step size by which to in-/de-crement for coarse adjustment
+
+	bool splashDrawn = false;
+	bool infoDrawn = false;
+	bool screenCleared = false;
 
 	/// Update the values displayed on the LCD.
 	void updateDisplay();
@@ -63,6 +69,12 @@ public:
 
 	/// Update the display and handle input: set Humidistat's setpoint
 	void update();
+
+	/// Show the splash screen.
+	void splash();
+
+	/// Show the info screen.
+	void info();
 };
 
 #endif //HUMIDISTAT_CONTROLLERUI_H
