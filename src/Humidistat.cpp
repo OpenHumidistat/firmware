@@ -36,11 +36,11 @@ Humidistat &Humidistat::operator=(const Humidistat &obj) {
 	return *this;
 }
 
-float Humidistat::getHumidity() const {
+double Humidistat::getHumidity() const {
 	return dht.readHumidity();
 }
 
-float Humidistat::getTemperature() const {
+double Humidistat::getTemperature() const {
 	return dht.readTemperature();
 }
 
