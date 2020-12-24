@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include "DHT.h"
-#include "PID_v1.h"
+#include "PID.h"
 
 /// Control humidity using PID by driving two solenoid valves.
 /// Holds references to a DHT instance (for reading humidity using DHT22 sensor) and a PID instance.
@@ -14,15 +14,13 @@ private:
 	PID *pid;
 
 	const uint8_t lowValue;
-	const int sampleTime;
+	const uint16_t dt;
 
 	double pv = 0; //!< Process variable
 	double cv = 0; //!< Control variable
 	double sp = 0; //!< Setpoint
 
-	double Kp = 0;
-	double Ki = 0;
-	double Kd = 0;
+	double Kp, Ki, Kd; //!< Gains
 public:
 	uint8_t setpoint = 50;
 	uint8_t controlValue = (255 + lowValue) / 2;
@@ -33,7 +31,7 @@ public:
 	/// \param Kp Proportional gain
 	/// \param Ki Integral gain
 	/// \param Kd Differential gain
-	explicit Humidistat(DHT *dht, uint8_t lowValue, int sampleTime, double Kp, double Ki, double Kd);
+	explicit Humidistat(DHT *dht, uint8_t lowValue, unsigned long dt, double Kp, double Ki, double Kd);
 
 	/// Copy constructor.
 	/// \param obj
@@ -64,6 +62,21 @@ public:
 	/// Get the lower bound of the control value.
 	/// \return Lower bound
 	uint8_t getLowValue() const;
+
+	/// Get the three PID terms by reference.
+	/// \param pTerm
+	/// \param iTerm
+	/// \param dTerm
+	void getTerms(double &pTerm, double &iTerm, double &dTerm) const;
+
+	/// Get the three PID gains by reference.
+	/// \param Kp
+	/// \param Ki
+	/// \param Kd
+	void getGains(double &Kp, double &Ki, double &Kd) const;
+
+	/// Get the timestep.
+	uint16_t getDt() const;
 };
 
 #endif //HUMIDISTAT_HUMIDISTAT_H

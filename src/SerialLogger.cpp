@@ -7,13 +7,16 @@ SerialLogger::SerialLogger(Humidistat *humidistat, ThermistorReader (*trs)[4], u
 void SerialLogger::begin() {
 	Serial.begin(19200);
 	// Indicate that we're ready
-	Serial.println("RDY Humidistat version 2020.12.23");
+	Serial.println("RDY");
 }
 
 void SerialLogger::log() {
 	lastTime = millis();
 
-	char buf[62];
+	double pTerm, iTerm, dTerm;
+	humidistat.getTerms(pTerm, iTerm, dTerm);
+
+	char buf[89];
 	sprintf(buf, "%f %3d %f %3d %f %f %f %f %f %f %f",
 	        humidistat.getHumidity(),
 	        humidistat.setpoint,
@@ -22,7 +25,10 @@ void SerialLogger::log() {
 	        trs[0].readTemp(),
 	        trs[1].readTemp(),
 	        trs[2].readTemp(),
-	        trs[3].readTemp()
+	        trs[3].readTemp(),
+	        pTerm,
+	        iTerm,
+	        dTerm
 	);
 	Serial.println(buf);
 }

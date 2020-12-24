@@ -36,7 +36,7 @@ args = parser.parse_args()
 
 signal.signal(signal.SIGINT, saveto_sigint_handler(args.output))
 
-ax_dist = [0, 0, 2, 1, 2, 2, 2, 2]
+ax_dist = [0, 0, 2, 1, 2, 2, 2, 2, 1, 1, 1]
 
 plt.ion()
 fig, axs = plt.subplots(max(ax_dist) + 1, sharex=True)

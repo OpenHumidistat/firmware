@@ -11,6 +11,27 @@ ControllerUI::ControllerUI(LiquidCrystal *liquidCrystal, const ButtonReader *but
 }
 
 void ControllerUI::update() {
+	// Show splash screen and info (draw it once) for a short time after boot
+	if (millis() < splashDuration) {
+		if (!splashDrawn) {
+			splash();
+			splashDrawn = true;
+		}
+		return;
+	}
+	if (millis() - splashDuration < infoDuration) {
+		if (!infoDrawn) {
+			info();
+			infoDrawn = true;
+		}
+		return;
+	}
+	// Clear screen once after splash and info are shown
+	if (!screenCleared) {
+		liquidCrystal.clear();
+		screenCleared = true;
+	}
+
 	if (millis() - lastPressed > inputInterval)
 		input();
 	if (millis() - lastRefreshed > RefreshInterval)
@@ -136,4 +157,33 @@ void ControllerUI::printNTC(uint8_t col, uint8_t row, uint8_t i) {
 
 	liquidCrystal.setCursor(col, row);
 	liquidCrystal.print(buf);
+}
+
+void ControllerUI::splash() {
+	liquidCrystal.clear();
+	liquidCrystal.setCursor(0, 0);
+	liquidCrystal.print("Humidistat");
+	liquidCrystal.setCursor(0, 1);
+	liquidCrystal.print("Lars Veldscholte");
+}
+
+void ControllerUI::info() {
+	liquidCrystal.clear();
+	{
+		char buf[15];
+		sprintf(buf, "dt %4u lv %3u", humidistat.getDt(), humidistat.getLowValue());
+
+		liquidCrystal.setCursor(0, 0);
+		liquidCrystal.print(buf);
+	}
+	{
+		double Kp, Ki, Kd;
+		humidistat.getGains(Kp, Ki, Kd);
+
+		char buf[15];
+		sprintf(buf, "%3.2f %3.2f %3.2f", Kp, Ki, Kd);
+
+		liquidCrystal.setCursor(0, 1);
+		liquidCrystal.print(buf);
+	}
 }
