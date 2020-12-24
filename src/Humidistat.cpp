@@ -9,7 +9,7 @@ Humidistat::Humidistat(DHT *dht, uint8_t lowValue, unsigned long dt, double Kp, 
 Humidistat::Humidistat(const Humidistat &obj) : dht(obj.dht), lowValue(obj.lowValue), dt(obj.dt), pv(obj.pv),
                                                 cv(obj.cv), sp(obj.sp), Kp(obj.Kp), Ki(obj.Ki), Kd(obj.Kd),
                                                 setpoint(obj.setpoint) {
-	pid = new PID(*obj.pid);
+	pid = new PID(&pv, &cv, &sp, Kp, Ki, Kd, dt, lowValue, 255);
 }
 
 Humidistat::~Humidistat() {
@@ -18,18 +18,18 @@ Humidistat::~Humidistat() {
 
 Humidistat &Humidistat::operator=(const Humidistat &obj) {
 	if (this != &obj) {
-		dht = obj.dht;
-		pid = new PID(*obj.pid);
-
 		pv = obj.pv;
 		cv = obj.cv;
-		sp = obj.cv;
-
+		sp = obj.sp;
 		Kp = obj.Kp;
 		Ki = obj.Ki;
 		Kd = obj.Kd;
-
 		setpoint = obj.setpoint;
+		controlValue = obj.controlValue;
+		active = obj.active;
+
+		delete pid;
+		pid = new PID(&pv, &cv, &sp, Kp, Ki, Kd, dt, lowValue, 255);
 	}
 	return *this;
 }
