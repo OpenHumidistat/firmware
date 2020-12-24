@@ -1,6 +1,7 @@
 #ifndef HUMIDISTAT_HUMIDISTAT_H
 #define HUMIDISTAT_HUMIDISTAT_H
 
+#include <stdint.h>
 #include "DHT.h"
 #include "PID_v1.h"
 

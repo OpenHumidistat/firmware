@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include "ThermistorReader.h"
 
 ThermistorReader::ThermistorReader(uint8_t pin) : pin(pin) {}

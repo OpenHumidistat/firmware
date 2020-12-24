@@ -1,6 +1,7 @@
 #ifndef HUMIDISTAT_CONTROLLERUI_H
 #define HUMIDISTAT_CONTROLLERUI_H
 
+#include <stdint.h>
 #include "LiquidCrystal.h"
 #include "ButtonReader.h"
 #include "Humidistat.h"
@@ -19,9 +20,9 @@ private:
 	ThermistorReader (&trs)[4];
 	unsigned long lastRefreshed = 0;           //!< Last time display was updated (in millis)
 	unsigned long lastPressed = 0;             //!< Last time a button was pressed (in millis)
-	const unsigned long RefreshInterval = 100; //!< Interval for updating the display (in millis)
-	const unsigned long inputInterval = 200;   //!< Polling interval for reading buttons (in millis)
-	const unsigned long blinkInterval = 500;   //!< Interval for blinking displays (in millis)
+	const uint16_t RefreshInterval = 100;      //!< Interval for updating the display (in millis)
+	const uint16_t inputInterval = 200;        //!< Polling interval for reading buttons (in millis)
+	const uint16_t blinkInterval = 500;        //!< Interval for blinking displays (in millis)
 	uint8_t tolerance = 1;                     //!< Tolerance in difference between process variable and setpoint outside
 	                                           //!< which the setpoint blinks (in percentage points)
 	uint8_t adjustStep = 5;                    //!< Step size by which to in-/de-crement for coarse adjustment

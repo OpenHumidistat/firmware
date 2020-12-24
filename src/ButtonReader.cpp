@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include "ButtonReader.h"
 
 ButtonReader::ButtonReader(uint8_t pin_btn) : pin_btn(pin_btn) {}

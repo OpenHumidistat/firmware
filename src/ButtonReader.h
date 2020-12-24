@@ -1,7 +1,7 @@
 #ifndef HUMIDISTAT_BUTTONREADER_H
 #define HUMIDISTAT_BUTTONREADER_H
 
-#include "Arduino.h"
+#include <stdint.h>
 
 /// Possible button values
 enum class Buttons {

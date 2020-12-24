@@ -15,7 +15,7 @@ const uint8_t PIN_S1 = 3;
 const uint8_t PIN_S2 = 11;
 
 // Global interval for PID/logger (based on polling rate of DHT22)
-const unsigned long dt = 2000;
+const uint16_t dt = 500;
 
 //                         NTC pins
 ThermistorReader trs[4] = {1, 2, 3, 4};

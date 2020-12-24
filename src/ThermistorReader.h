@@ -1,7 +1,7 @@
 #ifndef HUMIDISTAT_THERMISTORREADER_H
 #define HUMIDISTAT_THERMISTORREADER_H
 
-#include "Arduino.h"
+#include <stdint.h>
 
 class ThermistorReader {
 private:
