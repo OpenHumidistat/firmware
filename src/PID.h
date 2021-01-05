@@ -18,6 +18,7 @@ private:
 	bool inAuto = false;        //!< Mode
 	unsigned long lastComputed; //!< Last time the loop was run
 	double lastPv;              //!< Last value of pv
+	double lastE;               //!< Last value of error
 	double integral;            //!< Integral of pv
 
 	/// Method to be called when the controller goes from manual to auto mode for proper bumpless transfer.

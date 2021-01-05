@@ -13,6 +13,7 @@ PID::PID(const double *pv, double *cv, const double *sp, double kp, double ki, d
 void PID::init() {
 	integral = cv / Ki;
 	lastPv = pv;
+	lastE = sp - pv;
 }
 
 bool PID::compute() {
@@ -27,8 +28,9 @@ bool PID::compute() {
 	// Derivative (Derivative on Measurement)
 	double dPv = pv - lastPv;
 	// Integral error (Anti-windup through conditional integration)
-	if (cv < cvMax && cv > cvMin)
-		integral += e;
+	double delta = (lastE + e) / 2;
+	if ((cv < cvMax || delta < 0) && (cv > cvMin || delta > 0))
+		integral += delta;
 
 	pTerm = Kp * e;
 	iTerm = Ki * integral;
@@ -38,6 +40,7 @@ bool PID::compute() {
 
 	lastComputed = millis();
 	lastPv = pv;
+	lastE = e;
 	return true;
 }
 
