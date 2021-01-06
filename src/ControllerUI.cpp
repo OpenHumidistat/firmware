@@ -147,7 +147,7 @@ void ControllerUI::blink(uint8_t col, uint8_t row, char *buf) {
 }
 
 void ControllerUI::printNTC(uint8_t col, uint8_t row, uint8_t i) {
-	float temp = trs[i].readTemp();
+	double temp = trs[i].readTemp();
 	char buf[3];
 	if (isnan(temp)) {
 		sprintf(buf, "%2u", 0);
