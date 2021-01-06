@@ -26,10 +26,10 @@ bool PID::compute() {
 	// Proportional error
 	double e = sp - pv;
 	// Derivative (Derivative on Measurement)
-	double dPv = pv - lastPv;
-	// Integral error (Anti-windup through conditional integration)
-	double delta = (lastE + e) / 2;
-	if ((cv < cvMax || delta < 0) && (cv > cvMin || delta > 0))
+	double dPv = pv - lastPv; // Backwards difference
+	// Integral error
+	double delta = (lastE + e) / 2; // Trapezoidal integration
+	if ((cv < cvMax || delta < 0) && (cv > cvMin || delta > 0)) // Anti-windup through conditional integration
 		integral += delta;
 
 	pTerm = Kp * e;
