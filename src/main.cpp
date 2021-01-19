@@ -23,11 +23,15 @@ ThermistorReader trs[4] = {1, 2, 3, 4};
 LiquidCrystal liquidCrystal(8, 9, 4, 5, 6, 7);
 ButtonReader buttonReader(PIN_BTN);
 DHT dht(PIN_DHT, DHT22);
-Humidistat humidistat(&dht, 220, dt, 0.2, 0.02, 1);
+Humidistat humidistat(&dht, 210, dt, 1.00, 0.025, 2.50);
+
 ControllerUI controllerUI(&liquidCrystal, &buttonReader, &humidistat, &trs);
 SerialLogger serialLogger(&humidistat, &trs, dt);
 
 void setup() {
+	// Set PWM frequency on D3 and D11 to 245.10 Hz
+	TCCR2B = TCCR2B & B11111000 | B00000101;
+
 	dht.begin();
 	serialLogger.begin();
 }
