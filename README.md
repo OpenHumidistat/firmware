@@ -5,6 +5,8 @@
 This repository contains the Arduino Uno firmware that implements a humidistat (humidity controller) by actuating two
 solenoid valves.
 
+![](https://user-images.githubusercontent.com/7603719/105039157-820a3780-5a60-11eb-8f13-71b3696a475b.jpg).
+
 Besides the Arduino firmware, it contains a real-time monitoring tool written in Python, which communicates with the
 Arduino over serial.
 
