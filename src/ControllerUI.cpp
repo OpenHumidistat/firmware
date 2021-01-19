@@ -180,8 +180,8 @@ void ControllerUI::info() {
 		double Kp, Ki, Kd;
 		humidistat.getGains(Kp, Ki, Kd);
 
-		char buf[15];
-		sprintf(buf, "%3.2f %3.2f %3.2f", Kp, Ki, Kd);
+		char buf[16];
+		sprintf(buf, "%3.2f %4.3f %3.2f", Kp, Ki, Kd);
 
 		liquidCrystal.setCursor(0, 1);
 		liquidCrystal.print(buf);
