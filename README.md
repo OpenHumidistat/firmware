@@ -5,7 +5,7 @@
 This repository contains the Arduino Uno firmware that implements a humidistat (humidity controller) by actuating two
 solenoid valves.
 
-![](https://user-images.githubusercontent.com/7603719/105039157-820a3780-5a60-11eb-8f13-71b3696a475b.jpg).
+![](docs/pic.jpg)
 
 Besides the Arduino firmware, it contains a real-time monitoring tool written in Python, which communicates with the
 Arduino over serial.
@@ -35,7 +35,20 @@ foo@bar:~$ platformio run --target upload
 
 ### Usage
 On powerup, the MCU shows a splash screen followed by an info screen printing the active tuning parameters.
-Subsequently, the system is ready for use. It starts in manual (open-loop) mode by default. Press SELECT to switch the
+Subsequently, the system is ready for use. An outline of the UI is shown below.
+
+![](docs/UI.svg)
+
+The values shown on the display are:
+
+- Mode: 0 for manual, 1 for auto.
+- PV: Process variable, i.e. the current, measured humidity in the chamber.
+- SP: Setpoint, i.e. the desired humidity. This blinks if it is too far from the PV.
+- CV: Control variable, representing the state of the valves from lowValue to 255.
+- MOSFET/Solenoid temperature in Celsius.
+- Chamber temperature in Celsius.
+
+It starts in manual (open-loop) mode by default. Press SELECT to switch the
 controller into auto mode. Press LEFT/RIGHT for coarse adjustment of the setpoint, and DOWN/UP for fine adjustment. In
 manual mode, the same buttons are used to adjust the control variable.
 
