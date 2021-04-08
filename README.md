@@ -84,5 +84,10 @@ data is plotted in real-time.
 
 When the serial monitor is closed (by SIGINT), it will save the data to file, in (gzipped) CSV format.
 
+### Publication
+The device for which this firmware is intended, is described in the following paper:
+
+Veldscholte, L.B., Horst, R.J. & de Beer, S. Design, construction, and testing of an accurate low-cost humidistat for laboratory-scale applications. Eur. Phys. J. E 44, 48 (2021). https://doi.org/10.1140/epje/s10189-021-00062-5
+
 ## License
 This project is free software licensed under the GPL. See [LICENSE](LICENSE) for details.
