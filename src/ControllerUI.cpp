@@ -2,11 +2,11 @@
 #include "ControllerUI.h"
 
 ControllerUI::ControllerUI(LiquidCrystal *liquidCrystal, const ButtonReader *buttonReader, Humidistat *humidistat,
-                           ThermistorReader (*trs)[4]) :
+                           Array<ThermistorReader*, 4> trs) :
 		liquidCrystal(*liquidCrystal),
 		buttonReader(*buttonReader),
 		humidistat(*humidistat),
-		trs(*trs) {
+		trs(trs) {
 	this->liquidCrystal.begin(16, 2);
 }
 
@@ -18,6 +18,7 @@ void ControllerUI::update() {
 			splashDrawn = true;
 		}
 		return;
+
 	}
 	if (millis() - splashDuration < infoDuration) {
 		if (!infoDrawn) {
@@ -79,10 +80,11 @@ void ControllerUI::updateDisplay() {
 	liquidCrystal.print((int) humidistat.active);
 
 	// Thermistors
-	printNTC(0, 1, 0);
-	printNTC(3, 1, 1);
-	printNTC(6, 1, 2);
-	printNTC(9, 1, 3);
+	for (size_t i = 0; i < trs.size(); ++i) {
+		if(trs[i]) {
+			printNTC(3*i, 1, i);
+		}
+	}
 
 	lastRefreshed = millis();
 }
@@ -132,7 +134,7 @@ bool ControllerUI::adjustValue(uint8_t &value, uint8_t min, uint8_t max) {
 }
 
 void ControllerUI::blink(uint8_t col, uint8_t row, char *buf) {
-	liquidCrystal.setCursor(col, row);
+	liquidCrystal.setCursor(col, 0);
 	if (millis() % (2 * blinkInterval) > blinkInterval) {
 		liquidCrystal.print(buf);
 	} else {
@@ -147,7 +149,7 @@ void ControllerUI::blink(uint8_t col, uint8_t row, char *buf) {
 }
 
 void ControllerUI::printNTC(uint8_t col, uint8_t row, uint8_t i) {
-	double temp = trs[i].readTemp();
+	double temp = trs[i]->readTemp();
 	char buf[3];
 	if (isnan(temp)) {
 		sprintf(buf, "%2u", 0);

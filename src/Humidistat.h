@@ -2,15 +2,15 @@
 #define HUMIDISTAT_HUMIDISTAT_H
 
 #include <stdint.h>
-#include "DHT.h"
 #include "PID.h"
+#include "HumiditySensor.h"
 
 /// Control humidity using PID by driving two solenoid valves.
 /// Holds references to a DHT instance (for reading humidity using DHT22 sensor) and a PID instance.
 /// Adjust the public setpoint variable and call update() with the solenoid pins to use.
 class Humidistat {
 private:
-	DHT &dht;
+	HumiditySensor &hs;
 	PID *pid;
 
 	const uint8_t lowValue;
@@ -31,7 +31,7 @@ public:
 	/// \param Kp Proportional gain
 	/// \param Ki Integral gain
 	/// \param Kd Differential gain
-	explicit Humidistat(DHT *dht, uint8_t lowValue, unsigned long dt, double Kp, double Ki, double Kd);
+	explicit Humidistat(HumiditySensor *hs, uint8_t lowValue, unsigned long dt, double Kp, double Ki, double Kd);
 
 	/// Copy constructor.
 	/// \param obj

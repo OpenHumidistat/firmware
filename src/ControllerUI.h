@@ -2,6 +2,8 @@
 #define HUMIDISTAT_CONTROLLERUI_H
 
 #include <stdint.h>
+#include <Array.h>
+
 #include "LiquidCrystal.h"
 #include "ButtonReader.h"
 #include "Humidistat.h"
@@ -17,7 +19,7 @@ private:
 	LiquidCrystal &liquidCrystal;
 	const ButtonReader &buttonReader;
 	Humidistat &humidistat;
-	ThermistorReader (&trs)[4];
+	Array<ThermistorReader*, 4> trs;
 	unsigned long lastRefreshed = 0;           //!< Last time display was updated (in millis)
 	unsigned long lastPressed = 0;             //!< Last time a button was pressed (in millis)
 	const uint16_t RefreshInterval = 100;      //!< Interval for updating the display (in millis)
@@ -65,7 +67,7 @@ public:
 	/// \param humidistat Pointer to a Humidistat instance
 	/// \param trs Pointer to array of 4 ThermistorReader instances
 	explicit ControllerUI(LiquidCrystal *liquidCrystal, const ButtonReader *buttonReader, Humidistat *humidistat,
-	                      ThermistorReader (*trs)[4]);
+	                      Array<ThermistorReader*, 4> trs);
 
 	/// Update the display and handle input: set Humidistat's setpoint
 	void update();

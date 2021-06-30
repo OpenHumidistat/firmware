@@ -1,12 +1,12 @@
 #include <Arduino.h>
 #include "Humidistat.h"
 
-Humidistat::Humidistat(DHT *dht, uint8_t lowValue, unsigned long dt, double Kp, double Ki, double Kd)
-		: dht(*dht), lowValue(lowValue), dt(dt), Kp(Kp), Ki(Ki), Kd(Kd) {
+Humidistat::Humidistat(HumiditySensor *hs, uint8_t lowValue, unsigned long dt, double Kp, double Ki, double Kd)
+		: hs(*hs), lowValue(lowValue), dt(dt), Kp(Kp), Ki(Ki), Kd(Kd) {
 	pid = new PID(&pv, &cv, &sp, Kp, Ki, Kd, dt, lowValue, 255);
 }
 
-Humidistat::Humidistat(const Humidistat &obj) : dht(obj.dht), lowValue(obj.lowValue), dt(obj.dt), pv(obj.pv),
+Humidistat::Humidistat(const Humidistat &obj) : hs(obj.hs), lowValue(obj.lowValue), dt(obj.dt), pv(obj.pv),
                                                 cv(obj.cv), sp(obj.sp), Kp(obj.Kp), Ki(obj.Ki), Kd(obj.Kd),
                                                 setpoint(obj.setpoint) {
 	pid = new PID(&pv, &cv, &sp, Kp, Ki, Kd, dt, lowValue, 255);
@@ -35,11 +35,11 @@ Humidistat &Humidistat::operator=(const Humidistat &obj) {
 }
 
 double Humidistat::getHumidity() const {
-	return dht.readHumidity();
+	return hs.getHumidity();
 }
 
 double Humidistat::getTemperature() const {
-	return dht.readTemperature();
+	return hs.getTemperature();
 }
 
 void Humidistat::update(uint8_t pinS1, uint8_t pinS2) {
