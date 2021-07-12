@@ -134,7 +134,7 @@ bool ControllerUI::adjustValue(uint8_t &value, uint8_t min, uint8_t max) {
 }
 
 void ControllerUI::blink(uint8_t col, uint8_t row, char *buf) {
-	liquidCrystal.setCursor(col, 0);
+	liquidCrystal.setCursor(col, row);
 	if (millis() % (2 * blinkInterval) > blinkInterval) {
 		liquidCrystal.print(buf);
 	} else {
