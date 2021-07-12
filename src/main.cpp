@@ -31,7 +31,7 @@ Array<ThermistorReader*, 4> trsp{{&trs[0], &trs[1], &trs[2], &trs[3]}};
 #include "SHTHumiditySensor.h"
 SHTSensor sht;
 SHTHumiditySensor hs(&sht);
-Array<ThermistorReader*, 4> trsp{{nullptr, nullptr, nullptr, nullptr}};
+Array<ThermistorReader*, 4> trsp{{}};
 #endif
 
 // Global interval for PID/logger (based on polling rate of sensor, in millis)
