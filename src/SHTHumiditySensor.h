@@ -12,8 +12,6 @@ private:
 	SHTSensor &sht;
 public:
 	explicit SHTHumiditySensor(SHTSensor *sht);
-
-private:
 	double getHumidity() const override;
 	double getTemperature() const override;
 };

@@ -9,8 +9,6 @@ private:
 	DHT &dht;
 public:
 	explicit DHTHumiditySensor(DHT *dht);
-
-private:
 	double getHumidity() const override;
 	double getTemperature() const override;
 };
