@@ -27,9 +27,9 @@ private:
 	const uint16_t blinkInterval = 500;        //!< Interval for blinking displays (in millis)
 	const uint16_t splashDuration = 1000;      //!< Duration for which to show the splash screen (in millis)
 	const uint16_t infoDuration = 3000;        //!< Duration for which to show the info screen (in millis)
-	uint8_t tolerance = 1;                     //!< Tolerance in difference between process variable and setpoint
+	const uint8_t tolerance = 1;               //!< Tolerance in difference between process variable and setpoint
 	                                           //!< outside which the setpoint blinks (in percentage points)
-	uint8_t adjustStep = 5;                    //!< Step size by which to in-/de-crement for coarse adjustment
+	const uint8_t adjustStep = 5;              //!< Step size by which to in-/de-crement for coarse adjustment
 
 	bool splashDrawn = false;
 	bool infoDrawn = false;
