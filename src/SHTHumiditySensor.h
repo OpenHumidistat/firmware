@@ -14,6 +14,7 @@ public:
 	explicit SHTHumiditySensor(SHTSensor *sht);
 	double getHumidity() const override;
 	double getTemperature() const override;
+	void begin() override;
 };
 
 

@@ -48,13 +48,7 @@ void setup() {
 	// Set PWM frequency on D3 and D11 to 245.10 Hz
 	TCCR2B = TCCR2B & B11111000 | B00000101;
 
-#ifdef HUMIDISTAT_DHT
-	dht.begin();
-#endif
-#ifdef HUMIDISTAT_SHT
-	Wire.begin();
-	sht.init();
-#endif
+	hs.begin();
 	serialLogger.begin();
 }
 

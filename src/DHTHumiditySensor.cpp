@@ -9,3 +9,7 @@ double DHTHumiditySensor::getHumidity() const {
 double DHTHumiditySensor::getTemperature() const {
 	return dht.readTemperature();
 }
+
+void DHTHumiditySensor::begin() {
+	dht.begin();
+}

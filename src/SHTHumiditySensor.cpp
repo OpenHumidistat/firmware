@@ -11,3 +11,8 @@ double SHTHumiditySensor::getTemperature() const {
 	sht.readSample();
 	return sht.getTemperature();
 }
+
+void SHTHumiditySensor::begin() {
+	Wire.begin();
+	sht.init();
+}

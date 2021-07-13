@@ -11,6 +11,7 @@ public:
 	explicit DHTHumiditySensor(DHT *dht);
 	double getHumidity() const override;
 	double getTemperature() const override;
+	void begin() override;
 };
 
 

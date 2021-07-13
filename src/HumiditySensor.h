@@ -6,6 +6,7 @@ class HumiditySensor {
 public:
 	virtual double getHumidity() const = 0;
 	virtual double getTemperature() const = 0;
+	virtual void begin() = 0;
 };
 
 
