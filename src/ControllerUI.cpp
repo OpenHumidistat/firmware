@@ -1,92 +1,37 @@
 #include <Arduino.h>
 #include "ControllerUI.h"
 
-ControllerUI::ControllerUI(LiquidCrystal *liquidCrystal, const ButtonReader *buttonReader, Humidistat *humidistat,
-                           Array<ThermistorReader*, 4> trs) :
-		liquidCrystal(*liquidCrystal),
-		buttonReader(*buttonReader),
-		humidistat(*humidistat),
-		trs(trs) {
-	this->liquidCrystal.begin(16, 2);
-}
+ControllerUI::ControllerUI(Print *display, const ButtonReader *buttonReader, Humidistat *humidistat,
+                           Array<ThermistorReader *, 4> trs) :
+		display(*display), buttonReader(*buttonReader), humidistat(*humidistat), trs(trs) {}
 
 void ControllerUI::update() {
 	// Show splash screen and info (draw it once) for a short time after boot
 	if (millis() < splashDuration) {
 		if (!splashDrawn) {
-			splash();
+			drawSplash();
 			splashDrawn = true;
 		}
 		return;
-
 	}
 	if (millis() - splashDuration < infoDuration) {
 		if (!infoDrawn) {
-			info();
+			drawInfo();
 			infoDrawn = true;
 		}
 		return;
 	}
 	// Clear screen once after splash and info are shown
 	if (!screenCleared) {
-		liquidCrystal.clear();
+		clear();
 		screenCleared = true;
 	}
 
 	if (millis() - lastPressed > inputInterval)
 		input();
-	if (millis() - lastRefreshed > RefreshInterval)
-		updateDisplay();
-}
-
-void ControllerUI::updateDisplay() {
-	// Update current humidity and temperature readings
-	{
-		char buf[5];
-		sprintf(buf, "%4.1f", humidistat.getHumidity());
-		liquidCrystal.setCursor(2, 0);
-		liquidCrystal.print(buf);
+	if (millis() - lastRefreshed > RefreshInterval) {
+		draw();
 	}
-
-	{
-		char buf[5];
-		sprintf(buf, "%4.1f", humidistat.getTemperature());
-		liquidCrystal.setCursor(12, 1);
-		liquidCrystal.print(buf);
-	}
-
-	// Setpoint
-	{
-		char buf[5];
-		sprintf(buf, "%3u%%", humidistat.setpoint);
-		if (abs(humidistat.setpoint - humidistat.getHumidity()) > tolerance) {
-			blink(7, 0, buf);
-		} else {
-			liquidCrystal.setCursor(7, 0);
-			liquidCrystal.print(buf);
-		}
-	}
-
-	// Control value
-	{
-		char buf[4];
-		sprintf(buf, "%3u", humidistat.controlValue);
-		liquidCrystal.setCursor(12, 0);
-		liquidCrystal.print(buf);
-	}
-
-	// Active status
-	liquidCrystal.setCursor(0, 0);
-	liquidCrystal.print((int) humidistat.active);
-
-	// Thermistors
-	for (size_t i = 0; i < trs.size(); ++i) {
-		if(trs[i]) {
-			printNTC(3*i, 1, i);
-		}
-	}
-
-	lastRefreshed = millis();
 }
 
 void ControllerUI::input() {
@@ -98,7 +43,7 @@ void ControllerUI::input() {
 	}
 	if (pressed) {
 		lastPressed = millis();
-		updateDisplay();
+		draw();
 	}
 }
 
@@ -134,9 +79,9 @@ bool ControllerUI::adjustValue(uint8_t &value, uint8_t min, uint8_t max) {
 }
 
 void ControllerUI::blink(uint8_t col, uint8_t row, char *buf) {
-	liquidCrystal.setCursor(col, row);
+	setCursor(col, row);
 	if (millis() % (2 * blinkInterval) > blinkInterval) {
-		liquidCrystal.print(buf);
+		display.print(buf);
 	} else {
 		// Create char array of spaces with same length as buf
 		size_t len = strlen(buf);
@@ -144,7 +89,7 @@ void ControllerUI::blink(uint8_t col, uint8_t row, char *buf) {
 		memset(clrBuf, ' ', len);
 		clrBuf[len] = '\0';
 
-		liquidCrystal.print(clrBuf);
+		display.print(clrBuf);
 	}
 }
 
@@ -157,35 +102,6 @@ void ControllerUI::printNTC(uint8_t col, uint8_t row, uint8_t i) {
 		sprintf(buf, "%2u", (int) temp);
 	}
 
-	liquidCrystal.setCursor(col, row);
-	liquidCrystal.print(buf);
-}
-
-void ControllerUI::splash() {
-	liquidCrystal.clear();
-	liquidCrystal.setCursor(0, 0);
-	liquidCrystal.print("Humidistat");
-	liquidCrystal.setCursor(0, 1);
-	liquidCrystal.print("Lars Veldscholte");
-}
-
-void ControllerUI::info() {
-	liquidCrystal.clear();
-	{
-		char buf[15];
-		sprintf(buf, "dt %4u lv %3u", humidistat.getDt(), humidistat.getLowValue());
-
-		liquidCrystal.setCursor(0, 0);
-		liquidCrystal.print(buf);
-	}
-	{
-		double Kp, Ki, Kd;
-		humidistat.getGains(Kp, Ki, Kd);
-
-		char buf[16];
-		sprintf(buf, "%3.2f %4.3f %3.2f", Kp, Ki, Kd);
-
-		liquidCrystal.setCursor(0, 1);
-		liquidCrystal.print(buf);
-	}
+	setCursor(col, row);
+	display.print(buf);
 }
