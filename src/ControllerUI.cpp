@@ -2,7 +2,7 @@
 #include "ControllerUI.h"
 
 ControllerUI::ControllerUI(Print *display, const ButtonReader *buttonReader, Humidistat *humidistat,
-                           Array<ThermistorReader *, 4> trs) :
+                           Array<const ThermistorReader *, 4> trs) :
 		display(*display), buttonReader(*buttonReader), humidistat(*humidistat), trs(trs) {}
 
 void ControllerUI::update() {

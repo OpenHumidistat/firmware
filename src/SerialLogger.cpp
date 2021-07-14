@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include "SerialLogger.h"
 
-SerialLogger::SerialLogger(Humidistat *humidistat, Array<ThermistorReader*, 4> trs, uint16_t interval) :
+SerialLogger::SerialLogger(const Humidistat *humidistat, Array<const ThermistorReader*, 4> trs, uint16_t interval) :
 		humidistat(*humidistat), trs(trs), interval(interval) {}
 
 void SerialLogger::begin() {

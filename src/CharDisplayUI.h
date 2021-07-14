@@ -25,7 +25,7 @@ public:
 	/// \param humidistat    Pointer to a Humidistat instance
 	/// \param trs           Array of 4 pointers to ThermistorReader instances
 	explicit CharDisplayUI(LiquidCrystal *liquidCrystal, const ButtonReader *buttonReader, Humidistat *humidistat,
-	                       Array<ThermistorReader *, 4> trs);
+	                       Array<const ThermistorReader *, 4> trs);
 
 	void begin() override;
 };

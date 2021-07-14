@@ -54,7 +54,7 @@ private:
 
 protected:
 	Humidistat &humidistat;
-	Array<ThermistorReader*, 4> trs;
+	Array<const ThermistorReader*, 4> trs;
 
 	unsigned long lastRefreshed = 0;  //!< Last time display was updated (in millis)
 	const uint8_t tolerance = 1;      //!< Tolerance in difference between process variable and setpoint outside
@@ -66,7 +66,7 @@ protected:
 	/// \param humidistat   Pointer to a Humidistat instance
 	/// \param trs          Array of 4 pointers to ThermistorReader instances
 	explicit ControllerUI(Print *display, const ButtonReader *buttonReader, Humidistat *humidistat,
-	                      Array<ThermistorReader *, 4> trs);
+	                      Array<const ThermistorReader *, 4> trs);
 
 	/// Print blinking text.
 	/// \param col LCD column

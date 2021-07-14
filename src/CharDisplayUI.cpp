@@ -1,7 +1,7 @@
 #include "CharDisplayUI.h"
 
 CharDisplayUI::CharDisplayUI(LiquidCrystal *liquidCrystal, const ButtonReader *buttonReader, Humidistat *humidistat,
-                             Array<ThermistorReader*, 4> trs) :
+                             Array<const ThermistorReader*, 4> trs) :
 		ControllerUI(liquidCrystal, buttonReader, humidistat, trs), liquidCrystal(*liquidCrystal) {}
 
 void CharDisplayUI::draw() {
