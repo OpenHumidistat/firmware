@@ -3,24 +3,18 @@
 
 #include <stdint.h>
 
-/// Possible button values
-enum class Buttons {
-	NONE,
-	RIGHT,
-	UP,
-	DOWN,
-	LEFT,
-	SELECT,
-};
+#include "VoltLadder.h"
 
-/// Read button state from Ks0256 LCD keypad shield.
+/// Read button state from a voltage ladder-style keypad.
 class ButtonReader {
 private:
+	VoltLadder &voltLadder;
 	uint8_t pin_btn; //!< Pin corresponding to the keypad
 public:
-	/// Constructor
-	/// \param pin_btn Pin corresponding to the keypad
-	explicit ButtonReader(uint8_t pin_btn);
+	/// Constructor.
+	/// \param pin_btn    Pin corresponding to the keypad
+	/// \param voltLadder Pointer to VoltLadder instance
+	explicit ButtonReader(uint8_t pin_btn, VoltLadder *voltLadder);
 
 	/// Read the button state.
 	/// \return instance of Buttons corresponding to the pressed button

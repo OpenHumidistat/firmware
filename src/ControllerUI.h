@@ -5,7 +5,7 @@
 #include <Array.h>
 #include <Print.h>
 
-#include "ButtonReader.h"
+#include "input/ButtonReader.h"
 #include "Humidistat.h"
 #include "sensor/ThermistorReader.h"
 

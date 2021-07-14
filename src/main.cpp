@@ -2,8 +2,9 @@
 #include <LiquidCrystal.h>
 #include <Array.h>
 
-#include "ButtonReader.h"
+#include "input/ButtonReader.h"
 #include "CharDisplayUI.h"
+#include "input/Ks0256VoltLadder.h"
 #include "Humidistat.h"
 #include "SerialLogger.h"
 #include "sensor/ThermistorReader.h"
@@ -39,7 +40,9 @@ const uint16_t dt = 500;
 
 //                          LCD pins
 LiquidCrystal liquidCrystal(8, 9, 4, 5, 6, 7);
-ButtonReader buttonReader(PIN_BTN);
+
+Ks0256VoltLadder voltLadder;
+ButtonReader buttonReader(PIN_BTN, &voltLadder);
 Humidistat humidistat(&hs, 210, dt, 1.00, 0.025, 2.50);
 CharDisplayUI ui(&liquidCrystal, &buttonReader, &humidistat, trsp);
 SerialLogger serialLogger(&humidistat, trsp, dt);
