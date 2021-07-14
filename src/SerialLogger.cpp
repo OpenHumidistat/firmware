@@ -11,8 +11,6 @@ void SerialLogger::begin() {
 }
 
 void SerialLogger::log() {
-	lastTime = millis();
-
 	double pTerm, iTerm, dTerm;
 	humidistat.getTerms(pTerm, iTerm, dTerm);
 
@@ -47,6 +45,8 @@ void SerialLogger::update() {
 		}
 	}
 
-	if (ready && (millis() - lastTime > interval))
+	if (ready && (millis() - lastTime > interval)) {
 		log();
+		lastTime = millis();
+	}
 }
