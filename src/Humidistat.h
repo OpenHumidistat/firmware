@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include "PID.h"
-#include "HumiditySensor.h"
+#include "sensor/HumiditySensor.h"
 
 /// Control humidity using PID by driving two solenoid valves.
 /// Holds references to a DHT instance (for reading humidity using DHT22 sensor) and a PID instance.

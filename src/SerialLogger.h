@@ -5,7 +5,7 @@
 #include <Array.h>
 
 #include "Humidistat.h"
-#include "ThermistorReader.h"
+#include "sensor/ThermistorReader.h"
 
 ///
 class SerialLogger {

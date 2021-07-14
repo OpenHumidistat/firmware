@@ -7,7 +7,7 @@
 
 #include "ButtonReader.h"
 #include "Humidistat.h"
-#include "ThermistorReader.h"
+#include "sensor/ThermistorReader.h"
 
 /// User interface (display and input) for humidistat.
 /// Hold references to ButtonReader for keypad input, and Humidistat for updating the humidity setpoint.

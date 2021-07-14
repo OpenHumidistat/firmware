@@ -6,7 +6,7 @@
 #include "CharDisplayUI.h"
 #include "Humidistat.h"
 #include "SerialLogger.h"
-#include "ThermistorReader.h"
+#include "sensor/ThermistorReader.h"
 
 // Pins
 const uint8_t PIN_DHT = 2;
@@ -20,7 +20,7 @@ const uint8_t PIN_S2 = 11;
 #define HUMIDISTAT_DHT
 
 #ifdef HUMIDISTAT_DHT
-#include "DHTHumiditySensor.h"
+#include "sensor/DHTHumiditySensor.h"
 DHT dht(PIN_DHT, DHT22);
 DHTHumiditySensor hs(&dht);
 //                         NTC pins
@@ -28,7 +28,7 @@ ThermistorReader trs[] = {1, 2, 3, 4};
 Array<ThermistorReader*, 4> trsp{{&trs[0], &trs[1], &trs[2], &trs[3]}};
 #endif
 #ifdef HUMIDISTAT_SHT
-#include "SHTHumiditySensor.h"
+#include "sensor/SHTHumiditySensor.h"
 SHTSensor sht;
 SHTHumiditySensor hs(&sht);
 Array<ThermistorReader*, 4> trsp{{}};
