@@ -20,7 +20,7 @@ private:
 
 public:
 	/// Contructor.
-	/// \param liquidCrystal Pointer to a LiquidCrystal instance.
+	/// \param liquidCrystal Pointer to a LiquidCrystal instance
 	/// \param buttonReader  Pointer to a ButtonReader instance
 	/// \param humidistat    Pointer to a Humidistat instance
 	/// \param trs           Array of 4 pointers to ThermistorReader instances

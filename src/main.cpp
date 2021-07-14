@@ -3,8 +3,8 @@
 #include <Array.h>
 
 #include "input/ButtonReader.h"
-#include "CharDisplayUI.h"
 #include "input/Ks0256VoltLadder.h"
+#include "ui/CharDisplayUI.h"
 #include "Humidistat.h"
 #include "SerialLogger.h"
 #include "sensor/ThermistorReader.h"
