@@ -27,54 +27,16 @@ void ControllerUI::update() {
 		screenCleared = true;
 	}
 
-	if (millis() - lastPressed > inputInterval)
-		input();
-	if (millis() - lastRefreshed > RefreshInterval) {
-		draw();
-	}
-}
+	if (millis() - lastPressed > inputInterval) {
+		bool pressed = handleInput(buttonReader.read());
 
-void ControllerUI::input() {
-	bool pressed;
-	if (humidistat.active) {
-		pressed = adjustValue(humidistat.setpoint, 0, 100);
-	} else {
-		pressed = adjustValue(humidistat.controlValue, humidistat.getLowValue(), 255);
-	}
-	if (pressed) {
-		lastPressed = millis();
-		draw();
-	}
-}
-
-bool ControllerUI::adjustValue(uint8_t &value, uint8_t min, uint8_t max) {
-	switch (buttonReader.read()) {
-		case Buttons::UP:
-			if (value < max)
-				value++;
-			return true;
-		case Buttons::DOWN:
-			if (value > min)
-				(value)--;
-			return true;
-		case Buttons::LEFT:
-			if (value >= min + adjustStep)
-				value -= adjustStep;
-			else
-				value = min;
-			return true;
-		case Buttons::RIGHT:
-			if (value <= max - adjustStep)
-				value += adjustStep;
-			else
-				value = max;
-			return true;
-		case Buttons::SELECT:
-			// Toggle active state
-			humidistat.active = !humidistat.active;
-			return true;
-		default:
-			return false;
+		if (pressed) {
+			lastPressed = millis();
+			draw();
+		}
+		if (millis() - lastRefreshed > RefreshInterval) {
+			draw();
+		}
 	}
 }
 
@@ -104,4 +66,17 @@ void ControllerUI::printNTC(uint8_t col, uint8_t row, uint8_t i) {
 
 	setCursor(col, row);
 	display.print(buf);
+}
+
+void ControllerUI::adjustValue(int8_t delta, uint8_t &value, uint8_t min, uint8_t max) {
+	// Clip value to [min, max] before uint overflow happens
+	if(value + delta < min) {
+		value = min;
+		return;
+	}
+	if(value + delta > max) {
+		value = max;
+		return;
+	}
+	value += delta;
 }

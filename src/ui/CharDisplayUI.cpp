@@ -93,3 +93,34 @@ void CharDisplayUI::drawInfo() {
 void CharDisplayUI::begin() {
 	liquidCrystal.begin(16, 2);
 }
+
+bool CharDisplayUI::handleInput(Buttons button) {
+	uint8_t delta;
+	switch (button) {
+		case Buttons::UP:
+			delta = 1;
+			break;
+		case Buttons::DOWN:
+			delta = -1;
+			break;
+		case Buttons::LEFT:
+			delta = -adjustStep;
+			break;
+		case Buttons::RIGHT:
+			delta = +adjustStep;
+			break;
+		case Buttons::SELECT:
+			// Toggle active state
+			humidistat.active = !humidistat.active;
+			return true;
+		default:
+			return false;
+	}
+
+	if (humidistat.active) {
+		adjustValue(delta, humidistat.setpoint, 0, 100);
+	} else {
+		adjustValue(delta, humidistat.controlValue, humidistat.getLowValue(), 255);
+	}
+	return true;
+}

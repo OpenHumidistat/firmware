@@ -7,6 +7,7 @@
 /// TUI for 16x2 character LCD.
 /// Holds a reference to a LiquidCrystal instance for writing to display.
 /// Displays current mode, PV, SP, and CV the first line of the display, and temperatures on the second line.
+/// Use keypad to adjust setpoint (UP/DOWN for fine, LEFT/RIGHT for coarse).
 class CharDisplayUI : public ControllerUI {
 private:
 	LiquidCrystal& liquidCrystal;
@@ -14,9 +15,9 @@ private:
 	void draw() override;
 	void drawSplash() override;
 	void drawInfo() override;
-
 	void clear() override;
 	void setCursor(uint8_t col, uint8_t row) override;
+	bool handleInput(Buttons button) override;
 
 public:
 	/// Contructor.

@@ -11,7 +11,6 @@
 
 /// User interface (display and input) for humidistat.
 /// Hold references to ButtonReader for keypad input, and Humidistat for updating the humidity setpoint.
-/// Use keypad to adjust setpoint (UP/DOWN for fine, LEFT/RIGHT for coarse).
 class ControllerUI {
 private:
 	Print &display;
@@ -22,7 +21,6 @@ private:
 	const uint16_t blinkInterval = 500;        //!< Interval for blinking displays (in millis)
 	const uint16_t splashDuration = 1000;      //!< Duration for which to show the splash screen (in millis)
 	const uint16_t infoDuration = 3000;        //!< Duration for which to show the info screen (in millis)
-	const uint8_t adjustStep = 5;              //!< Step size by which to in-/de-crement for coarse adjustment
 
 	bool splashDrawn = false;
 	bool infoDrawn = false;
@@ -43,20 +41,16 @@ private:
 	virtual void setCursor(uint8_t col, uint8_t row) = 0;
 
 	/// Handle input.
-	void input();
-
-	/// Read buttons and adjust a variable.
-	/// \param value Value to adjust
-	/// \param min   Lower limit
-	/// \param max   Upper limit
+	/// \param button Button
 	/// \return 1 if button was pressed, 0 if not
-	bool adjustValue(uint8_t &value, uint8_t min, uint8_t max);
+	virtual bool handleInput(Buttons button) = 0;
 
 protected:
 	Humidistat &humidistat;
 	Array<const ThermistorReader*, 4> trs;
 
 	unsigned long lastRefreshed = 0;  //!< Last time display was updated (in millis)
+	const uint8_t adjustStep = 5;     //!< Step size by which to in-/de-crement for coarse adjustment
 	const uint8_t tolerance = 1;      //!< Tolerance in difference between process variable and setpoint outside
 	                                  //!< which the setpoint blinks (in percentage points)
 
@@ -80,6 +74,12 @@ protected:
 	/// \param i   ThermistorReader index
 	void printNTC(uint8_t col, uint8_t row, uint8_t i);
 
+	/// In-/de-crement a variable, while clipping it to [min, max].
+	/// \param delta  The amount by which to in-/de-crement
+	/// \param value  Value to adjust
+	/// \param min    Lower limit
+	/// \param max    Upper limit
+	static void adjustValue(int8_t delta, uint8_t &value, uint8_t min, uint8_t max);
 public:
 	/// Initialize the display.
 	virtual void begin() = 0;
