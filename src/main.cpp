@@ -1,30 +1,19 @@
 #include <Arduino.h>
-#include <LiquidCrystal.h>
 #include <Array.h>
 
-#include "input/ButtonReader.h"
-#include "input/Ks0256VoltLadder.h"
-#include "ui/CharDisplayUI.h"
+#include "config.h"
+
 #include "Humidistat.h"
 #include "SerialLogger.h"
+#include "input/ButtonReader.h"
 #include "sensor/ThermistorReader.h"
 
-// Pins
-const uint8_t PIN_DHT = 2;
-const uint8_t PIN_BTN = A0;
-const uint8_t PIN_S1 = 3;
-const uint8_t PIN_S2 = 11;
-
-// Define either HUMIDISTAT_DHT (for DHT22/AM2302 sensors) or HUMIDISTAT_SHT (for Sensirion SHT85 sensors).
-// In the former case, the data pin of the sensor should be connected to PIN_DHT. In the latter case, the sensor
-// should be connected to the I2C bus. On the Arduino Uno, these pins (SDA and SCL) are shared with A4 and A5.
-#define HUMIDISTAT_DHT
-
+// Humidity sensor
 #ifdef HUMIDISTAT_DHT
 #include "sensor/DHTHumiditySensor.h"
 DHT dht(PIN_DHT, DHT22);
 DHTHumiditySensor hs(&dht);
-//                         NTC pins
+//                        NTC pins
 ThermistorReader trs[] = {1, 2, 3, 4};
 Array<ThermistorReader*, 4> trsp{{&trs[0], &trs[1], &trs[2], &trs[3]}};
 #endif
@@ -32,24 +21,43 @@ Array<ThermistorReader*, 4> trsp{{&trs[0], &trs[1], &trs[2], &trs[3]}};
 #include "sensor/SHTHumiditySensor.h"
 SHTSensor sht;
 SHTHumiditySensor hs(&sht);
-Array<ThermistorReader*, 4> trsp{{}};
+Array<ThermistorReader *, 4> trsp{{}};
 #endif
 
-// Global interval for PID/logger (based on polling rate of sensor, in millis)
-const uint16_t dt = 500;
-
-//                          LCD pins
-LiquidCrystal liquidCrystal(8, 9, 4, 5, 6, 7);
-
+// Input
+#ifdef HUMIDISTAT_INPUT_KS0256
+#include "input/Ks0256VoltLadder.h"
 Ks0256VoltLadder voltLadder;
+#endif
+#ifdef HUMIDISTAT_INPUT_KS0466
+#include "input/Ks0466VoltLadder.h"
+Ks0466VoltLadder voltLadder;
+#endif
+
 ButtonReader buttonReader(PIN_BTN, &voltLadder);
-Humidistat humidistat(&hs, 210, dt, 1.00, 0.025, 2.50);
+Humidistat humidistat(&hs, lowValue, dt, Kp, Ki, Kd);
+
+// UI
+#ifdef HUMIDISTAT_UI_CHAR
+#include <LiquidCrystal.h>
+#include "ui/CharDisplayUI.h"
+LiquidCrystal liquidCrystal(PIN_LCD_RS, PIN_LCD_ENABLE, PIN_LCD_D0, PIN_LCD_D1, PIN_LCD_D2, PIN_LCD_D3);
 CharDisplayUI ui(&liquidCrystal, &buttonReader, &humidistat, trsp);
+#endif
+#ifdef HUMIDISTAT_UI_GRAPH
+#include <U8g2lib.h>
+#include "ui/GraphicalDisplayUI.h"
+U8G2_ST7920_128X64_F_HW_SPI u8g2(U8G2_R0, PIN_LCD_CS);
+GraphicalDisplayUI ui(&u8g2, &buttonReader, &humidistat, trsp);
+#endif
+
 SerialLogger serialLogger(&humidistat, trsp, dt);
 
 void setup() {
+#ifdef ARDUINO_AVR_UNO
 	// Set PWM frequency on D3 and D11 to 245.10 Hz
 	TCCR2B = TCCR2B & B11111000 | B00000101;
+#endif
 
 	hs.begin();
 	serialLogger.begin();
