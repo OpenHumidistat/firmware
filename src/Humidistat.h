@@ -2,8 +2,10 @@
 #define HUMIDISTAT_HUMIDISTAT_H
 
 #include <stdint.h>
+
 #include "PID.h"
 #include "sensor/HumiditySensor.h"
+#include "EEPROMConfig.h"
 
 /// Control humidity using PID by driving two solenoid valves.
 /// Holds references to a DHT instance (for reading humidity using DHT22 sensor) and a PID instance.
@@ -12,26 +14,20 @@ class Humidistat {
 private:
 	HumiditySensor &hs;
 	PID *pid;
-
-	const uint8_t lowValue;
-	const uint16_t dt;
+	const ConfigStore &cs;
 
 	double pv = 0; //!< Process variable
 	double cv = 0; //!< Control variable
 	double sp = 0; //!< Setpoint
-
-	double Kp, Ki, Kd; //!< Gains
 public:
 	uint8_t setpoint = 50;
-	uint8_t controlValue = (255 + lowValue) / 2;
+	uint8_t controlValue = (255 + cs.lowValue) / 2;
 	bool active = false;
 
 	/// Constructor.
-	/// \param dht Pointer to DHT instance
-	/// \param Kp Proportional gain
-	/// \param Ki Integral gain
-	/// \param Kd Differential gain
-	explicit Humidistat(HumiditySensor *hs, uint8_t lowValue, unsigned long dt, double Kp, double Ki, double Kd);
+	/// \param hs          Pointer to a HumiditySensor instance
+	/// \param configStore Pointer to a ConfigStore instance
+	explicit Humidistat(HumiditySensor *hs, const ConfigStore *configStore);
 
 	/// Copy constructor.
 	/// \param obj
@@ -77,6 +73,9 @@ public:
 
 	/// Get the timestep.
 	uint16_t getDt() const;
+
+	/// Update the PID parameters from the configStore.
+	void updatePIDParameters();
 };
 
 #endif //HUMIDISTAT_HUMIDISTAT_H

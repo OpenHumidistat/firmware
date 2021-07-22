@@ -1,12 +1,11 @@
 #include <Arduino.h>
 #include "PID.h"
 
-PID::PID(const double *pv, double *cv, const double *sp, double kp, double ki, double kd, uint16_t dt, double cvMin,
+PID::PID(const double *pv, double *cv, const double *sp, double Kp, double Ki, double Kd, uint16_t dt, double cvMin,
 		 double cvMax)
-//                                           The timestep is constant, so we include it in Ki and Kd for convenience
-		: pv(*pv), cv(*cv), sp(*sp), Kp(kp), Ki(ki * (double) dt / 1000), Kd(kd / ((double) dt / 1000)), dt(dt),
-		  cvMin(cvMin), cvMax(cvMax) {
+		: pv(*pv), cv(*cv), sp(*sp), cvMin(cvMin), cvMax(cvMax) {
 	lastComputed = millis();
+	setGains(Kp, Ki, Kd, dt);
 	init();
 }
 
@@ -57,4 +56,18 @@ void PID::setAuto(bool inAuto) {
 	if (inAuto && !this->inAuto)
 		init();
 	this->inAuto = inAuto;
+}
+
+void PID::setGains(double Kp, double Ki, double Kd, uint16_t dt) {
+	this->dt = dt;
+	this->Kp = Kp;
+	// The timestep is constant, so we include it in Ki and Kd for convenience
+	this->Ki = Ki * (double) dt / 1000;
+	this->Kd = Kd / ((double) dt / 1000);
+
+	init();
+}
+
+void PID::setCvMin(double cvMin) {
+	this->cvMin = cvMin;
 }

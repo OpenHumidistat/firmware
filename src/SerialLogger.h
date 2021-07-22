@@ -21,6 +21,8 @@ private:
 public:
 	/// Constructor.
 	/// \param humidistat Pointer to a Humidistat instance
+	/// \param trs        Array of 4 pointers to ThermistorReader instances
+	/// \param interval   Logging interval (in ms)
 	explicit SerialLogger(const Humidistat *humidistat, Array<const ThermistorReader*, 4> trs, uint16_t interval);
 
 	/// Setup the serial interface

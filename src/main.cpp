@@ -2,7 +2,7 @@
 #include <Array.h>
 
 #include "config.h"
-
+#include "EEPROMConfig.h"
 #include "Humidistat.h"
 #include "SerialLogger.h"
 #include "input/ButtonReader.h"
@@ -11,7 +11,7 @@
 // Humidity sensor
 #ifdef HUMIDISTAT_DHT
 #include "sensor/DHTHumiditySensor.h"
-DHT dht(PIN_DHT, DHT22);
+DHT dht(config::PIN_DHT, config::DHT22);
 DHTHumiditySensor hs(&dht);
 //                        NTC pins
 ThermistorReader trs[] = {1, 2, 3, 4};
@@ -34,24 +34,25 @@ Ks0256VoltLadder voltLadder;
 Ks0466VoltLadder voltLadder;
 #endif
 
-ButtonReader buttonReader(PIN_BTN, &voltLadder);
-Humidistat humidistat(&hs, lowValue, dt, Kp, Ki, Kd);
+ButtonReader buttonReader(config::PIN_BTN, &voltLadder);
+EEPROMConfig eepromConfig;
+Humidistat humidistat(&hs, &eepromConfig.configStore);
 
 // UI
 #ifdef HUMIDISTAT_UI_CHAR
 #include <LiquidCrystal.h>
 #include "ui/CharDisplayUI.h"
-LiquidCrystal liquidCrystal(PIN_LCD_RS, PIN_LCD_ENABLE, PIN_LCD_D0, PIN_LCD_D1, PIN_LCD_D2, PIN_LCD_D3);
+LiquidCrystal liquidCrystal(config::PIN_LCD_RS, config::PIN_LCD_ENABLE, config::PIN_LCD_D0, config::PIN_LCD_D1, config::PIN_LCD_D2, config::PIN_LCD_D3);
 CharDisplayUI ui(&liquidCrystal, &buttonReader, &humidistat, trsp);
 #endif
 #ifdef HUMIDISTAT_UI_GRAPH
 #include <U8g2lib.h>
 #include "ui/GraphicalDisplayUI.h"
-U8G2_ST7920_128X64_F_HW_SPI u8g2(U8G2_R0, PIN_LCD_CS);
-GraphicalDisplayUI ui(&u8g2, &buttonReader, &humidistat, trsp);
+U8G2_ST7920_128X64_F_HW_SPI u8g2(U8G2_R0, config::PIN_LCD_CS);
+GraphicalDisplayUI ui(&u8g2, &buttonReader, &humidistat, trsp, &eepromConfig);
 #endif
 
-SerialLogger serialLogger(&humidistat, trsp, dt);
+SerialLogger serialLogger(&humidistat, trsp, eepromConfig.configStore.dt);
 
 void setup() {
 #ifdef ARDUINO_AVR_UNO
@@ -66,6 +67,6 @@ void setup() {
 
 void loop() {
 	ui.update();
-	humidistat.update(PIN_S1, PIN_S2);
+	humidistat.update(config::PIN_S1, config::PIN_S2);
 	serialLogger.update();
 }

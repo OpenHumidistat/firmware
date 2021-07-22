@@ -1,15 +1,14 @@
 #include <Arduino.h>
 #include "Humidistat.h"
 
-Humidistat::Humidistat(HumiditySensor *hs, uint8_t lowValue, unsigned long dt, double Kp, double Ki, double Kd)
-		: hs(*hs), lowValue(lowValue), dt(dt), Kp(Kp), Ki(Ki), Kd(Kd) {
-	pid = new PID(&pv, &cv, &sp, Kp, Ki, Kd, dt, lowValue, 255);
+Humidistat::Humidistat(HumiditySensor *hs, const ConfigStore *configStore)
+		: hs(*hs), cs(*configStore) {
+	pid = new PID(&pv, &cv, &sp, this->cs.Kp, this->cs.Ki, this->cs.Kd, this->cs.dt, this->cs.lowValue, 255);
 }
 
-Humidistat::Humidistat(const Humidistat &obj) : hs(obj.hs), lowValue(obj.lowValue), dt(obj.dt), pv(obj.pv),
-                                                cv(obj.cv), sp(obj.sp), Kp(obj.Kp), Ki(obj.Ki), Kd(obj.Kd),
-                                                setpoint(obj.setpoint) {
-	pid = new PID(&pv, &cv, &sp, Kp, Ki, Kd, dt, lowValue, 255);
+Humidistat::Humidistat(const Humidistat &obj)
+: hs(obj.hs), cs(obj.cs), pv(obj.pv), cv(obj.cv), sp(obj.sp), setpoint(obj.setpoint) {
+	pid = new PID(&pv, &cv, &sp, cs.Kp, cs.Ki, cs.Kd, cs.dt, cs.lowValue, 255);
 }
 
 Humidistat::~Humidistat() {
@@ -21,15 +20,12 @@ Humidistat &Humidistat::operator=(const Humidistat &obj) {
 		pv = obj.pv;
 		cv = obj.cv;
 		sp = obj.sp;
-		Kp = obj.Kp;
-		Ki = obj.Ki;
-		Kd = obj.Kd;
 		setpoint = obj.setpoint;
 		controlValue = obj.controlValue;
 		active = obj.active;
 
 		delete pid;
-		pid = new PID(&pv, &cv, &sp, Kp, Ki, Kd, dt, lowValue, 255);
+		pid = new PID(&pv, &cv, &sp, this->cs.Kp, this->cs.Ki, this->cs.Kd, this->cs.dt, this->cs.lowValue, 255);
 	}
 	return *this;
 }
@@ -64,11 +60,11 @@ void Humidistat::update(uint8_t pinS1, uint8_t pinS2) {
 
 	// Write it to the pins
 	analogWrite(pinS1, controlValue);
-	analogWrite(pinS2, 255 + lowValue - controlValue);
+	analogWrite(pinS2, 255 + cs.lowValue - controlValue);
 }
 
 uint8_t Humidistat::getLowValue() const {
-	return lowValue;
+	return cs.lowValue;
 }
 
 void Humidistat::getTerms(double &pTerm, double &iTerm, double &dTerm) const {
@@ -78,11 +74,16 @@ void Humidistat::getTerms(double &pTerm, double &iTerm, double &dTerm) const {
 }
 
 void Humidistat::getGains(double &Kp, double &Ki, double &Kd) const {
-	Kp = this->Kp;
-	Ki = this->Ki;
-	Kd = this->Kd;
+	Kp = this->cs.Kp;
+	Ki = this->cs.Ki;
+	Kd = this->cs.Kd;
 }
 
 uint16_t Humidistat::getDt() const {
-	return dt;
+	return cs.dt;
+}
+
+void Humidistat::updatePIDParameters() {
+	pid->setGains(cs.Kp, cs.Ki, cs.Kd, cs.dt);
+	pid->setCvMin(cs.lowValue);
 }
