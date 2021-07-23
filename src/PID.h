@@ -60,6 +60,8 @@ public:
 	/// \param dt Timestep (in ms)
 	void setGains(double Kp, double Ki, double Kd, uint16_t dt);
 
+	/// Set lower control value limit.
+	/// \param cvMin Lower control value limit
 	void setCvMin(double cvMin);
 };
 

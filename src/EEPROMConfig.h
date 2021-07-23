@@ -10,11 +10,13 @@ struct ConfigStore {
 
 	uint16_t dt; //!< Global interval for PID/logger (based on polling rate of sensor, in millis)
 
-	// PID parameters
+	///@{
+	/// PID parameters
 	uint8_t lowValue;
 	double Kp;
 	double Ki;
 	double Kd;
+	///@}
 } const defaultConfigStore = {
 	"hum2",
 	false,
@@ -25,7 +27,7 @@ struct ConfigStore {
 	config::Kd,
 };
 
-///
+/// Load/save an (internal) ConfigStore in EEPROM.
 class EEPROMConfig {
 private:
 	uint8_t address = config::EEPROMAddress;
