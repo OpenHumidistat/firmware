@@ -11,7 +11,7 @@
 // Humidity sensor
 #ifdef HUMIDISTAT_DHT
 #include "sensor/DHTHumiditySensor.h"
-DHT dht(config::PIN_DHT, config::DHT22);
+DHT dht(config::PIN_DHT, DHT22);
 DHTHumiditySensor hs(&dht);
 //                        NTC pins
 ThermistorReader trs[] = {1, 2, 3, 4};
