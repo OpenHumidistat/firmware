@@ -10,7 +10,7 @@
 enum class Tab {
 	main,
 	config,
-	_count,
+	_last = config,
 };
 
 /// Definitions of parameters in config tab
@@ -20,7 +20,7 @@ enum class ConfigPar {
 	Kd,
 	dt,
 	lowValue,
-	_count,
+	_last = lowValue,
 };
 
 /// TUI for 128*64 px graphical display using U8g2.
