@@ -9,3 +9,7 @@ cmake-build-*/
 ### Python
 __pycache__/
 venv/
+
+### Doxygen
+docs/latex/
+docs/html/
