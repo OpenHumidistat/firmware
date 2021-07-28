@@ -40,7 +40,7 @@ void ControllerUI::update() {
 	}
 }
 
-void ControllerUI::blink(uint8_t col, uint8_t row, char *buf) {
+void ControllerUI::blink(uint8_t col, uint8_t row, const char *buf) {
 	setCursor(col, row);
 	if (millis() % (2 * blinkInterval) > blinkInterval) {
 		display.print(buf);
@@ -57,15 +57,11 @@ void ControllerUI::blink(uint8_t col, uint8_t row, char *buf) {
 
 void ControllerUI::printNTC(uint8_t col, uint8_t row, uint8_t i) {
 	double temp = trs[i]->readTemp();
-	char buf[3];
 	if (isnan(temp)) {
-		sprintf(buf, "%2u", 0);
+		printf(col, row, "%2u", 0);
 	} else {
-		sprintf(buf, "%2u", (int) temp);
+		printf(col, row, "%2u", (int) temp);
 	}
-
-	setCursor(col, row);
-	display.print(buf);
 }
 
 void ControllerUI::adjustValue(int8_t delta, uint8_t &value, uint8_t min, uint8_t max) {

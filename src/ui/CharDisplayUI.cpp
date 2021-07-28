@@ -6,39 +6,23 @@ CharDisplayUI::CharDisplayUI(LiquidCrystal *liquidCrystal, const ButtonReader *b
 
 void CharDisplayUI::draw() {
 	// Update current humidity and temperature readings
-	{
-		char buf[5];
-		sprintf(buf, "%4.1f", humidistat.getHumidity());
-		liquidCrystal.setCursor(2, 0);
-		liquidCrystal.print(buf);
-	}
-
-	{
-		char buf[5];
-		sprintf(buf, "%4.1f", humidistat.getTemperature());
-		liquidCrystal.setCursor(12, 1);
-		liquidCrystal.print(buf);
-	}
+	printf(2, 0, "%4.1f", humidistat.getHumidity());
+	printf(12, 1, "%4.1f", humidistat.getTemperature());
 
 	// Setpoint
 	{
-		char buf[5];
-		sprintf(buf, "%3u%%", humidistat.setpoint);
+		char *buf = asprintf("%3u%%", humidistat.setpoint);
 		if (abs(humidistat.setpoint - humidistat.getHumidity()) > tolerance) {
 			blink(7, 0, buf);
 		} else {
 			liquidCrystal.setCursor(7, 0);
 			liquidCrystal.print(buf);
 		}
+		delete buf;
 	}
 
 	// Control value
-	{
-		char buf[4];
-		sprintf(buf, "%3u", humidistat.controlValue);
-		liquidCrystal.setCursor(12, 0);
-		liquidCrystal.print(buf);
-	}
+	printf(12, 0, "%3u", humidistat.controlValue);
 
 	// Active status
 	liquidCrystal.setCursor(0, 0);
@@ -71,22 +55,12 @@ void CharDisplayUI::drawSplash() {
 
 void CharDisplayUI::drawInfo() {
 	liquidCrystal.clear();
-	{
-		char buf[15];
-		sprintf(buf, "dt %4u lv %3u", humidistat.getDt(), humidistat.getLowValue());
-
-		liquidCrystal.setCursor(0, 0);
-		liquidCrystal.print(buf);
-	}
+	printf(0, 0, "dt %4u lv %3u", humidistat.getDt(), humidistat.getLowValue());
 	{
 		double Kp, Ki, Kd;
 		humidistat.getGains(Kp, Ki, Kd);
 
-		char buf[16];
-		sprintf(buf, "%3.2f %4.3f %3.2f", Kp, Ki, Kd);
-
-		liquidCrystal.setCursor(0, 1);
-		liquidCrystal.print(buf);
+		printf(0, 1, "%3.2f %4.3f %3.2f", Kp, Ki, Kd);
 	}
 }
 

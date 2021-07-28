@@ -66,7 +66,7 @@ protected:
 	/// \param col LCD column
 	/// \param row LCD row
 	/// \param buf Buffer of text to blink
-	void blink(uint8_t col, uint8_t row, char *buf);
+	void blink(uint8_t col, uint8_t row, const char *buf);
 
 	/// Print temperature read from thermistors. Handles NaN values as 0
 	/// \param col LCD column
@@ -80,6 +80,35 @@ protected:
 	/// \param min    Lower limit
 	/// \param max    Upper limit
 	static void adjustValue(int8_t delta, uint8_t &value, uint8_t min, uint8_t max);
+
+	/// Print formatted data to display, at (col, row). Calculates lengths and creates appropriate buffer internally.
+	/// \tparam T
+	/// \param fmt
+	/// \param args
+	template <typename... T>
+	void printf(uint8_t col, uint8_t row, const char *fmt, T... args) {
+		char *buf = asprintf(fmt, args...);
+
+		setCursor(col, row);
+		display.print(buf);
+
+		delete buf;
+	}
+
+	/// Print formatted data to string. Automatically allocates string on the heap. Make sure to delete it
+	/// immediately afterwards.
+	/// \tparam T
+	/// \param fmt
+	/// \param args
+	/// \return
+	template <typename... T>
+	char * asprintf(const char *fmt, T... args) {
+		size_t len = snprintf(nullptr, 0, fmt, args...);
+		char *buf = new char [len+1];
+		sprintf(buf, fmt, args...);
+		return buf;
+	}
+
 public:
 	/// Initialize the display.
 	virtual void begin() = 0;

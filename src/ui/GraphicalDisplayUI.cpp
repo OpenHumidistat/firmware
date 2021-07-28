@@ -63,16 +63,8 @@ void GraphicalDisplayUI::drawMain() {
 	u8g2.drawStr(0, 44, "SP");
 	u8g2.setDrawColor(1);
 
-	{
-		char buf[7];
-		sprintf(buf, "%5.1f%%", humidistat.getHumidity());
-		u8g2.drawStr(14, 35, buf);
-	}
-	{
-		char buf[7];
-		sprintf(buf, "%3u.0%%", humidistat.setpoint);
-		u8g2.drawStr(14, 44, buf);
-	}
+	printf(14, 35, "%5.1f%%", humidistat.getHumidity());
+	printf(14, 44, "%3u.0%%", humidistat.setpoint);
 
 	// CV
 	if(!humidistat.active) {
@@ -99,21 +91,10 @@ void GraphicalDisplayUI::drawMain() {
 	u8g2.drawStr(54, 32, "I");
 	u8g2.drawStr(54, 41, "D");
 	u8g2.drawVLine(60, 13, 33);
-	{
-		char buf[7];
-		sprintf(buf, "%6.2f", pTerm);
-		u8g2.drawStr(62, 23, buf);
-	}
-	{
-		char buf[7];
-		sprintf(buf, "%6.2f", iTerm);
-		u8g2.drawStr(62, 32, buf);
-	}
-	{
-		char buf[7];
-		sprintf(buf, "%6.2f", dTerm);
-		u8g2.drawStr(62, 41, buf);
-	}
+
+	printf(62, 23, "%6.2f", pTerm);
+	printf(62, 32, "%6.2f", iTerm);
+	printf(62, 41, "%6.2f", dTerm);
 
 	// Temperature box
 	u8g2.setCursor(105, 23);
@@ -162,21 +143,9 @@ void GraphicalDisplayUI::drawConfig() {
 	u8g2.setDrawColor(1);
 	u8g2.drawVLine(13, 14, 29);
 
-	{
-		char buf[7];
-		sprintf(buf, "%6.2f", eepromConfig.configStore.Kp);
-		u8g2.drawStr(12, 22, buf);
-	}
-	{
-		char buf[7];
-		sprintf(buf, "%6.2f", eepromConfig.configStore.Ki);
-		u8g2.drawStr(12, 32, buf);
-	}
-	{
-		char buf[7];
-		sprintf(buf, "%6.2f", eepromConfig.configStore.Kd);
-		u8g2.drawStr(12, 42, buf);
-	}
+	printf(12, 22, "%6.2f", eepromConfig.configStore.Kp);
+	printf(12, 32, "%6.2f", eepromConfig.configStore.Ki);
+	printf(12, 42, "%6.2f", eepromConfig.configStore.Kd);
 
 	// Mode
 	if(eepromConfig.configStore.loadedFromEEPROM)
