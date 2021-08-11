@@ -61,7 +61,7 @@ void setup() {
 #endif
 
 	hs.begin();
-	serialLogger.begin();
+	serialLogger.begin(config::serialRate);
 	ui.begin();
 }
 

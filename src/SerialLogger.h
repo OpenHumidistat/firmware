@@ -26,7 +26,7 @@ public:
 	explicit SerialLogger(const Humidistat *humidistat, Array<const ThermistorReader*, 4> trs, uint16_t interval);
 
 	/// Setup the serial interface
-	void begin();
+	void begin(uint32_t baud);
 
 	/// Write a line to serial
 	void log();

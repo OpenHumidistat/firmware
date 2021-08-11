@@ -18,6 +18,9 @@
 #define HUMIDISTAT_INPUT_KS0466
 
 namespace config {
+	/// Serial communication symbol rate (baud)
+	const uint32_t serialRate = 115200;
+
 	/// Set to true to override the values stored in EEPROM and use the default PID parameters defined below.
 	const bool overrideEEPROM = false;
 

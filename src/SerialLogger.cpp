@@ -4,8 +4,8 @@
 SerialLogger::SerialLogger(const Humidistat *humidistat, Array<const ThermistorReader*, 4> trs, uint16_t interval) :
 		humidistat(*humidistat), trs(trs), interval(interval) {}
 
-void SerialLogger::begin() {
-	Serial.begin(19200);
+void SerialLogger::begin(uint32_t baud) {
+	Serial.begin(baud);
 	// Indicate that we're ready
 	Serial.println("RDY");
 }
