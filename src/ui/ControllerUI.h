@@ -8,6 +8,7 @@
 #include "input/ButtonReader.h"
 #include "Humidistat.h"
 #include "sensor/ThermistorReader.h"
+#include "asprintf.h"
 
 /// User interface (display and input) for humidistat.
 /// Hold references to ButtonReader for keypad input, and Humidistat for updating the humidity setpoint.
@@ -82,9 +83,10 @@ protected:
 	static void adjustValue(int8_t delta, uint8_t &value, uint8_t min, uint8_t max);
 
 	/// Print formatted data to display, at (col, row). Calculates lengths and creates appropriate buffer internally.
-	/// \tparam T
-	/// \param fmt
-	/// \param args
+	/// \param col  LCD column
+	/// \param row  LCD row
+	/// \param fmt  Format string
+	/// \param args Arguments specifying data to print
 	template <typename... T>
 	void printf(uint8_t col, uint8_t row, const char *fmt, T... args) {
 		char *buf = asprintf(fmt, args...);
@@ -93,20 +95,6 @@ protected:
 		display.print(buf);
 
 		delete buf;
-	}
-
-	/// Print formatted data to string. Automatically allocates string on the heap. Make sure to delete it
-	/// immediately afterwards.
-	/// \tparam T
-	/// \param fmt
-	/// \param args
-	/// \return
-	template <typename... T>
-	char * asprintf(const char *fmt, T... args) {
-		size_t len = snprintf(nullptr, 0, fmt, args...);
-		char *buf = new char [len+1];
-		sprintf(buf, fmt, args...);
-		return buf;
 	}
 
 public:
