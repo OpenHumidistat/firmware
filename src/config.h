@@ -10,7 +10,7 @@
 
 /// Define either HUMIDISTAT_UI_CHAR HUMIDISTAT_UI_GRAPH for a HD44780 16x02 character display, or a ST7920 graphical
 /// display respectively. In the former case, the display must be connected to the pins specified below (PIN_LCD_x).
-/// in the lattter case, the display must me connected to the hardware SPI bus.
+/// in the latter case, the display must be connected to the hardware SPI bus.
 #define HUMIDISTAT_UI_GRAPH
 
 /// Define either HUMIDISTAT_INPUT_KS0256 or HUMIDISTAT_INPUT_KS0466. In either case, the keypad must be connected to
