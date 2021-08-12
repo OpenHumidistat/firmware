@@ -3,16 +3,20 @@
 SHTHumiditySensor::SHTHumiditySensor(SHTSensor *sht) : sht(*sht) {}
 
 double SHTHumiditySensor::getHumidity() const {
-	sht.readSample();
-	return sht.getHumidity();
+	return h;
 }
 
 double SHTHumiditySensor::getTemperature() const {
-	sht.readSample();
-	return sht.getTemperature();
+	return t;
 }
 
 void SHTHumiditySensor::begin() {
 	Wire.begin();
 	sht.init();
+}
+
+void SHTHumiditySensor::readSample() {
+	sht.readSample();
+	t = sht.getTemperature();
+	h = sht.getHumidity();
 }

@@ -32,6 +32,14 @@ void SerialLogger::log() {
 }
 
 void SerialLogger::update() {
+	if (ready) {
+		if (millis() - lastTime >= interval) {
+			lastTime = millis();
+			log();
+		}
+		return;
+	}
+
 	// Listen for RDY signal
 	if (Serial.available()) {
 		char buf[8];
@@ -43,10 +51,5 @@ void SerialLogger::update() {
 			Serial.println(header);
 			ready = true;
 		}
-	}
-
-	if (ready && (millis() - lastTime > interval)) {
-		log();
-		lastTime = millis();
 	}
 }

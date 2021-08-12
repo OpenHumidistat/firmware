@@ -19,6 +19,9 @@ private:
 	double pv = 0; //!< Process variable
 	double cv = 0; //!< Control variable
 	double sp = 0; //!< Setpoint
+
+	double temperature;
+	unsigned long sensorLastRead = 0;
 public:
 	uint8_t setpoint = 50;
 	uint8_t controlValue = (255 + cs.lowValue) / 2;

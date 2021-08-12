@@ -13,3 +13,7 @@ double DHTHumiditySensor::getTemperature() const {
 void DHTHumiditySensor::begin() {
 	dht.begin();
 }
+
+void DHTHumiditySensor::readSample() {
+	dht.read(true);
+}

@@ -21,6 +21,7 @@ bool PID::compute() {
 		return false;
 	if (millis() - lastComputed < dt)
 		return false;
+	lastComputed = millis();
 
 	// Proportional error
 	double e = sp - pv;
@@ -37,7 +38,6 @@ bool PID::compute() {
 
 	cv = clip(pTerm + iTerm + dTerm);
 
-	lastComputed = millis();
 	lastPv = pv;
 	lastE = e;
 	return true;

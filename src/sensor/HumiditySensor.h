@@ -4,6 +4,7 @@
 /// Interface for humidity sensors
 class HumiditySensor {
 public:
+	virtual void readSample() = 0;
 	virtual double getHumidity() const = 0;
 	virtual double getTemperature() const = 0;
 	virtual void begin() = 0;

@@ -27,7 +27,7 @@ void ControllerUI::update() {
 		screenCleared = true;
 	}
 
-	if (millis() - lastPressed > inputInterval) {
+	if (millis() - lastPressed >= inputInterval) {
 		bool pressed = handleInput(buttonReader.read());
 
 		if (pressed) {
@@ -35,14 +35,14 @@ void ControllerUI::update() {
 			draw();
 		}
 	}
-	if (millis() - lastRefreshed > RefreshInterval) {
+	if (millis() - lastRefreshed >= RefreshInterval) {
 		draw();
 	}
 }
 
 void ControllerUI::blink(uint8_t col, uint8_t row, const char *buf) {
 	setCursor(col, row);
-	if (millis() % (2 * blinkInterval) > blinkInterval) {
+	if (millis() % (2 * blinkInterval) >= blinkInterval) {
 		display.print(buf);
 	} else {
 		// Create char array of spaces with same length as buf

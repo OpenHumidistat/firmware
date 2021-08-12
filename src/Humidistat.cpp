@@ -39,15 +39,20 @@ double Humidistat::getTemperature() const {
 }
 
 void Humidistat::update(uint8_t pinS1, uint8_t pinS2) {
+	if (millis() - sensorLastRead < cs.dt)
+		return;
+	sensorLastRead = millis();
+
 	pid->setAuto(active);
 
 	// Convert public int setpoint to double for PID
 	sp = (double) setpoint;
 
 	// Read humidity (if not NaN)
-	double humidity = getHumidity();
-	if (!isnan(humidity))
-		pv = humidity;
+	hs.readSample();
+
+	if (!isnan(hs.getHumidity()))
+		pv = hs.getHumidity();
 
 	// Put public controlValue into cv (only matters if user adjusted controlValue)
 	cv = controlValue;

@@ -5,6 +5,7 @@ CharDisplayUI::CharDisplayUI(LiquidCrystal *liquidCrystal, const ButtonReader *b
 		ControllerUI(liquidCrystal, buttonReader, humidistat, trs), liquidCrystal(*liquidCrystal) {}
 
 void CharDisplayUI::draw() {
+	lastRefreshed = millis();
 	// Update current humidity and temperature readings
 	printf(2, 0, "%4.1f", humidistat.getHumidity());
 	printf(12, 1, "%4.1f", humidistat.getTemperature());
@@ -34,7 +35,6 @@ void CharDisplayUI::draw() {
 			printNTC(3*i, 1, i);
 		}
 	}
-	lastRefreshed = millis();
 }
 
 void CharDisplayUI::clear() {

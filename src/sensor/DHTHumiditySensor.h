@@ -12,6 +12,7 @@ public:
 	double getHumidity() const override;
 	double getTemperature() const override;
 	void begin() override;
+	void readSample() override;
 };
 
 
