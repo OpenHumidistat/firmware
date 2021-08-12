@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include "SerialLogger.h"
+#include "asprintf.h"
 
 SerialLogger::SerialLogger(const Humidistat *humidistat, Array<const ThermistorReader*, 4> trs, uint16_t interval) :
 		humidistat(*humidistat), trs(trs), interval(interval) {}
@@ -14,21 +15,23 @@ void SerialLogger::log() {
 	double pTerm, iTerm, dTerm;
 	humidistat.getTerms(pTerm, iTerm, dTerm);
 
-	char buf[89];
-	sprintf(buf, "%f %3d %f %3d %f %f %f %f %f %f %f",
-	        humidistat.getHumidity(),
-	        humidistat.setpoint,
-	        humidistat.getTemperature(),
-	        humidistat.controlValue,
-	        trs[0] ? trs[0]->readTemp() : NAN,
-	        trs[1] ? trs[1]->readTemp() : NAN,
-	        trs[2] ? trs[2]->readTemp() : NAN,
-	        trs[3] ? trs[3]->readTemp() : NAN,
-	        pTerm,
-	        iTerm,
-	        dTerm
+	char *buf = asprintf("%lu %.2f %3d %.2f %3d %.2f %.2f %.2f %.2f %.2f %.2f %.2f",
+	                     lastTime,
+	                     humidistat.getHumidity(),
+	                     humidistat.setpoint,
+	                     humidistat.getTemperature(),
+	                     humidistat.controlValue,
+	                     trs[0] ? trs[0]->readTemp() : NAN,
+	                     trs[1] ? trs[1]->readTemp() : NAN,
+	                     trs[2] ? trs[2]->readTemp() : NAN,
+	                     trs[3] ? trs[3]->readTemp() : NAN,
+	                     pTerm,
+	                     iTerm,
+	                     dTerm
 	);
+
 	Serial.println(buf);
+	delete buf;
 }
 
 void SerialLogger::update() {

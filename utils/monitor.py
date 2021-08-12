@@ -28,10 +28,10 @@ def saveto_sigint_handler(filename: str):
 # Parse CLI arguments
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument("-p", "--port", default='/dev/ttyUSB0', help="The serial port device to which the Arduino is "
-																 "connected.")
-parser.add_argument("-b", "--baud", type=int, default=19200, help="The symbol rate of the connection.")
+                                                                 "connected.")
+parser.add_argument("-b", "--baud", type=int, default=115200, help="The symbol rate of the connection.")
 parser.add_argument("-o", "--output", default='data.csv.gz', help="Filename to save the data to. Will be automatically "
-																  "gzipped if it ends in .gz.")
+                                                                  "gzipped if it ends in .gz.")
 args = parser.parse_args()
 
 signal.signal(signal.SIGINT, saveto_sigint_handler(args.output))
@@ -48,7 +48,7 @@ with SerialReader(args.port, args.baud) as sr:
 	data = [[] for column in sr.header]
 
 	# Setup empty plot
-	lines = [axs[ax_dist[i]].plot([], label=sr.header[i])[0] for i, column in enumerate(data)]
+	lines = [axs[ax_dist[i]].plot([], label=column)[0] for i, column in enumerate(sr.header[1:])]
 
 	for ax in axs:
 		ax.legend()
@@ -64,8 +64,8 @@ with SerialReader(args.port, args.baud) as sr:
 
 		# Update the data associated with the lines
 		for i, line in enumerate(lines):
-			line.set_xdata(range(len(data[i])))
-			line.set_ydata(data[i])
+			line.set_xdata(np.array(data[0])/1000)
+			line.set_ydata(data[i+1])
 
 		# We need both statements for the axes to auto-scale
 		for ax in axs:

@@ -13,7 +13,7 @@ private:
 	const Humidistat &humidistat;
 	Array<const ThermistorReader*, 4> trs;
 
-	const char *header = "Humidity Setpoint Temperature ControlValue T0 T1 T2 T3 pTerm iTerm dTerm";
+	const char *header = "Time Humidity Setpoint Temperature ControlValue T0 T1 T2 T3 pTerm iTerm dTerm";
 	const uint16_t interval; //!< Logging interval (in millis)
 
 	unsigned long lastTime = 0;   //!< Last time line was written (in millis)
