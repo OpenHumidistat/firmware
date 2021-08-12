@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 
+/// Driver for thermistor thermometers.
 class ThermistorReader {
 private:
 	const uint8_t ref_pin = 5;     //!< Reference (high) voltage pin number
