@@ -12,6 +12,7 @@ void GraphicalDisplayUI::begin() {
 }
 
 void GraphicalDisplayUI::draw() {
+	lastRefreshed = millis();
 	u8g2.clearBuffer();
 	drawTabBar();
 	switch(currentTab) {
@@ -194,7 +195,7 @@ void GraphicalDisplayUI::drawTabBar() {
 
 	// Spinning indicator
 	u8g2.setFont(u8g2_font_unifont_t_symbols);
-	uint8_t i = (frame/3) % 4;
+	uint8_t i = (frame/2) % 4;
 	u8g2.drawGlyph(118, 10, 0x25f3-i);
 }
 
