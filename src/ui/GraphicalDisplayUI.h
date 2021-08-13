@@ -36,7 +36,7 @@ private:
 	uint8_t buttonPressedFor = 0;   //!< Button press counter (in input cycles)
 	uint8_t configSaveTimer = 0;    //!< Timer containing the current value of the cooldown on saving config to EEPROM
 
-	const uint8_t longPressDuration = 3;                          //!< Duration for counting a press as 'long' =
+	const uint8_t longPressDuration = 3;                          //!< Duration for counting a press as 'long'
 	                                                              //!< (in input cycles)
 	const uint8_t configSaveCooldown = 20 * 1000 / inputInterval; //!< Cooldown on saving the config to EEPROM
 	                                                              //!< (in input cycles)
