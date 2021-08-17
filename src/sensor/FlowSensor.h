@@ -13,7 +13,7 @@ private:
 public:
 	/// Constructor.
 	/// \param pin Sensor pin number
-	FlowSensor(uint8_t pin);
+	explicit FlowSensor(uint8_t pin);
 
 	/// Read the flow rate.
 	/// \return flow rate (L/min)
