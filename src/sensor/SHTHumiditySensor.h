@@ -11,7 +11,7 @@ class SHTHumiditySensor : public HumiditySensor {
 private:
 	SHTSensor &sht;
 
-	double t, h;
+	double t, h = NAN;
 public:
 	explicit SHTHumiditySensor(SHTSensor *sht);
 	double getHumidity() const override;
