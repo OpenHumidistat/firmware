@@ -11,7 +11,7 @@
 class SerialLogger {
 private:
 	const Humidistat &humidistat;
-	Array<const ThermistorReader*, 4> trs;
+	const Array<const ThermistorReader*, 4> trs;
 
 	const char *header = "Time Humidity Setpoint Temperature ControlValue T0 T1 T2 T3 pTerm iTerm dTerm";
 	const uint16_t interval;    //!< Logging interval (in millis)
