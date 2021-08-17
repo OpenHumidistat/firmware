@@ -279,10 +279,10 @@ bool GraphicalDisplayUI::handleInputConfig(Buttons button, int8_t sign) {
 			eepromConfig.configStore.Kd += delta;
 			return true;
 		case ConfigPar::dt:
-			eepromConfig.configStore.dt += delta;
+			eepromConfig.configStore.dt += static_cast<uint16_t>(delta);
 			return true;
 		case ConfigPar::lowValue:
-			eepromConfig.configStore.lowValue += delta;
+			eepromConfig.configStore.lowValue += static_cast<uint8_t>(delta);
 			return true;
 	}
 }

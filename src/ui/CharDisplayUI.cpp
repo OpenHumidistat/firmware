@@ -27,7 +27,7 @@ void CharDisplayUI::draw() {
 
 	// Active status
 	liquidCrystal.setCursor(0, 0);
-	liquidCrystal.print((int) humidistat.active);
+	liquidCrystal.print(humidistat.active);
 
 	// Thermistors
 	for (size_t i = 0; i < trs.size(); ++i) {
@@ -69,7 +69,7 @@ void CharDisplayUI::begin() {
 }
 
 bool CharDisplayUI::handleInput(Buttons button) {
-	uint8_t delta;
+	int8_t delta;
 	switch (button) {
 		case Buttons::UP:
 			delta = 1;
@@ -78,10 +78,10 @@ bool CharDisplayUI::handleInput(Buttons button) {
 			delta = -1;
 			break;
 		case Buttons::LEFT:
-			delta = -adjustStep;
+			delta = static_cast<int8_t>(-adjustStep);
 			break;
 		case Buttons::RIGHT:
-			delta = +adjustStep;
+			delta = static_cast<int8_t>(adjustStep);
 			break;
 		case Buttons::SELECT:
 			// Toggle active state

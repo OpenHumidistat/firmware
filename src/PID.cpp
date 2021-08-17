@@ -62,8 +62,8 @@ void PID::setGains(double Kp, double Ki, double Kd, uint16_t dt) {
 	this->dt = dt;
 	this->Kp = Kp;
 	// The timestep is constant, so we include it in Ki and Kd for convenience
-	this->Ki = Ki * (double) dt / 1000;
-	this->Kd = Kd / ((double) dt / 1000);
+	this->Ki = Ki * dt / 1000;
+	this->Kd = Kd / (static_cast<double>(dt) / 1000);
 
 	init();
 }

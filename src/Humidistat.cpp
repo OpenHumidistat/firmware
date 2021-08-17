@@ -46,7 +46,7 @@ void Humidistat::update(uint8_t pinS1, uint8_t pinS2) {
 	pid->setAuto(active);
 
 	// Convert public int setpoint to double for PID
-	sp = (double) setpoint;
+	sp = setpoint;
 
 	// Read humidity (if not NaN)
 	hs.readSample();
@@ -61,7 +61,7 @@ void Humidistat::update(uint8_t pinS1, uint8_t pinS2) {
 	pid->compute();
 
 	// Convert double control value to int (only matters if PID is active)
-	controlValue = (uint8_t) cv;
+	controlValue = static_cast<uint8_t>(cv);
 
 	// Write it to the pins
 	analogWrite(pinS1, controlValue);

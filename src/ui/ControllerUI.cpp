@@ -60,7 +60,7 @@ void ControllerUI::printNTC(uint8_t col, uint8_t row, uint8_t i) {
 	if (isnan(temp)) {
 		printf(col, row, "%2u", 0);
 	} else {
-		printf(col, row, "%2u", (int) temp);
+		printf(col, row, "%2u", static_cast<uint8_t>(temp));
 	}
 }
 
