@@ -20,7 +20,7 @@ private:
 	double cv = 0; //!< Control variable
 	double sp = 0; //!< Setpoint
 
-	double temperature;
+	double temperature = NAN;
 	unsigned long sensorLastRead = 0;
 public:
 	uint8_t setpoint = 50;
