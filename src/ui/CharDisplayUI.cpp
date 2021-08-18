@@ -1,8 +1,8 @@
 #include "CharDisplayUI.h"
 
-CharDisplayUI::CharDisplayUI(LiquidCrystal *liquidCrystal, const ButtonReader *buttonReader, Humidistat *humidistat,
-                             Array<const ThermistorReader*, 4> trs) :
-		ControllerUI(liquidCrystal, buttonReader, humidistat, trs), liquidCrystal(*liquidCrystal) {}
+CharDisplayUI::CharDisplayUI(LiquidCrystal *liquidCrystal, const ButtonReader *buttonReader,
+                             SingleHumidistat *humidistat, Array<const ThermistorReader *, 4> trs)
+		: ControllerUI(liquidCrystal, buttonReader, trs), liquidCrystal(*liquidCrystal), humidistat(*humidistat) {}
 
 void CharDisplayUI::draw() {
 	lastRefreshed = millis();
@@ -31,8 +31,8 @@ void CharDisplayUI::draw() {
 
 	// Thermistors
 	for (size_t i = 0; i < trs.size(); ++i) {
-		if(trs[i]) {
-			printNTC(3*i, 1, i);
+		if (trs[i]) {
+			printNTC(3 * i, 1, i);
 		}
 	}
 }
@@ -55,13 +55,15 @@ void CharDisplayUI::drawSplash() {
 
 void CharDisplayUI::drawInfo() {
 	liquidCrystal.clear();
-	printf(0, 0, "dt %4u lv %3u", humidistat.getDt(), humidistat.getLowValue());
-	{
-		double Kp, Ki, Kd;
-		humidistat.getGains(Kp, Ki, Kd);
-
-		printf(0, 1, "%3.2f %4.3f %3.2f", Kp, Ki, Kd);
-	}
+	printf(0, 0, "dt %4u lv %3u",
+	       humidistat.getConfigStore()->dt,
+	       humidistat.getConfigStore()->S_lowValue
+	);
+	printf(0, 1, "%3.2f %4.3f %3.2f",
+	       humidistat.getConfigStore()->HC_Kp,
+	       humidistat.getConfigStore()->HC_Ki,
+	       humidistat.getConfigStore()->HC_Kd
+	);
 }
 
 void CharDisplayUI::begin() {
@@ -94,7 +96,7 @@ bool CharDisplayUI::handleInput(Buttons button) {
 	if (humidistat.active) {
 		adjustValue(delta, humidistat.setpoint, 0, 100);
 	} else {
-		adjustValue(delta, humidistat.controlValue, humidistat.getLowValue(), 255);
+		adjustValue(delta, humidistat.controlValue, humidistat.getConfigStore()->S_lowValue, 255);
 	}
 	return true;
 }

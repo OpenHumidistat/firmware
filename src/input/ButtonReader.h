@@ -3,7 +3,8 @@
 
 #include <stdint.h>
 
-#include "VoltLadder.h"
+#include "aliases.h"
+#include "Buttons.h"
 
 /// Read button state from a voltage ladder-style keypad.
 class ButtonReader {

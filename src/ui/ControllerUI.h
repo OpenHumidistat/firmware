@@ -6,7 +6,6 @@
 #include <Print.h>
 
 #include "input/ButtonReader.h"
-#include "Humidistat.h"
 #include "sensor/ThermistorReader.h"
 #include "asprintf.h"
 
@@ -46,7 +45,6 @@ private:
 	virtual bool handleInput(Buttons button) = 0;
 
 protected:
-	Humidistat &humidistat;
 	Array<const ThermistorReader*, 4> trs;
 
 	unsigned long lastRefreshed = 0;    //!< Last time display was updated (in millis)
@@ -60,8 +58,7 @@ protected:
 	/// \param buttonReader Pointer to a ButtonReader instance
 	/// \param humidistat   Pointer to a Humidistat instance
 	/// \param trs          Array of 4 pointers to ThermistorReader instances
-	explicit ControllerUI(Print *display, const ButtonReader *buttonReader, Humidistat *humidistat,
-	                      Array<const ThermistorReader *, 4> trs);
+	explicit ControllerUI(Print *display, const ButtonReader *buttonReader, Array<const ThermistorReader *, 4> trs);
 
 	/// Print blinking text.
 	/// \param col LCD column

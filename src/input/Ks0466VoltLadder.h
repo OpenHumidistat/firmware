@@ -1,10 +1,14 @@
 #ifndef HUMIDISTAT_KS0466VOLTLADDER_H
 #define HUMIDISTAT_KS0466VOLTLADDER_H
 
-#include "VoltLadder.h"
+#include <stdint.h>
 
-class Ks0466VoltLadder : public VoltLadder {
-	Buttons voltageToButton(uint16_t voltage) override;
+#include "Buttons.h"
+
+/// Implementation of the VoltLadder interface for the Keyestudio Ks0466 keypad.
+class Ks0466VoltLadder {
+public:
+	Buttons voltageToButton(uint16_t voltage);
 };
 
 

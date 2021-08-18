@@ -1,9 +1,8 @@
 #include <Arduino.h>
 #include "ControllerUI.h"
 
-ControllerUI::ControllerUI(Print *display, const ButtonReader *buttonReader, Humidistat *humidistat,
-                           Array<const ThermistorReader *, 4> trs) :
-		display(*display), buttonReader(*buttonReader), humidistat(*humidistat), trs(trs) {}
+ControllerUI::ControllerUI(Print *display, const ButtonReader *buttonReader, Array<const ThermistorReader *, 4> trs)
+	: display(*display), buttonReader(*buttonReader), trs(trs) {}
 
 void ControllerUI::update() {
 	// Show splash screen and info (draw it once) for a short time after boot

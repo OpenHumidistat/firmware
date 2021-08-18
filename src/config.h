@@ -17,6 +17,10 @@
 /// PIN_BTN specified below.
 #define HUMIDISTAT_INPUT_KS0466
 
+/// Define either HUMIDISTAT_CONTROLLER_SINGLE or HUMIDISTAT_CONTROLLER_CASCADE. In the latter case, flow sensors
+/// must be connected to PIN_F1 and PIN_F2.
+#define HUMIDISTAT_CONTROLLER_SINGLE
+
 namespace config {
 	/// Serial communication symbol rate (baud)
 	const uint32_t serialRate = 115200;
@@ -28,15 +32,27 @@ namespace config {
 	const uint8_t EEPROMAddress = 0;
 
 	/// Global interval for PID/logger (based on polling rate of sensor, in millis)
-	const uint16_t dt = 200;
+	const uint16_t dt = 250;
 
 	///@{
-	/// PID parameters
-	const uint8_t lowValue = 210;
-	const double Kp = 1.00;
-	const double Ki = 0.025;
-	const double Kd = 2.50;
+	/// Humidity controller PID parameters
+	const double HC_Kp = 1.00;
+	const double HC_Ki = 0.025;
+	const double HC_Kd = 2.50;
 	///@}
+
+	///@{
+	/// Flow controller PID parameters
+	const double FC_Kp = 1.00;
+	const double FC_Ki = 1.00;
+	const double FC_Kd = 1.00;
+	///@}
+
+	/// Minimum solenoid duty cycle (deadband)
+	const uint8_t S_lowValue = 210;
+
+	/// Total flowrate (for cascade controller) (L/min)
+	const double HC_totalFlowrate = 2;
 
 	///@{
 	/// Pins
@@ -44,6 +60,8 @@ namespace config {
 	const uint8_t PIN_BTN = A0;
 	const uint8_t PIN_S1 = 3;
 	const uint8_t PIN_S2 = 4;
+	const uint8_t PIN_F1 = A1;
+	const uint8_t PIN_F2 = A2;
 	///@}
 
 	///@{

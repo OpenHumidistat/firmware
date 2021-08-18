@@ -1,18 +1,18 @@
 #ifndef HUMIDISTAT_DHTHUMIDITYSENSOR_H
 #define HUMIDISTAT_DHTHUMIDITYSENSOR_H
 
-#include "HumiditySensor.h"
 #include "DHT.h"
 
-class DHTHumiditySensor : public HumiditySensor {
+/// Implementation of the HumiditySensor interface for the DHT22/AM2302 sensor.
+class DHTHumiditySensor {
 private:
 	DHT &dht;
 public:
 	explicit DHTHumiditySensor(DHT *dht);
-	double getHumidity() const override;
-	double getTemperature() const override;
-	void begin() override;
-	void readSample() override;
+	double getHumidity() const;
+	double getTemperature() const;
+	void begin();
+	void readSample();
 };
 
 

@@ -3,6 +3,7 @@
 
 #include <LiquidCrystal.h>
 #include "ControllerUI.h"
+#include "control/SingleHumidistat.h"
 
 /// TUI for 16x2 character LCD.
 /// Holds a reference to a LiquidCrystal instance for writing to display.
@@ -11,6 +12,7 @@
 class CharDisplayUI : public ControllerUI {
 private:
 	LiquidCrystal& liquidCrystal;
+	SingleHumidistat& humidistat;
 
 	void draw() override;
 	void drawSplash() override;
@@ -23,9 +25,9 @@ public:
 	/// Contructor.
 	/// \param liquidCrystal Pointer to a LiquidCrystal instance
 	/// \param buttonReader  Pointer to a ButtonReader instance
-	/// \param humidistat    Pointer to a Humidistat instance
+	/// \param humidistat    Pointer to a SingleHumidistat instance
 	/// \param trs           Array of 4 pointers to ThermistorReader instances
-	explicit CharDisplayUI(LiquidCrystal *liquidCrystal, const ButtonReader *buttonReader, Humidistat *humidistat,
+	explicit CharDisplayUI(LiquidCrystal *liquidCrystal, const ButtonReader *buttonReader, SingleHumidistat *humidistat,
 	                       Array<const ThermistorReader *, 4> trs);
 
 	void begin() override;

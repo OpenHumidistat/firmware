@@ -11,20 +11,39 @@ struct ConfigStore {
 	uint16_t dt; //!< Global interval for PID/logger (based on polling rate of sensor, in millis)
 
 	///@{
-	/// PID parameters
-	uint8_t lowValue;
-	double Kp;
-	double Ki;
-	double Kd;
+	/// Humidity controller PID parameters
+	double HC_Kp;
+	double HC_Ki;
+	double HC_Kd;
 	///@}
+
+	///@{
+	/// Flow controller PID parameters
+	double FC_Kp;
+	double FC_Ki;
+	double FC_Kd;
+	///@}
+
+	/// Minimum solenoid duty cycle (deadband)
+	uint8_t S_lowValue;
+
+	/// Total flowrate (for cascade controller) (L/min)
+	double HC_totalFlowrate;
 } const defaultConfigStore = {
 	"hum2",
 	false,
 	config::dt,
-	config::lowValue,
-	config::Kp,
-	config::Ki,
-	config::Kd,
+
+	config::HC_Kp,
+	config::HC_Ki,
+	config::HC_Kd,
+
+	config::FC_Kp,
+	config::FC_Ki,
+	config::FC_Kd,
+
+	config::S_lowValue,
+	config::HC_totalFlowrate
 };
 
 /// Load/save an (internal) ConfigStore in EEPROM.
