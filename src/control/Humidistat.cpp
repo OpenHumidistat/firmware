@@ -14,7 +14,7 @@ double Humidistat::getTemperature() const {
 
 void Humidistat::updatePIDParameters() {
 	pid.setGains(cs.HC_Kp, cs.HC_Ki, cs.HC_Kd, cs.dt);
-	pid.setCvMin(cs.S_lowValue);
+	pid.cvMin = cs.S_lowValue;
 }
 
 void Humidistat::runCycle() {
@@ -31,4 +31,12 @@ void Humidistat::runCycle() {
 
 	// Run PID cycle if active (pid writes into this->cv)
 	pid.compute();
+}
+
+double Humidistat::getCvMin() const {
+	return pid.cvMin;
+}
+
+double Humidistat::getCvMax() const {
+	return pid.cvMax;
 }

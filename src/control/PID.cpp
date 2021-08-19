@@ -62,7 +62,3 @@ void PID::setGains(double Kp, double Ki, double Kd, uint16_t dt) {
 
 	init();
 }
-
-void PID::setCvMin(double cvMin) {
-	this->cvMin = cvMin;
-}

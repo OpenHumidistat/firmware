@@ -13,12 +13,11 @@ private:
 
 	double Kp, Ki, Kd;   //!< Gains
 	uint16_t dt;         //!< Timestep
-	double cvMin, cvMax; //!< Lower/upper limits for cv
 
-	bool inAuto = false;        //!< Mode
-	double lastPv;              //!< Last value of pv
-	double lastE;               //!< Last value of error
-	double integral;            //!< Integral of pv
+	bool inAuto = false; //!< Mode
+	double lastPv;       //!< Last value of pv
+	double lastE;        //!< Last value of error
+	double integral;     //!< Integral of pv
 
 	/// Method to be called when the controller goes from manual to auto mode for proper bumpless transfer.
 	void init();
@@ -30,6 +29,7 @@ private:
 
 public:
 	double pTerm = 0, iTerm = 0, dTerm = 0; //!< PID terms
+	double cvMin, cvMax;                    //!< Lower/upper limits for cv
 
 	/// Constructor.
 	/// \param pv Pointer to process variable
@@ -58,10 +58,6 @@ public:
 	/// \param Kd Derivative gain (in s)
 	/// \param dt Timestep (in ms)
 	void setGains(double Kp, double Ki, double Kd, uint16_t dt);
-
-	/// Set lower control value limit.
-	/// \param cvMin Lower control value limit
-	void setCvMin(double cvMin);
 };
 
 #endif //HUMIDISTAT_PID_H
