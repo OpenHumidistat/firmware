@@ -17,20 +17,16 @@ protected:
 
 public:
 	/// Constructor.
-	/// \param Kp    Proportional gain
-	/// \param Ki    Integral gain (in 1/s)
-	/// \param Kd    Derivative gain (in s)
-	/// \param dt    Timestep (in ms)
+	/// \param cs Pointer to a ConfigStore instance
+	/// \param hs Pointer to a HumiditySensor instance
+	/// \param Kp Proportional gain
+	/// \param Ki Integral gain (in 1/s)
+	/// \param Kd Derivative gain (in s)
+	/// \param dt Timestep (in ms)
 	/// \param cvMin Lower limit for control value
 	/// \param cvMax Upper limit for control value
-	/// \param hs    Pointer to a HumiditySensor instance
-	/// \param cs    Pointer to a ConfigStore instance
-	/// \param defaultCV Default value for the control variable
-	Humidistat(double kp, double ki, double kd, uint16_t dt, double cvMin, double cvMax, HumiditySensor *hs,
-	           const ConfigStore *cs, uint8_t defaultCV);
-
-	uint8_t setpoint = 50;
-	uint8_t controlValue;
+	Humidistat(const ConfigStore *cs, HumiditySensor *hs, double kp, double ki, double kd, uint16_t dt, double cvMin,
+	           double cvMax);
 
 	/// Read the humidity.
 	/// \return Relative humidity (percent)

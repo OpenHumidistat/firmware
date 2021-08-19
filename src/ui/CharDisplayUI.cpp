@@ -12,8 +12,8 @@ void CharDisplayUI::draw() {
 
 	// Setpoint
 	{
-		char *buf = asprintf("%3u%%", humidistat.setpoint);
-		if (abs(humidistat.setpoint - humidistat.getHumidity()) > tolerance) {
+		char *buf = asprintf("%3.0f%%", humidistat.sp);
+		if (abs(humidistat.sp - humidistat.getHumidity()) > tolerance) {
 			blink(7, 0, buf);
 		} else {
 			liquidCrystal.setCursor(7, 0);
@@ -23,7 +23,7 @@ void CharDisplayUI::draw() {
 	}
 
 	// Control value
-	printf(12, 0, "%3u", humidistat.controlValue);
+	printf(12, 0, "%3.0f", humidistat.cv);
 
 	// Active status
 	liquidCrystal.setCursor(0, 0);
@@ -94,9 +94,9 @@ bool CharDisplayUI::handleInput(Buttons button) {
 	}
 
 	if (humidistat.active) {
-		adjustValue(delta, humidistat.setpoint, 0, 100);
+		adjustValue(delta, humidistat.sp, 0, 100);
 	} else {
-		adjustValue(delta, humidistat.controlValue, humidistat.getConfigStore()->S_lowValue, 255);
+		adjustValue(delta, humidistat.cv, humidistat.getConfigStore()->S_lowValue, 255);
 	}
 	return true;
 }

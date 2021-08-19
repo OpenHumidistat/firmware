@@ -77,7 +77,7 @@ protected:
 	/// \param value  Value to adjust
 	/// \param min    Lower limit
 	/// \param max    Upper limit
-	static void adjustValue(int8_t delta, uint8_t &value, uint8_t min, uint8_t max);
+	static void adjustValue(int8_t delta, double &value, uint8_t min, uint8_t max);
 
 	/// Print formatted data to display, at (col, row). Calculates lengths and creates appropriate buffer internally.
 	/// \param col  LCD column

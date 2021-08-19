@@ -40,12 +40,12 @@ public:
 		double pTerm, iTerm, dTerm;
 		humidistat->getTerms(pTerm, iTerm, dTerm);
 
-		char *buf = asprintf("%lu %.2f %3d %.2f %3d %.2f %.2f %.2f %.2f %.2f %.2f %.2f",
+		char *buf = asprintf("%lu %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f",
 		                     lastTime,
 		                     humidistat->getHumidity(),
-		                     humidistat->setpoint,
+		                     humidistat->sp,
 		                     humidistat->getTemperature(),
-		                     humidistat->controlValue,
+		                     humidistat->cv,
 		                     trs[0] ? trs[0]->readTemp() : NAN,
 		                     trs[1] ? trs[1]->readTemp() : NAN,
 		                     trs[2] ? trs[2]->readTemp() : NAN,

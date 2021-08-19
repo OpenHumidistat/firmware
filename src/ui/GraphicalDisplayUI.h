@@ -136,8 +136,8 @@ private:
 		u8g2.drawStr(0, 44, "SP");
 		u8g2.setDrawColor(1);
 
-		printf(14, 35, "%5.1f%%", humidistat.getHumidity());
-		printf(14, 44, "%3u.0%%", humidistat.setpoint);
+		printf(14, 35, "%4.1f%%", humidistat.getHumidity());
+		printf(14, 44, "%4.1f%%", humidistat.sp);
 
 		// CV
 		if (!humidistat.active) {
@@ -147,7 +147,7 @@ private:
 		u8g2.drawStr(0, 54, "CV: ");
 		u8g2.setDrawColor(1);
 		u8g2.setCursor(20, 54);
-		u8g2.print(humidistat.controlValue);
+		u8g2.print(humidistat.cv);
 
 		// Mode
 		if (humidistat.active)
@@ -279,9 +279,9 @@ private:
 		}
 		int8_t delta = sign;
 		if (humidistat.active) {
-			adjustValue(delta, humidistat.setpoint, 0, 100);
+			adjustValue(delta, humidistat.sp, 0, 100);
 		} else {
-			adjustValue(delta, humidistat.controlValue, eepromConfig.configStore.S_lowValue, 255);
+			adjustValue(delta, humidistat.cv, eepromConfig.configStore.S_lowValue, 255);
 		}
 		return true;
 	}

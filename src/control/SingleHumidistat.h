@@ -16,10 +16,10 @@ private:
 
 public:
 	/// Constructor.
-	/// \param hs Pointer to a HumiditySensor instance
-	/// \param cs Pointer to a ConfigStore instance
+	/// \param cs            Pointer to a ConfigStore instance
+	/// \param hs            Pointer to a HumiditySensor instance
 	/// \param pins_solenoid Array of 2 integers corresponding to the solenoid pins
-	SingleHumidistat(HumiditySensor *hs, const ConfigStore *cs, Array<uint8_t, 2> pins_solenoid);
+	SingleHumidistat(const ConfigStore *cs, HumiditySensor *hs, Array<uint8_t, 2> pins_solenoid);
 
 	/// Run the humidistat:
 	/// Read the humidity, run a cycle of the PID loop and drive the solenoid valves at the appropriate value.

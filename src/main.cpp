@@ -33,7 +33,7 @@ EEPROMConfig eepromConfig;
 
 #ifdef HUMIDISTAT_CONTROLLER_SINGLE
 #include "control/SingleHumidistat.h"
-SingleHumidistat humidistat(&hs, &eepromConfig.configStore, {{config::PIN_S1, config::PIN_S2}});
+SingleHumidistat humidistat(&eepromConfig.configStore, &hs, {{config::PIN_S1, config::PIN_S2}});
 using cHumidistat = SingleHumidistat;
 #endif
 

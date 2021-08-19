@@ -13,24 +13,27 @@ protected:
 	PID pid;
 	const ConfigStore &cs;
 
-	double pv = 0; //!< Process variable
-	double cv = 0; //!< Control variable
-	double sp = 0; //!< Setpoint
-
 	unsigned long sensorLastRead = 0;
 
 public:
 	bool active = false;
 
+	double pv = 0; //!< Process variable
+	double sp;     //!< Setpoint
+	double cv;     //!< Control variable
+
 	/// Constructor.
-	/// \param Kp    Proportional gain
-	/// \param Ki    Integral gain (in 1/s)
-	/// \param Kd    Derivative gain (in s)
-	/// \param dt    Timestep (in ms)
+	/// \param cs Pointer to a ConfigStore instance
+	/// \param Kp Proportional gain
+	/// \param Ki Integral gain (in 1/s)
+	/// \param Kd Derivative gain (in s)
+	/// \param dt Timestep (in ms)
 	/// \param cvMin Lower limit for control value
 	/// \param cvMax Upper limit for control value
-	/// \param cs    Pointer to a ConfigStore instance
-	Controller(double Kp, double Ki, double Kd, uint16_t dt, double cvMin, double cvMax, const ConfigStore *cs);
+	/// \param defaultSP Default value for the setpoint
+	/// \param defaultCV Default value for the control variable
+	Controller(const ConfigStore *cs, double Kp, double Ki, double Kd, uint16_t dt, double cvMin, double cvMax,
+	           double defaultSP, double defaultCV);
 
 	/// Get the three PID terms by reference.
 	/// \param pTerm
