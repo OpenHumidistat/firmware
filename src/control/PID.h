@@ -16,7 +16,6 @@ private:
 	double cvMin, cvMax; //!< Lower/upper limits for cv
 
 	bool inAuto = false;        //!< Mode
-	unsigned long lastComputed; //!< Last time the loop was run
 	double lastPv;              //!< Last value of pv
 	double lastE;               //!< Last value of error
 	double integral;            //!< Integral of pv
@@ -45,7 +44,7 @@ public:
 	PID(const double *pv, double *cv, const double *sp, double Kp, double Ki, double Kd, uint16_t dt, double cvMin,
 	    double cvMax);
 
-	/// Run a cycle of the PID loop. Call this as often as you want in loop(), it handles timing internally.
+	/// Run a cycle of the PID loop.
 	/// \return True if a PID step was run, and false if not.
 	bool compute();
 

@@ -1,10 +1,8 @@
-#include <Arduino.h>
 #include "PID.h"
 
 PID::PID(const double *pv, double *cv, const double *sp, double Kp, double Ki, double Kd, uint16_t dt, double cvMin,
-		 double cvMax)
-		: pv(*pv), cv(*cv), sp(*sp), cvMin(cvMin), cvMax(cvMax) {
-	lastComputed = millis();
+         double cvMax)
+	: pv(*pv), cv(*cv), sp(*sp), cvMin(cvMin), cvMax(cvMax) {
 	setGains(Kp, Ki, Kd, dt);
 	init();
 }
@@ -16,12 +14,9 @@ void PID::init() {
 }
 
 bool PID::compute() {
-	// Terminate if not in auto, or if last run was a shorter time ago than the timestep.
+	// Terminate if not in auto
 	if (!inAuto)
 		return false;
-	if (millis() - lastComputed < dt)
-		return false;
-	lastComputed = millis();
 
 	// Proportional error
 	double e = sp - pv;
