@@ -3,12 +3,20 @@
 
 #include <stdint.h>
 
+#include "ipow.h"
+
 /// Read flow rate using a Omron D6F-P0010 MEMS flow sensor.
 class FlowSensor {
 private:
 	const uint8_t pin;
-	/// Coefficients of the polynomial approximation to the sensor response.
-	static constexpr double coeffs[] = {0.094003, -0.564312, 1.374705, -1.601495, 1.060657, -0.269996};
+	/// Coefficients of the polynomial approximation to the sensor response (and voltage mapping)
+	static constexpr double coeffs[] = {0.094003  / ipow(1023 * 3.3, 5),
+										-0.564312 / ipow(1023 * 3.3, 4),
+										1.374705  / ipow(1023 * 3.3, 3),
+										-1.601495 / ipow(1023 * 3.3, 2),
+										1.060657  / 1023 * 3.3,
+										-0.269996
+	};
 
 public:
 	/// Constructor.
