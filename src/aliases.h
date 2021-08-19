@@ -1,7 +1,10 @@
 #ifndef HUMIDISTAT_ALIASES_H
 #define HUMIDISTAT_ALIASES_H
 
-#include "config.h"
+#include CONFIG_HEADER
+
+/// This file defines aliases/typedefs for different implementations, as a naive yet effective form of 'compile-time
+/// polymorphism' in an attempt to avoid run-time polymorphism with interfaces with virtual methods.
 
 // Humidity sensor
 #ifdef HUMIDISTAT_DHT

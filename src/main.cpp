@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <Array.h>
 
-#include "config.h"
+#include CONFIG_HEADER
 #include "aliases.h"
 
 #include "EEPROMConfig.h"

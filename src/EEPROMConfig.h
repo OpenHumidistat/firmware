@@ -1,7 +1,7 @@
 #ifndef HUMIDISTAT_EEPROMCONFIG_H
 #define HUMIDISTAT_EEPROMCONFIG_H
 
-#include "config.h"
+#include CONFIG_HEADER
 
 /// Config store containing variables, which can be stored in EEPROM.
 struct ConfigStore {
