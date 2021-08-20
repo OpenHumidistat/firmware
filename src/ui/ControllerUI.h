@@ -16,7 +16,6 @@ private:
 	Print &display;
 	const ButtonReader &buttonReader;
 	unsigned long lastPressed = 0;        //!< Last time a button was pressed (in millis)
-	const uint16_t RefreshInterval = 100; //!< Interval for updating the display (in millis)
 	const uint16_t blinkInterval = 500;   //!< Interval for blinking displays (in millis)
 	const uint16_t splashDuration = 1000; //!< Duration for which to show the splash screen (in millis)
 	const uint16_t infoDuration = 3000;   //!< Duration for which to show the info screen (in millis)
@@ -47,6 +46,7 @@ private:
 protected:
 	Array<const ThermistorReader*, 4> trs;
 
+	const uint16_t refreshInterval = 100; //!< Interval for updating the display (in millis)
 	unsigned long lastRefreshed = 0;    //!< Last time display was updated (in millis)
 	const uint8_t adjustStep = 5;       //!< Step size by which to in-/de-crement for coarse adjustment
 	const uint8_t tolerance = 1;        //!< Tolerance in difference between process variable and setpoint outside

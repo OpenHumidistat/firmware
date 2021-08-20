@@ -34,7 +34,7 @@ void ControllerUI::update() {
 			draw();
 		}
 	}
-	if (millis() - lastRefreshed >= RefreshInterval) {
+	if (millis() - lastRefreshed >= refreshInterval) {
 		draw();
 	}
 }

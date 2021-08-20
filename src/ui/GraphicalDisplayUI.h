@@ -43,13 +43,14 @@ private:
 	uint8_t buttonPressedFor = 0;   //!< Button press counter (in input cycles)
 	uint8_t configSaveTimer = 0;    //!< Timer containing the current value of the cooldown on saving config to EEPROM
 
-	const uint8_t longPressDuration = 3;                          //!< Duration for counting a press as 'long'
-	                                                              //!< (in input cycles)
-	const uint8_t configSaveCooldown = 20 * 1000 / inputInterval; //!< Cooldown on saving the config to EEPROM
-	                                                              //!< (in input cycles)
+	const uint8_t longPressDuration = 3; //!< Duration for counting a press as 'long' (in input cycles)
+	const uint8_t configSaveCooldown = 20 * 1000 / refreshInterval; //!< Cooldown on saving the config to EEPROM
+	                                                                //!< (in input cycles)
+
 
 	void draw() override {
 		lastRefreshed = millis();
+
 		u8g2.clearBuffer();
 		drawTabBar();
 		switch (currentTab) {
@@ -61,7 +62,13 @@ private:
 				break;
 		}
 		u8g2.sendBuffer();
+
+		// Keep track of frames
 		frame++;
+
+		// Decrement cooldown timer
+		if (configSaveTimer != 0)
+			configSaveTimer--;
 	}
 
 	void drawSplash() override {
@@ -84,10 +91,6 @@ private:
 	}
 
 	bool handleInput(Buttons button) override {
-		// Decrement cooldown timer
-		if (configSaveTimer != 0)
-			configSaveTimer--;
-
 		// First handle common input actions between tabs
 		int8_t sign;
 		switch (button) {
@@ -105,6 +108,7 @@ private:
 				advanceEnum(currentTab);
 				return true;
 		}
+		// Keep track of long button presses
 		buttonPressedFor++;
 		if (buttonPressedFor > longPressDuration)
 			sign *= adjustStep;
