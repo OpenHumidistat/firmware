@@ -8,7 +8,7 @@
 /// Implementation of the VoltLadder interface for the Keyestudio Ks0256 keypad.
 class Ks0256VoltLadder {
 public:
-	Buttons voltageToButton(uint16_t voltage);
+	Buttons voltageToButton(uint16_t voltage) const;
 };
 
 

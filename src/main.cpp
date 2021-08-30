@@ -65,6 +65,7 @@ void setup() {
 }
 
 void loop() {
+	buttonReader.sample();
 	ui.update();
 	humidistat.update();
 	serialLogger.update();

@@ -26,10 +26,12 @@ void ControllerUI::update() {
 		screenCleared = true;
 	}
 
-	if (millis() - lastPressed >= inputInterval) {
-		bool pressed = handleInput(buttonReader.read());
-
-		if (pressed) {
+	Buttons state = buttonReader.isPressed();
+	uint32_t pressedFor = buttonReader.getPressedFor();
+	// Debouncing: only call the input handler if it has been at least inputInterval since the last action, and if
+	// the keypress has been stable for at least buttonDebounceInterval
+	if (millis() - lastPressed >= inputInterval && pressedFor > buttonDebounceInterval) {
+		if (handleInput(state, pressedFor/1000)) {
 			lastPressed = millis();
 			draw();
 		}

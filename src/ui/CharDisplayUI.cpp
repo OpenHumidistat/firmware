@@ -70,9 +70,9 @@ void CharDisplayUI::begin() {
 	liquidCrystal.begin(16, 2);
 }
 
-bool CharDisplayUI::handleInput(Buttons button) {
+bool CharDisplayUI::handleInput(Buttons state, uint16_t pressedFor) {
 	int8_t delta;
-	switch (button) {
+	switch (state) {
 		case Buttons::UP:
 			delta = 1;
 			break;

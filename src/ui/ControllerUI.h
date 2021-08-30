@@ -15,7 +15,12 @@ class ControllerUI {
 private:
 	Print &display;
 	const ButtonReader &buttonReader;
-	unsigned long lastPressed = 0;        //!< Last time a button was pressed (in millis)
+
+	unsigned long lastPressed = 0; //!< Last time a keypress event occurred (in millis)
+
+	const uint16_t buttonDebounceInterval = 500; //!< For debouncing: interval the keypad state must be stable for (in
+	                                             //!< micros)
+	const uint16_t inputInterval = 200;   //!< Repeat interval for keypress events (in millis)
 	const uint16_t blinkInterval = 500;   //!< Interval for blinking displays (in millis)
 	const uint16_t splashDuration = 1000; //!< Duration for which to show the splash screen (in millis)
 	const uint16_t infoDuration = 3000;   //!< Duration for which to show the info screen (in millis)
@@ -39,19 +44,20 @@ private:
 	virtual void setCursor(uint8_t col, uint8_t row) = 0;
 
 	/// Handle input.
-	/// \param button Button
+	/// \param state Keypad state
+	/// \param pressedFor Duration the key has been pressed (in millis)
 	/// \return 1 if button was pressed, 0 if not
-	virtual bool handleInput(Buttons button) = 0;
+	virtual bool handleInput(Buttons state, uint16_t pressedFor) = 0;
 
 protected:
 	Array<const ThermistorReader*, 4> trs;
 
+	unsigned long lastRefreshed = 0; //!< Last time display was updated (in millis)
+
 	const uint16_t refreshInterval = 100; //!< Interval for updating the display (in millis)
-	unsigned long lastRefreshed = 0;    //!< Last time display was updated (in millis)
-	const uint8_t adjustStep = 5;       //!< Step size by which to in-/de-crement for coarse adjustment
-	const uint8_t tolerance = 1;        //!< Tolerance in difference between process variable and setpoint outside
-	                                    //!< which the setpoint blinks (in percentage points)
-	const uint16_t inputInterval = 200; //!< Polling interval for reading buttons (in millis)
+	const uint8_t adjustStep = 5;         //!< Step size by which to in-/de-crement for coarse adjustment
+	const uint8_t tolerance = 1;          //!< Tolerance in difference between process variable and setpoint outside
+	                                      //!< which the setpoint blinks (in percentage points)
 
 	/// Constructor.
 	/// \param display      Pointer to a Print instance

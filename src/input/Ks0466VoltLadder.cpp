@@ -1,6 +1,6 @@
 #include "Ks0466VoltLadder.h"
 
-Buttons Ks0466VoltLadder::voltageToButton(uint16_t voltage) {
+Buttons Ks0466VoltLadder::voltageToButton(uint16_t voltage) const {
 	if (voltage > 1000) return Buttons::NONE;
 	if (voltage < 75)   return Buttons::LEFT;
 	if (voltage < 250)  return Buttons::UP;

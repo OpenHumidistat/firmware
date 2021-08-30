@@ -19,7 +19,7 @@ private:
 	void drawInfo() override;
 	void clear() override;
 	void setCursor(uint8_t col, uint8_t row) override;
-	bool handleInput(Buttons button) override;
+	bool handleInput(Buttons state, uint16_t pressedFor) override;
 
 public:
 	/// Contructor.
