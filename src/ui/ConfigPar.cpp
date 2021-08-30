@@ -20,10 +20,10 @@ void ConfigPar::adjust(int8_t delta) const {
 char *ConfigPar::asprint() const {
 	switch (var.type) {
 		case ConfigParType::ui8:
-			return asprintf("%s %3u", label, *var.ui8);
+			return asprintf("%-4s %u", label, *var.ui8);
 		case ConfigParType::ui16:
-			return asprintf("%s %3u", label, *var.ui16);
+			return asprintf("%-4s %u", label, *var.ui16);
 		case ConfigParType::d:
-			return asprintf("%s %3.2f", label, *var.d);
+			return asprintf("%-4s %.2f", label, *var.d);
 	}
 }

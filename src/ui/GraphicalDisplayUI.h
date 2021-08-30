@@ -47,19 +47,23 @@ private:
 	void drawConfig() {
 		u8g2.setFont(u8g2_font_6x12_tr);
 
+		// Lambda functions that return the coordinates of parameters
+		auto col = [](size_t i) {return i / 4 * 60;};
+		auto row = [](size_t i) {return 10 * (i % 4);};
+
 		// Print config parameters
-		for (uint8_t i = 0; i < nConfigPars; i++) {
+		for (size_t i = 0; i < nConfigPars; i++) {
 			char* buf = configPars[i].asprint();
-			u8g2.drawStr(0, 22 + 10*i, buf);
+			u8g2.drawStr(col(i), 22 + row(i), buf);
 			delete buf;
 		}
 
 		// Draw box at the right y position
 		u8g2.setDrawColor(2);
-		u8g2.drawBox(0, 14 + 10 * currentPar, 13, 9);
+		u8g2.drawBox(col(currentPar), 14 + row(currentPar), 20, 10);
 		u8g2.setDrawColor(1);
 
-		u8g2.drawVLine(13, 14, 29);
+		u8g2.drawVLine(55, 14, 39);
 
 		// Mode
 		if (eepromConfig.configStore.loadedFromEEPROM)
@@ -156,8 +160,6 @@ private:
 		u8g2.drawStr(38, 10, "Config");
 		u8g2.setDrawColor(1);
 		u8g2.drawVLine(78, 1, 12);
-
-		printf(105, 33, "%d", analogRead(config::PIN_BTN));
 
 		// Spinning indicator
 		u8g2.setFont(u8g2_font_unifont_t_symbols);
