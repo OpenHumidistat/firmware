@@ -4,6 +4,7 @@
 #include <U8g2lib.h>
 #include <SPI.h>
 
+#include CONFIG_HEADER
 #include "ConfigPar.h"
 #include "advanceEnum.h"
 #include "ControllerUI.h"
@@ -33,9 +34,8 @@ private:
 	uint8_t frame = 0;              //!< Frame counter (overflows, but that's OK)
 	uint8_t configSaveTimer = 0;    //!< Timer containing the current value of the cooldown on saving config to EEPROM
 
-	const uint16_t longPressDuration = 500; //!< Duration for counting a press as 'long' (in millis)
-	const uint8_t configSaveCooldown = 20 * 1000 / refreshInterval; //!< Cooldown on saving the config to EEPROM
-	                                                                //!< (in input cycles)
+	const uint16_t longPressDuration = config::longPressDuration;
+	const uint8_t configSaveCooldown = config::configSaveCooldown;
 
 	const uint8_t nConfigPars;     //!< Total number of config parameters
 	const ConfigPar configPars[8]; //!< Array of config parameters

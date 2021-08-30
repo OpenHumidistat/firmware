@@ -1,5 +1,5 @@
-#ifndef HUMIDISTAT_CONFIG_V1_H
-#define HUMIDISTAT_CONFIG_V1_H
+#ifndef HUMIDISTAT_CONFIG_H
+#define HUMIDISTAT_CONFIG_H
 
 #include <Arduino.h>
 
@@ -76,7 +76,42 @@ namespace config {
 
 	/// ST7920 LCD pins
 	const uint8_t PIN_LCD_CS = 10;
+
+	/// For debouncing: interval the keypad state must be stable for (in micros)
+	const uint16_t buttonDebounceInterval = 500;
+
+	/// Repeat interval for keypress events (in millis)
+	const uint16_t inputInterval = 200;
+
+	/// Interval for blinking display elements (in millis)
+	const uint16_t blinkInterval = 500;
+
+	/// Duration for which to show the splash screen (in millis)
+	const uint16_t splashDuration = 1000;
+
+	/// Duration for which to show the info screen (in millis)
+	const uint16_t infoDuration = 3000;
+
+	/// Interval for updating the display (in millis)
+	const uint16_t refreshInterval = 100;
+
+	/// Step size by which to in-/de-crement for coarse adjustment
+	const uint8_t adjustStep = 5;
+
+	/// Tolerance in difference between process variable and setpoint outside which the setpoint blinks (in
+	/// percentage points)
+	const uint8_t tolerance = 1;
+
+	///@{
+	/// For GraphicalDisplayUI:
+
+	/// Duration for counting a press as 'long' (in millis)
+	const uint16_t longPressDuration = 500;
+
+	/// Cooldown on saving the config to EEPROM (in refresh cycles)
+	const uint8_t configSaveCooldown = 20 * 1000 / refreshInterval;
+	///@}
 }
 
 
-#endif //HUMIDISTAT_CONFIG_V1_H
+#endif //HUMIDISTAT_CONFIG_H
