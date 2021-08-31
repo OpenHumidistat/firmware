@@ -34,15 +34,15 @@ namespace config {
 	/// Global interval for PID/logger (based on polling rate of sensor, in millis)
 	const uint16_t dt = 250;
 
+	/// @name Humidity controller PID parameters
 	///@{
 	/// Humidity controller PID parameters
 	const double HC_Kp = 1.00;
 	const double HC_Ki = 0.025;
-	const double HC_Kd = 2.50;
 	///@}
 
+	/// @name Flow controller PID parameters
 	///@{
-	/// Flow controller PID parameters
 	const double FC_Kp = 1.00;
 	const double FC_Ki = 1.00;
 	const double FC_Kd = 1.00;
@@ -54,8 +54,8 @@ namespace config {
 	/// Total flowrate (for cascade controller) (L/min)
 	const double HC_totalFlowrate = 2;
 
+	/// @name Pins
 	///@{
-	/// Pins
 	const uint8_t PIN_DHT = 2;
 	const uint8_t PIN_BTN = A0;
 	const uint8_t PIN_S1 = 3;
@@ -64,8 +64,8 @@ namespace config {
 	const uint8_t PIN_F2 = A2;
 	///@}
 
+	/// @name 16x2 LCD pins
 	///@{
-	/// 16x2 LCD pins
 	const uint8_t PIN_LCD_RS = 8;
 	const uint8_t PIN_LCD_ENABLE = 9;
 	const uint8_t PIN_LCD_D0 = 4;
@@ -76,6 +76,9 @@ namespace config {
 
 	/// ST7920 LCD pins
 	const uint8_t PIN_LCD_CS = 10;
+
+	/// @name UI
+	///@{
 
 	/// For debouncing: interval the keypad state must be stable for (in micros)
 	const uint16_t buttonDebounceInterval = 500;
@@ -101,9 +104,10 @@ namespace config {
 	/// Tolerance in difference between process variable and setpoint outside which the setpoint blinks (in
 	/// percentage points)
 	const uint8_t tolerance = 1;
+	///@}
 
+	/// @name For GraphicalDisplayUI:
 	///@{
-	/// For GraphicalDisplayUI:
 
 	/// Duration for counting a press as 'long' (in millis)
 	const uint16_t longPressDuration = 500;
