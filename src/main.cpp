@@ -1,16 +1,18 @@
 #include <Arduino.h>
 #include <Array.h>
 
-#include "config.h"
+#include CONFIG_HEADER
+#include "aliases.h"
+
 #include "EEPROMConfig.h"
-#include "Humidistat.h"
 #include "SerialLogger.h"
 #include "input/ButtonReader.h"
 #include "sensor/ThermistorReader.h"
 
+// Beware: Lots of preprocessor fuckery to get conditional compilation based on config settings below
+
 // Humidity sensor
 #ifdef HUMIDISTAT_DHT
-#include "sensor/DHTHumiditySensor.h"
 DHT dht(config::PIN_DHT, DHT22);
 DHTHumiditySensor hs(&dht);
 //                        NTC pins
@@ -18,25 +20,22 @@ ThermistorReader trs[] = {1, 2, 3, 4};
 Array<ThermistorReader*, 4> trsp{{&trs[0], &trs[1], &trs[2], &trs[3]}};
 #endif
 #ifdef HUMIDISTAT_SHT
-#include "sensor/SHTHumiditySensor.h"
 SHTSensor sht;
 SHTHumiditySensor hs(&sht);
 Array<ThermistorReader *, 4> trsp{{}};
 #endif
 
 // Input
-#ifdef HUMIDISTAT_INPUT_KS0256
-#include "input/Ks0256VoltLadder.h"
-Ks0256VoltLadder voltLadder;
-#endif
-#ifdef HUMIDISTAT_INPUT_KS0466
-#include "input/Ks0466VoltLadder.h"
-Ks0466VoltLadder voltLadder;
-#endif
+VoltLadder voltLadder;
 
 ButtonReader buttonReader(config::PIN_BTN, &voltLadder);
 EEPROMConfig eepromConfig;
-Humidistat humidistat(&hs, &eepromConfig.configStore);
+
+#ifdef HUMIDISTAT_CONTROLLER_SINGLE
+#include "control/SingleHumidistat.h"
+SingleHumidistat humidistat(&eepromConfig.configStore, &hs, {{config::PIN_S1, config::PIN_S2}});
+using cHumidistat = SingleHumidistat;
+#endif
 
 // UI
 #ifdef HUMIDISTAT_UI_CHAR
@@ -49,10 +48,10 @@ CharDisplayUI ui(&liquidCrystal, &buttonReader, &humidistat, trsp);
 #include <U8g2lib.h>
 #include "ui/GraphicalDisplayUI.h"
 U8G2_ST7920_128X64_F_HW_SPI u8g2(U8G2_R0, config::PIN_LCD_CS);
-GraphicalDisplayUI ui(&u8g2, &buttonReader, &humidistat, trsp, &eepromConfig);
+GraphicalDisplayUI<cHumidistat> ui(&u8g2, &buttonReader, &humidistat, trsp, &eepromConfig);
 #endif
 
-SerialLogger serialLogger(&humidistat, trsp, eepromConfig.configStore.dt);
+SerialLogger<cHumidistat> serialLogger(&humidistat, trsp, eepromConfig.configStore.dt);
 
 void setup() {
 #ifdef ARDUINO_AVR_UNO
@@ -66,7 +65,8 @@ void setup() {
 }
 
 void loop() {
+	buttonReader.sample();
 	ui.update();
-	humidistat.update(config::PIN_S1, config::PIN_S2);
+	humidistat.update();
 	serialLogger.update();
 }

@@ -1,9 +1,8 @@
 #include <Arduino.h>
 #include "ControllerUI.h"
 
-ControllerUI::ControllerUI(Print *display, const ButtonReader *buttonReader, Humidistat *humidistat,
-                           Array<const ThermistorReader *, 4> trs) :
-		display(*display), buttonReader(*buttonReader), humidistat(*humidistat), trs(trs) {}
+ControllerUI::ControllerUI(Print *display, const ButtonReader *buttonReader, Array<const ThermistorReader *, 4> trs)
+	: display(*display), buttonReader(*buttonReader), trs(trs) {}
 
 void ControllerUI::update() {
 	// Show splash screen and info (draw it once) for a short time after boot
@@ -27,15 +26,17 @@ void ControllerUI::update() {
 		screenCleared = true;
 	}
 
-	if (millis() - lastPressed >= inputInterval) {
-		bool pressed = handleInput(buttonReader.read());
-
-		if (pressed) {
+	Buttons state = buttonReader.isPressed();
+	uint32_t pressedFor = buttonReader.getPressedFor();
+	// Debouncing: only call the input handler if it has been at least inputInterval since the last action, and if
+	// the keypress has been stable for at least buttonDebounceInterval
+	if (millis() - lastPressed >= inputInterval && pressedFor > buttonDebounceInterval) {
+		if (handleInput(state, pressedFor/1000)) {
 			lastPressed = millis();
 			draw();
 		}
 	}
-	if (millis() - lastRefreshed >= RefreshInterval) {
+	if (millis() - lastRefreshed >= refreshInterval) {
 		draw();
 	}
 }
@@ -64,7 +65,7 @@ void ControllerUI::printNTC(uint8_t col, uint8_t row, uint8_t i) {
 	}
 }
 
-void ControllerUI::adjustValue(int8_t delta, uint8_t &value, uint8_t min, uint8_t max) {
+void ControllerUI::adjustValue(int8_t delta, double &value, uint8_t min, uint8_t max) {
 	// Clip value to [min, max] before uint overflow happens
 	if(value + delta < min) {
 		value = min;

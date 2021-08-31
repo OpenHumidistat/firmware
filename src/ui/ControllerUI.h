@@ -5,8 +5,8 @@
 #include <Array.h>
 #include <Print.h>
 
+#include CONFIG_HEADER
 #include "input/ButtonReader.h"
-#include "Humidistat.h"
 #include "sensor/ThermistorReader.h"
 #include "asprintf.h"
 
@@ -16,11 +16,14 @@ class ControllerUI {
 private:
 	Print &display;
 	const ButtonReader &buttonReader;
-	unsigned long lastPressed = 0;        //!< Last time a button was pressed (in millis)
-	const uint16_t RefreshInterval = 100; //!< Interval for updating the display (in millis)
-	const uint16_t blinkInterval = 500;   //!< Interval for blinking displays (in millis)
-	const uint16_t splashDuration = 1000; //!< Duration for which to show the splash screen (in millis)
-	const uint16_t infoDuration = 3000;   //!< Duration for which to show the info screen (in millis)
+
+	unsigned long lastPressed = 0; //!< Last time a keypress event occurred (in millis)
+
+	const uint16_t buttonDebounceInterval = config::buttonDebounceInterval;
+	const uint16_t inputInterval = config::inputInterval;
+	const uint16_t blinkInterval = config::blinkInterval;
+	const uint16_t splashDuration = config::splashDuration;
+	const uint16_t infoDuration = config::infoDuration;
 
 	bool splashDrawn = false;
 	bool infoDrawn = false;
@@ -41,27 +44,26 @@ private:
 	virtual void setCursor(uint8_t col, uint8_t row) = 0;
 
 	/// Handle input.
-	/// \param button Button
+	/// \param state Keypad state
+	/// \param pressedFor Duration the key has been pressed (in millis)
 	/// \return 1 if button was pressed, 0 if not
-	virtual bool handleInput(Buttons button) = 0;
+	virtual bool handleInput(Buttons state, uint16_t pressedFor) = 0;
 
 protected:
-	Humidistat &humidistat;
 	Array<const ThermistorReader*, 4> trs;
 
-	unsigned long lastRefreshed = 0;    //!< Last time display was updated (in millis)
-	const uint8_t adjustStep = 5;       //!< Step size by which to in-/de-crement for coarse adjustment
-	const uint8_t tolerance = 1;        //!< Tolerance in difference between process variable and setpoint outside
-	                                    //!< which the setpoint blinks (in percentage points)
-	const uint16_t inputInterval = 200; //!< Polling interval for reading buttons (in millis)
+	unsigned long lastRefreshed = 0; //!< Last time display was updated (in millis)
+
+	const uint16_t refreshInterval = config::refreshInterval;
+	const uint8_t adjustStep = config::adjustStep;
+	const uint8_t tolerance = config::tolerance;
 
 	/// Constructor.
 	/// \param display      Pointer to a Print instance
 	/// \param buttonReader Pointer to a ButtonReader instance
 	/// \param humidistat   Pointer to a Humidistat instance
 	/// \param trs          Array of 4 pointers to ThermistorReader instances
-	explicit ControllerUI(Print *display, const ButtonReader *buttonReader, Humidistat *humidistat,
-	                      Array<const ThermistorReader *, 4> trs);
+	explicit ControllerUI(Print *display, const ButtonReader *buttonReader, Array<const ThermistorReader *, 4> trs);
 
 	/// Print blinking text.
 	/// \param col LCD column
@@ -80,7 +82,7 @@ protected:
 	/// \param value  Value to adjust
 	/// \param min    Lower limit
 	/// \param max    Upper limit
-	static void adjustValue(int8_t delta, uint8_t &value, uint8_t min, uint8_t max);
+	static void adjustValue(int8_t delta, double &value, uint8_t min, uint8_t max);
 
 	/// Print formatted data to display, at (col, row). Calculates lengths and creates appropriate buffer internally.
 	/// \param col  LCD column

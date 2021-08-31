@@ -1,6 +1,8 @@
 #ifndef HUMIDISTAT_ASPRINTF_H
 #define HUMIDISTAT_ASPRINTF_H
 
+#include <Arduino.h>
+
 /// Print formatted data to string. Automatically allocates string on the heap. Make sure to delete it
 /// immediately afterwards.
 /// \param fmt  Format string

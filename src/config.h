@@ -1,5 +1,5 @@
-#ifndef HUMIDISTAT_CONFIG_V1_H
-#define HUMIDISTAT_CONFIG_V1_H
+#ifndef HUMIDISTAT_CONFIG_H
+#define HUMIDISTAT_CONFIG_H
 
 #include <Arduino.h>
 
@@ -17,6 +17,10 @@
 /// PIN_BTN specified below.
 #define HUMIDISTAT_INPUT_KS0466
 
+/// Define either HUMIDISTAT_CONTROLLER_SINGLE or HUMIDISTAT_CONTROLLER_CASCADE. In the latter case, flow sensors
+/// must be connected to PIN_F1 and PIN_F2.
+#define HUMIDISTAT_CONTROLLER_SINGLE
+
 namespace config {
 	/// Serial communication symbol rate (baud)
 	const uint32_t serialRate = 115200;
@@ -28,15 +32,27 @@ namespace config {
 	const uint8_t EEPROMAddress = 0;
 
 	/// Global interval for PID/logger (based on polling rate of sensor, in millis)
-	const uint16_t dt = 200;
+	const uint16_t dt = 250;
 
 	///@{
-	/// PID parameters
-	const uint8_t lowValue = 210;
-	const double Kp = 1.00;
-	const double Ki = 0.025;
-	const double Kd = 2.50;
+	/// Humidity controller PID parameters
+	const double HC_Kp = 1.00;
+	const double HC_Ki = 0.025;
+	const double HC_Kd = 2.50;
 	///@}
+
+	///@{
+	/// Flow controller PID parameters
+	const double FC_Kp = 1.00;
+	const double FC_Ki = 1.00;
+	const double FC_Kd = 1.00;
+	///@}
+
+	/// Minimum solenoid duty cycle (deadband)
+	const uint8_t S_lowValue = 210;
+
+	/// Total flowrate (for cascade controller) (L/min)
+	const double HC_totalFlowrate = 2;
 
 	///@{
 	/// Pins
@@ -44,6 +60,8 @@ namespace config {
 	const uint8_t PIN_BTN = A0;
 	const uint8_t PIN_S1 = 3;
 	const uint8_t PIN_S2 = 4;
+	const uint8_t PIN_F1 = A1;
+	const uint8_t PIN_F2 = A2;
 	///@}
 
 	///@{
@@ -58,7 +76,42 @@ namespace config {
 
 	/// ST7920 LCD pins
 	const uint8_t PIN_LCD_CS = 10;
+
+	/// For debouncing: interval the keypad state must be stable for (in micros)
+	const uint16_t buttonDebounceInterval = 500;
+
+	/// Repeat interval for keypress events (in millis)
+	const uint16_t inputInterval = 200;
+
+	/// Interval for blinking display elements (in millis)
+	const uint16_t blinkInterval = 500;
+
+	/// Duration for which to show the splash screen (in millis)
+	const uint16_t splashDuration = 1000;
+
+	/// Duration for which to show the info screen (in millis)
+	const uint16_t infoDuration = 3000;
+
+	/// Interval for updating the display (in millis)
+	const uint16_t refreshInterval = 100;
+
+	/// Step size by which to in-/de-crement for coarse adjustment
+	const uint8_t adjustStep = 5;
+
+	/// Tolerance in difference between process variable and setpoint outside which the setpoint blinks (in
+	/// percentage points)
+	const uint8_t tolerance = 1;
+
+	///@{
+	/// For GraphicalDisplayUI:
+
+	/// Duration for counting a press as 'long' (in millis)
+	const uint16_t longPressDuration = 500;
+
+	/// Cooldown on saving the config to EEPROM (in refresh cycles)
+	const uint8_t configSaveCooldown = 20 * 1000 / refreshInterval;
+	///@}
 }
 
 
-#endif //HUMIDISTAT_CONFIG_V1_H
+#endif //HUMIDISTAT_CONFIG_H
