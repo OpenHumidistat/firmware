@@ -6,7 +6,7 @@
 FlowSensor::FlowSensor(uint8_t pin) : pin(pin) {}
 
 double FlowSensor::readFlowrate() const {
-	uint16_t value = analogRead(pin);
+	double value = analogRead(pin);
 
 	// Calculate flowrate from voltage using polynomial approximation
 	return ( coeffs[0] * ipow(value, 5)
