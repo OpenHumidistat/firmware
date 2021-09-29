@@ -15,4 +15,8 @@ void SingleHumidistat::update() {
 	analogWrite(pins_solenoid[0], static_cast<int>(cv * ipow(2, pwmRes)));
 	analogWrite(pins_solenoid[1], static_cast<int>((pid.cvMin + 1 - cv) * ipow(2, pwmRes)));
 }
+
+void SingleHumidistat::updatePIDParameters() {
+	pid.setGains(cs.HC_Kp, cs.HC_Ki, cs.HC_Kd, cs.dt);
+	pid.cvMin = cs.S_lowValue;
 }

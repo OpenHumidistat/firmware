@@ -26,6 +26,9 @@ public:
 	/// Run the humidistat:
 	/// Read the humidity, run a cycle of the PID loop and drive the solenoid valves at the appropriate value.
 	void update();
+
+	/// Update the PID parameters from the configStore.
+	void updatePIDParameters();
 };
 
 #endif //HUMIDISTAT_SINGLEHUMIDISTAT_H

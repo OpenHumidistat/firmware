@@ -38,9 +38,6 @@ public:
 
 	double getCvMin() const;
 	double getCvMax() const;
-
-	/// Update the PID parameters from the configStore.
-	void updatePIDParameters();
 };
 
 

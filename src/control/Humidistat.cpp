@@ -12,11 +12,6 @@ double Humidistat::getTemperature() const {
 	return hs.getTemperature();
 }
 
-void Humidistat::updatePIDParameters() {
-	pid.setGains(cs.HC_Kp, cs.HC_Ki, cs.HC_Kd, cs.dt);
-	pid.cvMin = cs.S_lowValue;
-}
-
 void Humidistat::runCycle() {
 	if (millis() - sensorLastRead < cs.dt)
 		return;
