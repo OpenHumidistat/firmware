@@ -10,6 +10,7 @@
 #include "ControllerUI.h"
 #include "EEPROMConfig.h"
 #include "../control/SingleHumidistat.h"
+#include "../control/CascadeHumidistat.h"
 
 /// TUI for 128*64 px graphical display using U8g2.
 /// Holds references to a U8g2lib instance for writing to display, an EEPROMConfig instance to edit the config, and
@@ -275,6 +276,7 @@ private:
 	}
 
 public:
+	///@{
 	/// Constructor.
 	/// \param u8g2         Pointer to a U8G2 instance
 	/// \param buttonReader Pointer to a ButtonReader instance
@@ -291,6 +293,21 @@ public:
 					{&eepromConfig->configStore.dt,         "dt"},
 					{&eepromConfig->configStore.S_lowValue, "LV"},
 			} {}
+
+	explicit GraphicalDisplayUI(U8G2 *u8g2, const ButtonReader *buttonReader, CascadeHumidistat *humidistat,
+	                            Array<const ThermistorReader *, 4> trs, EEPROMConfig *eepromConfig)
+			: ControllerUI(u8g2, buttonReader, trs), u8g2(*u8g2), eepromConfig(*eepromConfig),
+			humidistat(*humidistat), nConfigPars(8), configPars{
+					{&eepromConfig->configStore.HC_Kp,      "HKp"},
+					{&eepromConfig->configStore.HC_Ki,      "HKi"},
+					{&eepromConfig->configStore.HC_Kd,      "HKd"},
+					{&eepromConfig->configStore.FC_Kp,      "FKp"},
+					{&eepromConfig->configStore.FC_Ki,      "FKi"},
+					{&eepromConfig->configStore.FC_Kd,      "FKd"},
+					{&eepromConfig->configStore.dt,         "dt"},
+					{&eepromConfig->configStore.S_lowValue, "LV"},
+			} {}
+	///@}
 
 	void begin() override {
 		SPI.begin();
@@ -326,6 +343,28 @@ void GraphicalDisplayUI<SingleHumidistat>::drawMain() {
 			printNTC(105, 23 - 9 * i, i);
 		}
 	}
+}
+
+template<>
+void GraphicalDisplayUI<CascadeHumidistat>::drawMain() {
+	DrawMainCommon();
+
+	// Flow box
+	u8g2.drawFrame(50, 13, 65, 33);
+	u8g2.drawStr(55, 23, "F");
+	u8g2.drawStr(66, 23, "wet");
+	u8g2.drawStr(91, 23, "dry");
+	u8g2.drawHLine(50, 26, 64);
+	u8g2.drawVLine(64, 13, 33);
+	u8g2.drawVLine(89, 13, 33);
+
+	u8g2.drawStr(52, 35, "PV");
+	u8g2.drawStr(52, 44, "CV");
+
+	printf(65, 35, "%3.2f", humidistat.getInner(0)->pv);
+	printf(65, 44, "%3.0f%%", humidistat.getInner(0)->cv * 100);
+	printf(90, 35, "%3.2f", humidistat.getInner(1)->pv);
+	printf(90, 44, "%3.0f%%", humidistat.getInner(1)->cv * 100);
 }
 
 #endif //HUMIDISTAT_GRAPHICALDISPLAYUI_H

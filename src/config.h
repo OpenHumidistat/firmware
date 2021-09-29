@@ -19,7 +19,7 @@
 
 /// Define either HUMIDISTAT_CONTROLLER_SINGLE or HUMIDISTAT_CONTROLLER_CASCADE. In the latter case, flow sensors
 /// must be connected to PIN_F1 and PIN_F2.
-#define HUMIDISTAT_CONTROLLER_SINGLE
+#define HUMIDISTAT_CONTROLLER_CASCADE
 
 namespace config {
 	/// Serial communication symbol rate (baud)
@@ -43,9 +43,9 @@ namespace config {
 
 	/// @name Flow controller PID parameters
 	///@{
-	const double FC_Kp = 1.00;
-	const double FC_Ki = 1.00;
-	const double FC_Kd = 1.00;
+	const double FC_Kp = 0.005;
+	const double FC_Ki = 0.05;
+	const double FC_Kd = 0;
 	///@}
 
 	/// Minimum solenoid duty cycle (deadband)
@@ -99,7 +99,7 @@ namespace config {
 	const uint16_t refreshInterval = 100;
 
 	/// Step size by which to in-/de-crement for coarse adjustment
-	const uint8_t adjustStep = 5;
+	const uint8_t adjustStep = 10;
 
 	/// Tolerance in difference between process variable and setpoint outside which the setpoint blinks (in
 	/// percentage points)
