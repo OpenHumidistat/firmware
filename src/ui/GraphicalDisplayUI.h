@@ -191,16 +191,16 @@ private:
 				// Advance current config parameter
 				currentPar = (currentPar + 1) % nConfigPars;
 				return true;
-				case Buttons::SELECT:
-					if (pressedFor > longPressDuration) {
-						eepromConfig.reset();
-						// Check that cooldown has elapsed
-					} else if (configSaveTimer == 0) {
-						eepromConfig.save();
-						configSaveTimer = configSaveCooldown;
-					}
-					humidistat.updatePIDParameters();
-					return true;
+			case Buttons::SELECT:
+				if (pressedFor > longPressDuration) {
+					eepromConfig.reset();
+					// Check that cooldown has elapsed
+				} else if (configSaveTimer == 0) {
+					eepromConfig.save();
+					configSaveTimer = configSaveCooldown;
+				}
+				humidistat.updatePIDParameters();
+				return true;
 		}
 		configPars[currentPar].adjust(sign);
 	}
