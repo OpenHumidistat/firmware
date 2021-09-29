@@ -27,13 +27,19 @@ Array<ThermistorReader *, 4> trsp{{}};
 
 // Input
 VoltLadder voltLadder;
-
 ButtonReader buttonReader(config::PIN_BTN, &voltLadder);
+
 EEPROMConfig eepromConfig;
 
+// PWM frequency and resolution: MCU-dependent
+#ifdef ARDUINO_TEENSYLC
+const uint8_t pwmRes = 16;
+#else
+const uint8_t pwmRes = 8;
+#endif
 #ifdef HUMIDISTAT_CONTROLLER_SINGLE
 #include "control/SingleHumidistat.h"
-SingleHumidistat humidistat(&eepromConfig.configStore, &hs, {{config::PIN_S1, config::PIN_S2}});
+SingleHumidistat humidistat(&eepromConfig.configStore, &hs, {{config::PIN_S1, config::PIN_S2}}, pwmRes);
 using cHumidistat = SingleHumidistat;
 #endif
 
@@ -57,6 +63,12 @@ void setup() {
 #ifdef ARDUINO_AVR_UNO
 	// Set PWM frequency on D3 and D11 to 245.10 Hz
 	TCCR2B = TCCR2B & B11111000 | B00000101;
+#endif
+#ifdef ARDUINO_TEENSYLC
+	// Set PWM frequency to 250 Hz
+	analogWriteFrequency(config::PIN_S1, 250);
+	// Increase PWM resolution from default 8-bits
+	analogWriteResolution(pwmRes);
 #endif
 
 	hs.begin();

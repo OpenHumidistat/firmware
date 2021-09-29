@@ -25,7 +25,7 @@ struct ConfigStore {
 	///@}
 
 	/// Minimum solenoid duty cycle (deadband)
-	uint8_t S_lowValue;
+	double S_lowValue;
 
 	/// Total flowrate (for cascade controller) (L/min)
 	double HC_totalFlowrate;

@@ -36,9 +36,9 @@ namespace config {
 
 	/// @name Humidity controller PID parameters
 	///@{
-	/// Humidity controller PID parameters
-	const double HC_Kp = 1.00;
-	const double HC_Ki = 0.025;
+	const double HC_Kp = 1.00 / 128;
+	const double HC_Ki = 0.025 / 128;
+	const double HC_Kd = 2.50 / 128;
 	///@}
 
 	/// @name Flow controller PID parameters
@@ -49,7 +49,7 @@ namespace config {
 	///@}
 
 	/// Minimum solenoid duty cycle (deadband)
-	const uint8_t S_lowValue = 210;
+	const double S_lowValue = 0.75;
 
 	/// Total flowrate (for cascade controller) (L/min)
 	const double HC_totalFlowrate = 2;

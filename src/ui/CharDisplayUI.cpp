@@ -55,7 +55,7 @@ void CharDisplayUI::drawSplash() {
 
 void CharDisplayUI::drawInfo() {
 	liquidCrystal.clear();
-	printf(0, 0, "dt %4u lv %3u",
+	printf(0, 0, "dt %4u lv %f",
 	       humidistat.getConfigStore()->dt,
 	       humidistat.getConfigStore()->S_lowValue
 	);
@@ -96,7 +96,7 @@ bool CharDisplayUI::handleInput(Buttons state, uint16_t pressedFor) {
 	if (humidistat.active) {
 		adjustValue(delta, humidistat.sp, 0, 100);
 	} else {
-		adjustValue(delta, humidistat.cv, humidistat.getConfigStore()->S_lowValue, 255);
+		adjustValue(delta, humidistat.cv, humidistat.getCvMin(), 255);
 	}
 	return true;
 }
