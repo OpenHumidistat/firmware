@@ -1,11 +1,9 @@
 #include "PID.h"
 
 PID::PID(const double *pv, double *cv, const double *sp, double Kp, double Ki, double Kd, double Kf, uint16_t dt,
-		 double cvMin,
-         double cvMax)
+		 double cvMin, double cvMax)
 	: pv(*pv), cv(*cv), sp(*sp), cvMin(cvMin), cvMax(cvMax) {
 	setGains(Kp, Ki, Kd, Kf, dt);
-	init();
 }
 
 void PID::init() {
