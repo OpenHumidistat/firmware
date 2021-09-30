@@ -3,7 +3,7 @@
 CascadeHumidistat::CascadeHumidistat(HumiditySensor *hs, const ConfigStore *cs,
                                      Array<const FlowSensor *, 2> flowSensors, Array<uint8_t, 2> pins_solenoid,
 									 uint8_t pwmRes)
-		: Humidistat(cs, hs, cs->HC_Kp, cs->HC_Ki, cs->HC_Kd, cs->dt, 0, cs->HC_totalFlowrate),
+		: Humidistat(cs, hs, cs->HC_Kp, cs->HC_Ki, cs->HC_Kd, cs->HC_Kf, cs->dt, 0, cs->HC_totalFlowrate),
 		  fcs{FlowController(flowSensors[0], cs, pins_solenoid[0], pwmRes),
 		      FlowController(flowSensors[1], cs, pins_solenoid[1], pwmRes)} {
 	fcs[0].active = true;
@@ -26,5 +26,7 @@ const FlowController *CascadeHumidistat::getInner(uint8_t n) const {
 }
 
 void CascadeHumidistat::updatePIDParameters() {
-
+	pid.setGains(cs.HC_Kp, cs.HC_Ki, cs.HC_Kd, cs.HC_Kf, cs.dt);
+	fcs[0].updatePIDParameters();
+	fcs[1].updatePIDParameters();
 }

@@ -27,13 +27,14 @@ public:
 	/// \param Kp Proportional gain
 	/// \param Ki Integral gain (in 1/s)
 	/// \param Kd Derivative gain (in s)
+	/// \param Kf Feed-forward gain
 	/// \param dt Timestep (in ms)
 	/// \param cvMin Lower limit for control value
 	/// \param cvMax Upper limit for control value
 	/// \param defaultSP Default value for the setpoint
 	/// \param defaultCV Default value for the control variable
-	Controller(const ConfigStore *cs, double Kp, double Ki, double Kd, uint16_t dt, double cvMin, double cvMax,
-	           double defaultSP, double defaultCV);
+	Controller(const ConfigStore *cs, double Kp, double Ki, double Kd, double Kf, uint16_t dt, double cvMin,
+			   double cvMax, double defaultSP, double defaultCV);
 
 	/// Get the three PID terms by reference.
 	/// \param pTerm
@@ -47,7 +48,7 @@ public:
 
 	/// Get a pointer to the ConfigStore instance.
 	/// \return pointer to the ConfigStore instance.
-	const ConfigStore* getConfigStore();
+	const ConfigStore *getConfigStore();
 };
 
 

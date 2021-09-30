@@ -15,6 +15,7 @@ struct ConfigStore {
 	double HC_Kp;
 	double HC_Ki;
 	double HC_Kd;
+	double HC_Kf;
 	///@}
 
 	///@{
@@ -22,6 +23,7 @@ struct ConfigStore {
 	double FC_Kp;
 	double FC_Ki;
 	double FC_Kd;
+	double FC_Kf;
 	///@}
 
 	/// Minimum solenoid duty cycle (deadband)
@@ -37,10 +39,12 @@ struct ConfigStore {
 	config::HC_Kp,
 	config::HC_Ki,
 	config::HC_Kd,
+	config::HC_Kf,
 
 	config::FC_Kp,
 	config::FC_Ki,
 	config::FC_Kd,
+	config::FC_Kf,
 
 	config::S_lowValue,
 	config::HC_totalFlowrate

@@ -39,6 +39,7 @@ namespace config {
 	const double HC_Kp = 1.00 / 128;
 	const double HC_Ki = 0.025 / 128;
 	const double HC_Kd = 2.50 / 128;
+	const double HC_Kf = 0.01;
 	///@}
 
 	/// @name Flow controller PID parameters
@@ -46,6 +47,7 @@ namespace config {
 	const double FC_Kp = 0.005;
 	const double FC_Ki = 0.05;
 	const double FC_Kd = 0;
+	const double FC_Kf = 0;
 	///@}
 
 	/// Minimum solenoid duty cycle (deadband)

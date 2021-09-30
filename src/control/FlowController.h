@@ -18,6 +18,8 @@ public:
 	FlowController(const FlowSensor *fs, const ConfigStore *cs, uint8_t solenoidPin, uint8_t pwmRes);
 
 	void update();
+
+	void updatePIDParameters();
 };
 
 
