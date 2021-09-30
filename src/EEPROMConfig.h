@@ -24,6 +24,7 @@ struct ConfigStore {
 	double FC_Ki;
 	double FC_Kd;
 	double FC_Kf;
+	uint16_t FC_dt;
 	///@}
 
 	/// Minimum solenoid duty cycle (deadband)
@@ -45,6 +46,7 @@ struct ConfigStore {
 	config::FC_Ki,
 	config::FC_Kd,
 	config::FC_Kf,
+	config::FC_dt,
 
 	config::S_lowValue,
 	config::HC_totalFlowrate

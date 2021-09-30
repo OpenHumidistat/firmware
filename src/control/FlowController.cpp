@@ -3,11 +3,11 @@
 #include "ipow.h"
 
 FlowController::FlowController(const FlowSensor *fs, const ConfigStore *cs, uint8_t solenoidPin, uint8_t pwmRes)
-		: Controller(cs, cs->FC_Kp, cs->FC_Ki, cs->FC_Kd, cs->FC_Kf, cs->dt, cs->S_lowValue, 1, 0, cs->S_lowValue),
+		: Controller(cs, cs->FC_Kp, cs->FC_Ki, cs->FC_Kd, cs->FC_Kf, cs->FC_dt, cs->S_lowValue, 1, 0, cs->S_lowValue),
 		  fs(*fs), solenoidPin(solenoidPin), pwmRes(pwmRes) {}
 
 void FlowController::update() {
-	if (millis() - sensorLastRead < cs.dt)
+	if (millis() - sensorLastRead < cs.FC_dt)
 		return;
 	sensorLastRead = millis();
 

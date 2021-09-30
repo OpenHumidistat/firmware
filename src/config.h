@@ -40,6 +40,7 @@ namespace config {
 	const double HC_Ki = 0.025 / 128;
 	const double HC_Kd = 2.50 / 128;
 	const double HC_Kf = 0.01;
+	const uint16_t FC_dt = 100;
 	///@}
 
 	/// @name Flow controller PID parameters
