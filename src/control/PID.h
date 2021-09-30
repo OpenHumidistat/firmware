@@ -3,8 +3,8 @@
 
 #include <stdint.h>
 
-/// PID controller in parallel form implemented in floating-point arithmetic. Features Derivative-on-Measurement and
-/// anti-windup through conditional integration.
+/// PID controller in parallel form implemented in floating-point arithmetic. Features Derivative-on-Measurement,
+/// anti-windup through conditional integration, bumpless transfer, and feed-forward.
 class PID {
 private:
 	const double &pv; //!< Process variable
@@ -38,6 +38,7 @@ public:
 	/// \param Kp Proportional gain
 	/// \param Ki Integral gain (in 1/s)
 	/// \param Kd Derivative gain (in s)
+	/// \param Kf Feed-forward gain
 	/// \param dt Timestep (in ms)
 	/// \param cvMin Lower limit for control value
 	/// \param cvMax Upper limit for control value
@@ -56,6 +57,7 @@ public:
 	/// \param Kp Proportional gain
 	/// \param Ki Integral gain (in 1/s)
 	/// \param Kd Derivative gain (in s)
+	/// \param Kf Feed-forward gain
 	/// \param dt Timestep (in ms)
 	void setGains(double Kp, double Ki, double Kd, double Kf, uint16_t dt);
 };

@@ -14,22 +14,21 @@ private:
 
 public:
 	/// Constructor.
-	/// \param hs
-	/// \param cs
-	/// \param flowSensors
-	/// \param pins_solenoid
+	/// \param cs            Pointer to a ConfigStore instance
+	/// \param hs            Pointer to a HumiditySensor instance
+	/// \param flowSensors   Array of 2 pointers to FlowSensor instances
+	/// \param pins_solenoid Array of 2 integers corresponding to the solenoid pins
 	/// \param pwmRes        PWM resolution (bits)
 	CascadeHumidistat(HumiditySensor *hs, const ConfigStore *cs, Array<const FlowSensor*, 2> flowSensors,
 					  Array<uint8_t, 2> pins_solenoid, uint8_t pwmRes);
 
-	///
-	void update();
-
-	///
-	/// \return
+	/// Get a pointer to a inner FlowController instance.
+	/// \param n the index of the FlowController (0 or 1)
+	/// \return pointer to the FlowController instance.
 	const FlowController* getInner(uint8_t n) const;
 
-	/// Update the PID parameters from the configStore.
+	// Overridden from Controller
+	void update();
 	void updatePIDParameters();
 };
 

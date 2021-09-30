@@ -46,6 +46,9 @@ public:
 	/// Typically reads a sensor, runs a cycle of the PID loop and drives some actuator.
 	void update();
 
+	/// Update the PID parameters from the configStore.
+	void updatePIDParameters();
+
 	/// Get a pointer to the ConfigStore instance.
 	/// \return pointer to the ConfigStore instance.
 	const ConfigStore *getConfigStore();

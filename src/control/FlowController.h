@@ -15,10 +15,15 @@ private:
 	const uint8_t pwmRes;
 
 public:
+	/// Constructor.
+	/// \param fs          Pointer to a FlowSensor instance
+	/// \param cs          Pointer to a ConfigStore instance
+	/// \param solenoidPin Solenoid pin
+	/// \param pwmRes      PWM resolution (bits)
 	FlowController(const FlowSensor *fs, const ConfigStore *cs, uint8_t solenoidPin, uint8_t pwmRes);
 
+	// Overridden from Controller
 	void update();
-
 	void updatePIDParameters();
 };
 

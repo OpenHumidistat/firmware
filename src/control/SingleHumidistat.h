@@ -23,11 +23,8 @@ public:
 	/// \param pwmRes        PWM resolution (bits)
 	SingleHumidistat(const ConfigStore *cs, HumiditySensor *hs, Array<uint8_t, 2> pins_solenoid, uint8_t pwmRes);
 
-	/// Run the humidistat:
-	/// Read the humidity, run a cycle of the PID loop and drive the solenoid valves at the appropriate value.
+	// Overridden from Controller
 	void update();
-
-	/// Update the PID parameters from the configStore.
 	void updatePIDParameters();
 };
 
