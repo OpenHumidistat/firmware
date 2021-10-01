@@ -197,6 +197,7 @@ private:
 					// Check that cooldown has elapsed
 				} else if (configSaveTimer == 0) {
 					eepromConfig.save();
+					humidistat.updatePIDParameters();
 					configSaveTimer = configSaveCooldown;
 				}
 				humidistat.updatePIDParameters();
