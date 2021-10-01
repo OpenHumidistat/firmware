@@ -3,12 +3,12 @@
 
 /// A class for storing references to variables of various types (uint8_t, uint16_t, or double).
 class ConfigPar {
+public:
 	enum class ConfigParType {
 		ui8,
 		ui16,
 		d,
 	};
-public:
 	// The nested struct is in order to have an overloaded constructor for the type and the union, but avoid
 	// having to strcopy the label
 	struct Var {
@@ -35,12 +35,16 @@ public:
 
 	/// Add delta to the variable.
 	/// \param delta Amount to add
-	void adjust(int8_t delta) const;
+	void adjust(int16_t delta) const;
 
 	/// Print "label: value" to string. Automatically allocates string on the heap. Make sure to delete it immediately
 	/// afterwards.
 	/// \return Pointer to char string
 	char *asprint() const;
+
+	/// Get magnitude (number of digits before the decimal separator) of variable
+	/// \return magnitude
+	uint8_t magnitude() const;
 };
 
 
