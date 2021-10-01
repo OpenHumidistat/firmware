@@ -119,8 +119,7 @@ private:
 		}
 		u8g2.drawStr(0, 54, "CV: ");
 		u8g2.setDrawColor(1);
-		u8g2.setCursor(20, 54);
-		u8g2.print(humidistat.cv);
+		printf(20, 54, "%3.0f%%", humidistat.cv * 100);
 
 		// Mode
 		if (humidistat.active)
