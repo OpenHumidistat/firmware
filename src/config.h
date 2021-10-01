@@ -36,9 +36,9 @@ namespace config {
 
 	/// @name Humidity controller PID parameters
 	///@{
-	const double HC_Kp = 1.00 / 128;
-	const double HC_Ki = 0.025 / 128;
-	const double HC_Kd = 2.50 / 128;
+	const double HC_Kp = 0.01;
+	const double HC_Ki = 0.001;
+	const double HC_Kd = 0.01;
 	const double HC_Kf = 0.01;
 	const uint16_t FC_dt = 100;
 	///@}
