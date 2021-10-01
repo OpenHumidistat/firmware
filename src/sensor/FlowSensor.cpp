@@ -1,7 +1,7 @@
 #include <Arduino.h>
 
 #include "FlowSensor.h"
-#include "ipow.h"
+#include "imath.h"
 
 FlowSensor::FlowSensor(uint8_t pin) : pin(pin) {}
 

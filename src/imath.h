@@ -1,5 +1,5 @@
-#ifndef HUMIDISTAT_IPOW_H
-#define HUMIDISTAT_IPOW_H
+#ifndef HUMIDISTAT_IMATH_H
+#define HUMIDISTAT_IMATH_H
 
 /// Constexpr function for computing integer power.
 /// \tparam T Base type
@@ -12,4 +12,4 @@ constexpr T ipow(T base, unsigned int pow) {
 	pow == 0 ? 1 : base * ipow(base, pow-1);
 }
 
-#endif //HUMIDISTAT_IPOW_H
+#endif //HUMIDISTAT_IMATH_H

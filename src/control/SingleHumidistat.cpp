@@ -1,7 +1,7 @@
 #include <Arduino.h>
 
 #include "SingleHumidistat.h"
-#include "ipow.h"
+#include "imath.h"
 
 SingleHumidistat::SingleHumidistat(const ConfigStore *cs, HumiditySensor *hs, Array<uint8_t, 2> pins_solenoid,
 								   uint8_t pwmRes)
