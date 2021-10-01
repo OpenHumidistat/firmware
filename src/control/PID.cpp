@@ -7,7 +7,9 @@ PID::PID(const double *pv, double *cv, const double *sp, double Kp, double Ki, d
 }
 
 void PID::init() {
-	integral = cv / Ki;
+	if(Ki != 0) {
+		integral = (cv - Kf * sp) / Ki;
+	}
 	lastPv = pv;
 	lastE = sp - pv;
 }
