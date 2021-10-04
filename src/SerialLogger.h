@@ -26,6 +26,7 @@ private:
 
 	/// Write a line to serial
 	void log();
+
 public:
 	/// Constructor.
 	/// \param humidistat Pointer to a Humidistat instance
@@ -43,14 +44,6 @@ public:
 
 	/// Log a line every interval, once data has been received
 	void update() {
-		if (ready) {
-			if (millis() - lastTime >= interval) {
-				lastTime = millis();
-				log();
-			}
-			return;
-		}
-
 		// Listen for RDY signal
 		if (Serial.available()) {
 			char buf[8];
@@ -61,6 +54,13 @@ public:
 				// Print header and set ready state
 				Serial.println(header);
 				ready = true;
+			}
+		}
+
+		if (ready) {
+			if (millis() - lastTime >= interval) {
+				lastTime = millis();
+				log();
 			}
 		}
 	}
