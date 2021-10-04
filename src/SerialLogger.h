@@ -67,11 +67,13 @@ public:
 };
 
 template<>
-const char SerialLogger<SingleHumidistat>::header[] = "Time Humidity Setpoint Temperature ControlValue T0 T1 T2 T3 pTerm iTerm dTerm";
+const char SerialLogger<SingleHumidistat>::header[] = "Time Humidity Setpoint Temperature ControlValue T0 T1 T2 T3 "
+													  "pTerm iTerm dTerm";
 
 template<>
-const char SerialLogger<CascadeHumidistat>::header[] = "Time PV SP T CV pTerm iTerm dTerm inner0PV inner0CV inner1PV "
-                                                       "inner1CV inner0pTerm inner0iTerm inner0dTerm "
+const char SerialLogger<CascadeHumidistat>::header[] = "Time PV SP T CV inner0PV inner0CV inner1PV inner1CV "
+													   "pTerm iTerm dTerm "
+                                                       "inner0pTerm inner0iTerm inner0dTerm "
                                                        "inner1pTerm inner1iTerm inner1dTerm";
 
 template<>
