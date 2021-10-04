@@ -36,10 +36,32 @@ args = parser.parse_args()
 
 signal.signal(signal.SIGINT, saveto_sigint_handler(args.output))
 
-ax_dist = [0, 0, 2, 1, 2, 2, 2, 2, 1, 1, 1]
+ax_dist = {
+	'PV': 0,
+	'SP': 0,
+	'T':  2,
+	'T0': 2,
+	'T1': 2,
+	'T2': 2,
+	'T3': 2,
+	'CV': 1, 
+	'pTerm': 1,
+	'iTerm': 1,
+	'dTerm': 1,
+	'inner0PV': 3,
+	'inner0CV': 4,
+	'inner1PV': 3,
+	'inner1CV': 4,
+	'inner0pTerm': 4,
+	'inner0iTerm': 4,
+	'inner0dTerm': 4,
+	'inner1pTerm': 4,
+	'inner1iTerm': 4,
+	'inner1dTerm': 4,
+}
 
 plt.ion()
-fig, axs = plt.subplots(max(ax_dist) + 1, sharex=True)
+fig, axs = plt.subplots(max(ax_dist.values()) + 1, sharex=True)
 axs[-1].set_xlabel('Time (s)')
 fig.show()
 
@@ -48,7 +70,7 @@ with SerialReader(args.port, args.baud) as sr:
 	data = [[] for column in sr.header]
 
 	# Setup empty plot
-	lines = [axs[ax_dist[i]].plot([], label=column)[0] for i, column in enumerate(sr.header[1:])]
+	lines = [axs[ax_dist[column]].plot([], label=column)[0] for column in sr.header[1:]]
 
 	for ax in axs:
 		ax.legend()
