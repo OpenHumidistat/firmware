@@ -176,7 +176,14 @@ private:
 			u8g2.drawBox(0, 36, 13, 9);
 			u8g2.setDrawColor(0);
 		}
-		u8g2.drawStr(0, 44, "SP");
+		{
+			char buf[] = "SP";
+			if (abs(humidistat.pv - humidistat.sp)/100 > tolerance) {
+				blink(0, 44, buf);
+			} else {
+				u8g2.drawStr(0, 44, buf);
+			}
+		}
 		u8g2.setDrawColor(1);
 
 		printf(14, 35, "%5.1f%%", humidistat.getHumidity());
@@ -482,8 +489,24 @@ void GraphicalDisplayUI<CascadeHumidistat>::drawMain() {
 	// Flow box
 	u8g2.drawFrame(50, 13, 65, 33);
 	u8g2.drawStr(55, 23, "F");
-	u8g2.drawStr(66, 23, "wet");
-	u8g2.drawStr(91, 23, "dry");
+
+	{
+		char buf[] = "wet";
+		if (abs(humidistat.getInner(0)->pv - humidistat.getInner(0)->sp) > tolerance) {
+			blink(66, 23, buf);
+		} else {
+			u8g2.drawStr(66, 23, buf);
+		}
+	}
+	{
+		char buf[] = "dry";
+		if (abs(humidistat.getInner(1)->pv - humidistat.getInner(1)->sp) > tolerance) {
+			blink(91, 23, buf);
+		} else {
+			u8g2.drawStr(91, 23, buf);
+		}
+	}
+
 	u8g2.drawHLine(50, 26, 64);
 	u8g2.drawVLine(64, 13, 33);
 	u8g2.drawVLine(89, 13, 33);

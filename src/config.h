@@ -106,7 +106,7 @@ namespace config {
 
 	/// Tolerance in difference between process variable and setpoint outside which the setpoint blinks (in
 	/// percentage points)
-	const uint8_t tolerance = 1;
+	const double tolerance = 0.01;
 	///@}
 
 	/// @name For GraphicalDisplayUI:

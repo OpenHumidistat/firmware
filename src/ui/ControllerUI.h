@@ -56,7 +56,7 @@ protected:
 
 	const uint16_t refreshInterval = config::refreshInterval;
 	const uint8_t adjustStep = config::adjustStep;
-	const uint8_t tolerance = config::tolerance;
+	const double tolerance = config::tolerance;
 
 	/// Constructor.
 	/// \param display      Pointer to a Print instance

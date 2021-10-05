@@ -13,7 +13,7 @@ void CharDisplayUI::draw() {
 	// Setpoint
 	{
 		char *buf = asprintf("%3.0f%%", humidistat.sp);
-		if (abs(humidistat.sp - humidistat.getHumidity()) > tolerance) {
+		if (abs(humidistat.sp - humidistat.getHumidity())/100 > tolerance) {
 			blink(7, 0, buf);
 		} else {
 			liquidCrystal.setCursor(7, 0);
