@@ -23,7 +23,7 @@ void CharDisplayUI::draw() {
 	}
 
 	// Control value
-	printf(12, 0, "%3.0f", humidistat.cv);
+	printf(12, 0, "%3.0f%%", humidistat.cv*100);
 
 	// Active status
 	liquidCrystal.setCursor(0, 0);
