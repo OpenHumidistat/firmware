@@ -284,7 +284,7 @@ private:
 		if (humidistat.active) {
 			adjustValue(delta, humidistat.sp, 0, 100);
 		} else {
-			adjustValue(delta, humidistat.cv, humidistat.getCvMin(), humidistat.getCvMax());
+			adjustValue(delta*0.01, humidistat.cv, humidistat.getCvMin(), humidistat.getCvMax());
 		}
 		return true;
 	}

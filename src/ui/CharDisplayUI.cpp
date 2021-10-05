@@ -96,7 +96,7 @@ bool CharDisplayUI::handleInput(Buttons state, uint16_t pressedFor) {
 	if (humidistat.active) {
 		adjustValue(delta, humidistat.sp, 0, 100);
 	} else {
-		adjustValue(delta, humidistat.cv, humidistat.getCvMin(), 255);
+		adjustValue(delta*0.01, humidistat.cv, humidistat.getCvMin(), humidistat.getCvMax());
 	}
 	return true;
 }
