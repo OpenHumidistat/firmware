@@ -55,12 +55,12 @@ void CharDisplayUI::drawSplash() {
 
 void CharDisplayUI::drawInfo() {
 	liquidCrystal.clear();
-	printf(0, 0, "dt %4u lv %f",
+	printf(0, 0, "%4u %3.2f %4.3f",
 	       humidistat.getConfigStore()->dt,
-	       humidistat.getConfigStore()->S_lowValue
+	       humidistat.getConfigStore()->S_lowValue,
+	       humidistat.getConfigStore()->HC_Kp
 	);
-	printf(0, 1, "%3.2f %4.3f %3.2f",
-	       humidistat.getConfigStore()->HC_Kp,
+	printf(0, 1, "%4.3f %4.3f",
 	       humidistat.getConfigStore()->HC_Ki,
 	       humidistat.getConfigStore()->HC_Kd
 	);
