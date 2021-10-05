@@ -18,7 +18,7 @@ private:
 public:
 	/// Constructor.
 	/// \param pin NTC pin number
-	ThermistorReader(uint8_t pin);
+	explicit ThermistorReader(uint8_t pin);
 
 	/// Get the temperature of the thermistor.
 	/// \return Temperature (Celsius)

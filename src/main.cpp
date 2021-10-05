@@ -16,7 +16,7 @@
 DHT dht(config::PIN_DHT, DHT22);
 DHTHumiditySensor hs(&dht);
 //                        NTC pins
-ThermistorReader trs[] = {1, 2, 3, 4};
+ThermistorReader trs[] = {ThermistorReader(1), ThermistorReader(2), ThermistorReader(3), ThermistorReader(4)};
 Array<ThermistorReader*, 4> trsp{{&trs[0], &trs[1], &trs[2], &trs[3]}};
 #endif
 #ifdef HUMIDISTAT_SHT
