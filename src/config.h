@@ -32,7 +32,12 @@ namespace config {
 	const uint8_t EEPROMAddress = 0;
 
 	/// Global interval for PID/logger (based on polling rate of sensor, in millis)
+#ifdef HUMIDISTAT_DHT
+	const uint16_t dt = 500;
+#endif
+#ifdef HUMIDISTAT_SHT
 	const uint16_t dt = 250;
+#endif
 
 	/// @name Humidity controller PID parameters
 	///@{
