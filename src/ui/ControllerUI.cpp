@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include "ControllerUI.h"
 
 ControllerUI::ControllerUI(Print *display, const ButtonReader *buttonReader, Array<const ThermistorReader *, 4> trs)

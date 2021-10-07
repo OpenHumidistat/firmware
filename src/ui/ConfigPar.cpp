@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <math.h>
 
 #include "ConfigPar.h"
 #include "asprintf.h"

@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include "Controller.h"
 
 Controller::Controller(const ConfigStore *cs, double Kp, double Ki, double Kd, double Kf, uint16_t dt, double cvMin,

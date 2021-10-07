@@ -1,7 +1,7 @@
 #ifndef HUMIDISTAT_SHTHUMIDITYSENSOR_H
 #define HUMIDISTAT_SHTHUMIDITYSENSOR_H
 
-#include <Arduino.h>
+#include <math.h>
 #include <Wire.h>
 #include <SHTSensor.h>
 
