@@ -30,7 +30,7 @@ char *ConfigPar::asprint() const {
 }
 
 uint8_t ConfigPar::magnitude() const {
-	auto mag = [](auto n) {return floor(ilog10(floor(abs(n))));};
+	auto mag = [](auto n) -> uint8_t {return floor(ilog10(floor(abs(n))));};
 
 	switch (var.type) {
 		case ConfigParType::ui8:
