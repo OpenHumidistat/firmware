@@ -8,6 +8,9 @@
 #include "../sensor/FlowSensor.h"
 #include "FlowController.h"
 
+/// Control humidity using cascade PID: outer PID loop sets setpoints of two inner flow controllers, which drive a
+/// solenoid valve each.
+/// Adjust the public setpoint variable and call update().
 class CascadeHumidistat : public Humidistat {
 private:
 	FlowController fcs[2];

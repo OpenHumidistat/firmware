@@ -9,7 +9,7 @@
 #include "EEPROMConfig.h"
 
 /// Control humidity using PID by driving two solenoid valves.
-/// Adjust the public setpoint variable and call update() with the solenoid pins to use.
+/// Adjust the public setpoint variable and call update().
 class SingleHumidistat : public Humidistat {
 private:
 	const uint8_t pins_solenoid[2];
