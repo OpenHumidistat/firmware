@@ -61,7 +61,6 @@ protected:
 	/// Constructor.
 	/// \param display      Pointer to a Print instance
 	/// \param buttonReader Pointer to a ButtonReader instance
-	/// \param humidistat   Pointer to a Humidistat instance
 	/// \param trs          Array of 4 pointers to ThermistorReader instances
 	explicit ControllerUI(Print *display, const ButtonReader *buttonReader, Array<const ThermistorReader *, 4> trs);
 
