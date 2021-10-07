@@ -16,7 +16,7 @@
 DHT dht(config::PIN_DHT, DHT22);
 DHTHumiditySensor hs(&dht);
 //                        NTC pins
-ThermistorReader trs[] = {1, 2, 3, 4};
+ThermistorReader trs[] = {ThermistorReader(1), ThermistorReader(2), ThermistorReader(3), ThermistorReader(4)};
 Array<ThermistorReader*, 4> trsp{{&trs[0], &trs[1], &trs[2], &trs[3]}};
 #endif
 #ifdef HUMIDISTAT_SHT
@@ -37,10 +37,20 @@ const uint8_t pwmRes = 16;
 #else
 const uint8_t pwmRes = 8;
 #endif
+
+// Humidity controller
 #ifdef HUMIDISTAT_CONTROLLER_SINGLE
 #include "control/SingleHumidistat.h"
 SingleHumidistat humidistat(&eepromConfig.configStore, &hs, {{config::PIN_S1, config::PIN_S2}}, pwmRes);
 using cHumidistat = SingleHumidistat;
+#endif
+#ifdef HUMIDISTAT_CONTROLLER_CASCADE
+#include "sensor/FlowSensor.h"
+#include "control/CascadeHumidistat.h"
+FlowSensor flowSensors[] = {FlowSensor(config::PIN_F1), FlowSensor(config::PIN_F2)};
+CascadeHumidistat humidistat(&hs, &eepromConfig.configStore, {{&flowSensors[0], &flowSensors[1]}},
+							 {{config::PIN_S1, config::PIN_S2}}, pwmRes);
+using cHumidistat = CascadeHumidistat;
 #endif
 
 // UI

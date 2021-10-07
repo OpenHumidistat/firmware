@@ -6,6 +6,7 @@
 
 #include "asprintf.h"
 #include "control/SingleHumidistat.h"
+#include "control/CascadeHumidistat.h"
 #include "sensor/ThermistorReader.h"
 
 /// Logs humidistat data over serial.
@@ -25,6 +26,7 @@ private:
 
 	/// Write a line to serial
 	void log();
+
 public:
 	/// Constructor.
 	/// \param humidistat Pointer to a Humidistat instance
@@ -42,14 +44,6 @@ public:
 
 	/// Log a line every interval, once data has been received
 	void update() {
-		if (ready) {
-			if (millis() - lastTime >= interval) {
-				lastTime = millis();
-				log();
-			}
-			return;
-		}
-
 		// Listen for RDY signal
 		if (Serial.available()) {
 			char buf[8];
@@ -62,11 +56,25 @@ public:
 				ready = true;
 			}
 		}
+
+		if (ready) {
+			if (millis() - lastTime >= interval) {
+				lastTime = millis();
+				log();
+			}
+		}
 	}
 };
 
 template<>
-const char SerialLogger<SingleHumidistat>::header[] = "Time Humidity Setpoint Temperature ControlValue T0 T1 T2 T3 pTerm iTerm dTerm";
+const char SerialLogger<SingleHumidistat>::header[] = "Time Humidity Setpoint Temperature ControlValue T0 T1 T2 T3 "
+													  "pTerm iTerm dTerm";
+
+template<>
+const char SerialLogger<CascadeHumidistat>::header[] = "Time PV SP T CV inner0PV inner0CV inner1PV inner1CV "
+													   "pTerm iTerm dTerm "
+                                                       "inner0pTerm inner0iTerm inner0dTerm "
+                                                       "inner1pTerm inner1iTerm inner1dTerm";
 
 template<>
 void SerialLogger<SingleHumidistat>::log() {
@@ -86,6 +94,40 @@ void SerialLogger<SingleHumidistat>::log() {
 	                     pTerm,
 	                     iTerm,
 	                     dTerm
+	);
+
+	Serial.println(buf);
+	delete buf;
+}
+
+template<>
+void SerialLogger<CascadeHumidistat>::log() {
+	double outerPTerm, outerITerm, outerDTerm;
+	humidistat.getTerms(outerPTerm, outerITerm, outerDTerm);
+
+	double innerPTerms[2], innerITerms[2], innerDTerms[2];
+	humidistat.getInner(0)->getTerms(innerPTerms[0], innerITerms[0], innerDTerms[0]);
+	humidistat.getInner(1)->getTerms(innerPTerms[1], innerITerms[1], innerDTerms[1]);
+
+	char *buf = asprintf("%lu %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f",
+	                     lastTime,
+	                     humidistat.getHumidity(),
+	                     humidistat.sp,
+	                     humidistat.getTemperature(),
+	                     humidistat.cv,
+	                     humidistat.getInner(0)->pv,
+	                     humidistat.getInner(0)->cv,
+	                     humidistat.getInner(1)->pv,
+	                     humidistat.getInner(1)->cv,
+	                     outerPTerm,
+	                     outerITerm,
+	                     outerDTerm,
+	                     innerPTerms[0],
+	                     innerITerms[0],
+	                     innerDTerms[0],
+	                     innerPTerms[1],
+	                     innerITerms[1],
+	                     innerDTerms[1]
 	);
 
 	Serial.println(buf);

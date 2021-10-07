@@ -3,16 +3,16 @@
 
 #include <stdint.h>
 
-/// PID controller in parallel form implemented in floating-point arithmetic. Features Derivative-on-Measurement and
-/// anti-windup through conditional integration.
+/// PID controller in parallel form implemented in floating-point arithmetic. Features Derivative-on-Measurement,
+/// anti-windup through conditional integration, bumpless transfer, and feed-forward.
 class PID {
 private:
 	const double &pv; //!< Process variable
 	double &cv;       //!< Control variable
 	const double &sp; //!< Setpoint
 
-	double Kp, Ki, Kd;   //!< Gains
-	uint16_t dt;         //!< Timestep
+	double Kp, Ki, Kd, Kf; //!< Gains
+	uint16_t dt;           //!< Timestep
 
 	bool inAuto = false; //!< Mode
 	double lastPv;       //!< Last value of pv
@@ -28,7 +28,7 @@ private:
 	double clip(double value) const;
 
 public:
-	double pTerm = 0, iTerm = 0, dTerm = 0; //!< PID terms
+	double pTerm = 0, iTerm = 0, dTerm = 0, fTerm = 0; //!< PID terms
 	double cvMin, cvMax;                    //!< Lower/upper limits for cv
 
 	/// Constructor.
@@ -38,11 +38,12 @@ public:
 	/// \param Kp Proportional gain
 	/// \param Ki Integral gain (in 1/s)
 	/// \param Kd Derivative gain (in s)
+	/// \param Kf Feed-forward gain
 	/// \param dt Timestep (in ms)
 	/// \param cvMin Lower limit for control value
 	/// \param cvMax Upper limit for control value
-	PID(const double *pv, double *cv, const double *sp, double Kp, double Ki, double Kd, uint16_t dt, double cvMin,
-	    double cvMax);
+	PID(const double *pv, double *cv, const double *sp, double Kp, double Ki, double Kd, double Kf, uint16_t dt,
+		double cvMin, double cvMax);
 
 	/// Run a cycle of the PID loop.
 	/// \return True if a PID step was run, and false if not.
@@ -56,8 +57,9 @@ public:
 	/// \param Kp Proportional gain
 	/// \param Ki Integral gain (in 1/s)
 	/// \param Kd Derivative gain (in s)
+	/// \param Kf Feed-forward gain
 	/// \param dt Timestep (in ms)
-	void setGains(double Kp, double Ki, double Kd, uint16_t dt);
+	void setGains(double Kp, double Ki, double Kd, double Kf, uint16_t dt);
 };
 
 #endif //HUMIDISTAT_PID_H

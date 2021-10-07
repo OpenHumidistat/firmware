@@ -56,12 +56,11 @@ protected:
 
 	const uint16_t refreshInterval = config::refreshInterval;
 	const uint8_t adjustStep = config::adjustStep;
-	const uint8_t tolerance = config::tolerance;
+	const double tolerance = config::tolerance;
 
 	/// Constructor.
 	/// \param display      Pointer to a Print instance
 	/// \param buttonReader Pointer to a ButtonReader instance
-	/// \param humidistat   Pointer to a Humidistat instance
 	/// \param trs          Array of 4 pointers to ThermistorReader instances
 	explicit ControllerUI(Print *display, const ButtonReader *buttonReader, Array<const ThermistorReader *, 4> trs);
 
@@ -82,7 +81,7 @@ protected:
 	/// \param value  Value to adjust
 	/// \param min    Lower limit
 	/// \param max    Upper limit
-	static void adjustValue(int8_t delta, double &value, uint8_t min, uint8_t max);
+	static void adjustValue(double delta, double &value, uint8_t min, uint8_t max);
 
 	/// Print formatted data to display, at (col, row). Calculates lengths and creates appropriate buffer internally.
 	/// \param col  LCD column

@@ -6,7 +6,10 @@
 This repository contains the Arduino firmware that implements a humidistat (humidity controller) by actuating two
 solenoid valves. The firmware can be used on a variety of 
 [Arduino-compatible boards](https://docs.platformio.org/en/latest/frameworks/arduino.html#boards), but is developed for
- and tested on the Arduino Uno and Teensy LC.
+ and tested on the following two MCU boards:
+
+- Arduino Uno (AVR ATmega328P)
+- Teensy LC (ARM Cortex-M0+)
 
 ![](docs/pic.jpg)
 
@@ -15,20 +18,71 @@ with the MCU over serial.
 
 ## Arduino
 ### Dependencies
-[PlatformIO Core](https://docs.platformio.org/en/latest/core/installation.html) is required for this step.
+[PlatformIO Core](https://docs.platformio.org/en/latest/core/installation.html) is required for building the firmware.
 
 ### Configuration
-Several configuration parameters are hardcoded in `config.h` that you might want/need to check. These include:
+The firmware is written in a modular way in order to ensure compatibility with multiple MCUs, sensors, controller 
+types, and even UIs, while still keeping to a single codebase. In order to configure the firmware, edit `src/config.h`.
+This file contains macros that control which modules are used, and a number of configurable constants.
 
-- Connected hardware options (sensor, display, and input)
+#### Humidistat type
+This firmware contains two variants of the actual humidity controller: `SingleHumidistat` and `CascadeHumidistat`.
+
+The former implements a single-loop PID controller that regulates the humidity by directly driving two solenoid 
+valves.
+
+In contrast, the latter implements cascade PID control: the outer humidity control loop adjusts the setpoints 
+of two inner (flow) control loops, that in turn drive a solenoid valve each. This control scheme leads to improved 
+stability and performance, but requires flow sensors to provide feedback to the inner controllers.
+
+To use the single-loop control, uncomment the line that defines `HUMIDISTAT_CONTROLLER_SINGLE`. To use cascade control, 
+uncomment the line that defines `HUMIDISTAT_CONTROLLER_CASCADE`. In the latter case, Omron D6F-P0010 flow sensors must 
+be connected to the pins defined by `PIN_F1` and `PIN_F1`.
+
+#### Humidity sensor type
+Two types of humidity sensors are supported: the DHT22/AM2302 sensors, and the Sensirion SHT85. The former uses an 
+ad-hoc single-wire protocol, and can be connected to any digital input pin (as defined by `PIN_DHT`). The latter 
+communicates over I2C, and as such must be connected to the MCU's hardware I2C bus.
+
+To use the DHT22/AM2302 sensor, uncomment the line that defines `HUMIDISTAT_DHT`. For the SHT85, uncomment the line 
+that defines `HUMIDISTAT_DHT`.
+
+#### Keypad type
+For input, two keypads are supported: the keypad integrated on the Keyestudio Ks0256 LCD1602 Expansion Shield, and the 
+Keyestudio Ks0466 Button Module (or clones). Both are 5-button (direction + select) resistance ladders, but their 
+button-resistance mappings differ.
+
+To use the keypad integrated on the Keyestudio Ks0256, uncomment the line that defines `HUMIDISTAT_INPUT_KS0256`. 
+For the Ks0466, uncomment the line that defines `HUMIDISTAT_INPUT_KS0466`.
+
+#### UI type
+This firmware comes with two separate UIs: one for a (HD44780-style) 16x2 character display called `CharDisplayUI`, 
+and a more elaborate UI for a (ST7920) 128x64 graphical display called `GraphicalDisplayUI`.
+
+For the `GraphicalDisplayUI`, in turn two variants exist (implemented as specialisations of the templatised class): 
+one for the aforementioned `SingleHumidistat` and `CascadeHumidistat`. This makes for a grand total of three 
+existing UI variants. (due to its limiting size, there is no UI for the `CascadeHumidistat` for the 16x2 character 
+display)
+
+To use the 16x2 character display, uncomment the line that defines `HUMIDISTAT_UI_CHAR`. For the 128x64 graphical 
+display, uncomment the line that defines `HUMIDISTAT_UI_GRAPH`.
+
+> :exclamation: Because of the ATmega328P's limited memory (both flash and RAM), the `GraphicalDisplayUI` cannot be 
+> used on the Arduino Uno. By extension, since the `CharDisplayUI` doesn't support `CascadeHumidistat`, 
+> `CascadeHumidistat` unfortunately cannot be used on the Arduino Uno.
+
+#### Constants
+Besides the macros discussed above, `config.h` contains a list of compile-time constants that you want to check and 
+possible modify. Some of these are customisable by the operator on the device itself, using the EEPROM.
+
 - Serial symbol rate
 - EEPROM settings
 - Arduino I/O pin numbers (for sensor, buttons, LCD, solenoid valves, thermistors)
 - PID/logger/sensor interval
 - PID parameters:
   - Low CV value (deadband)
-  - Gains (Kp, Ki, Kd)
-- PWM frequency
+  - Gains (Kp, Ki, Kd, Kf)
+- UI/input settings
 
 Make sure to set these parameters to their appropriate values before compilation.
 
@@ -40,6 +94,7 @@ foo@bar:~$ platformio run --target upload
 ```
 
 ### Usage
+#### CharDisplayUI
 On powerup, the MCU shows a splash screen followed by an info screen printing the active tuning parameters.
 Subsequently, the system is ready for use. An outline of the UI is shown below.
 
@@ -57,6 +112,11 @@ The values shown on the display are:
 It starts in manual (open-loop) mode by default. Press SELECT to switch the
 controller into auto mode. Press LEFT/RIGHT for coarse adjustment of the setpoint, and DOWN/UP for fine adjustment. In
 manual mode, the same buttons are used to adjust the control variable.
+
+#### GraphicalDisplayUI
+##### SingleHumidistat
+
+##### CascadeHumidistat
 
 ## Serial monitor
 The humidistat can operate fully in a standalone manner, but it is possible to connect it to a PC over serial (USB)

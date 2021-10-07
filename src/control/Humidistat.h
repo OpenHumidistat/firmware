@@ -22,11 +22,12 @@ public:
 	/// \param Kp Proportional gain
 	/// \param Ki Integral gain (in 1/s)
 	/// \param Kd Derivative gain (in s)
+	/// \param Kf Feed-forward gain
 	/// \param dt Timestep (in ms)
 	/// \param cvMin Lower limit for control value
 	/// \param cvMax Upper limit for control value
-	Humidistat(const ConfigStore *cs, HumiditySensor *hs, double kp, double ki, double kd, uint16_t dt, double cvMin,
-	           double cvMax);
+	Humidistat(const ConfigStore *cs, HumiditySensor *hs, double Kp, double Ki, double Kd, double Kf, uint16_t dt,
+			   double cvMin, double cvMax);
 
 	/// Read the humidity.
 	/// \return Relative humidity (percent)

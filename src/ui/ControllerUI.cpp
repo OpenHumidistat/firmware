@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include "ControllerUI.h"
 
 ControllerUI::ControllerUI(Print *display, const ButtonReader *buttonReader, Array<const ThermistorReader *, 4> trs)
@@ -65,7 +64,7 @@ void ControllerUI::printNTC(uint8_t col, uint8_t row, uint8_t i) {
 	}
 }
 
-void ControllerUI::adjustValue(int8_t delta, double &value, uint8_t min, uint8_t max) {
+void ControllerUI::adjustValue(double delta, double &value, uint8_t min, uint8_t max) {
 	// Clip value to [min, max] before uint overflow happens
 	if(value + delta < min) {
 		value = min;

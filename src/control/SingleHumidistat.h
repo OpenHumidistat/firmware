@@ -9,7 +9,7 @@
 #include "EEPROMConfig.h"
 
 /// Control humidity using PID by driving two solenoid valves.
-/// Adjust the public setpoint variable and call update() with the solenoid pins to use.
+/// Adjust the public setpoint variable and call update().
 class SingleHumidistat : public Humidistat {
 private:
 	const uint8_t pins_solenoid[2];
@@ -23,11 +23,8 @@ public:
 	/// \param pwmRes        PWM resolution (bits)
 	SingleHumidistat(const ConfigStore *cs, HumiditySensor *hs, Array<uint8_t, 2> pins_solenoid, uint8_t pwmRes);
 
-	/// Run the humidistat:
-	/// Read the humidity, run a cycle of the PID loop and drive the solenoid valves at the appropriate value.
+	// Overridden from Controller
 	void update();
-
-	/// Update the PID parameters from the configStore.
 	void updatePIDParameters();
 };
 

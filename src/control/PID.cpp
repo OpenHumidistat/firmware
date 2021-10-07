@@ -1,14 +1,15 @@
 #include "PID.h"
 
-PID::PID(const double *pv, double *cv, const double *sp, double Kp, double Ki, double Kd, uint16_t dt, double cvMin,
-         double cvMax)
+PID::PID(const double *pv, double *cv, const double *sp, double Kp, double Ki, double Kd, double Kf, uint16_t dt,
+		 double cvMin, double cvMax)
 	: pv(*pv), cv(*cv), sp(*sp), cvMin(cvMin), cvMax(cvMax) {
-	setGains(Kp, Ki, Kd, dt);
-	init();
+	setGains(Kp, Ki, Kd, Kf, dt);
 }
 
 void PID::init() {
-	integral = cv / Ki;
+	if(Ki != 0) {
+		integral = (cv - Kf * sp) / Ki;
+	}
 	lastPv = pv;
 	lastE = sp - pv;
 }
@@ -30,8 +31,9 @@ bool PID::compute() {
 	pTerm = Kp * e;
 	iTerm = Ki * integral;
 	dTerm = -Kd * dPv;
+	fTerm = Kf * sp;
 
-	cv = clip(pTerm + iTerm + dTerm);
+	cv = clip(pTerm + iTerm + dTerm + fTerm);
 
 	lastPv = pv;
 	lastE = e;
@@ -53,12 +55,15 @@ void PID::setAuto(bool inAuto) {
 	this->inAuto = inAuto;
 }
 
-void PID::setGains(double Kp, double Ki, double Kd, uint16_t dt) {
+void PID::setGains(double Kp, double Ki, double Kd, double Kf, uint16_t dt) {
 	this->dt = dt;
 	this->Kp = Kp;
+
 	// The timestep is constant, so we include it in Ki and Kd for convenience
 	this->Ki = Ki * dt / 1000;
 	this->Kd = Kd / (static_cast<double>(dt) / 1000);
+
+	this->Kf = Kf;
 
 	init();
 }

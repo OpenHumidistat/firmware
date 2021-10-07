@@ -3,23 +3,27 @@
 
 #include <Arduino.h>
 
+/// Define either HUMIDISTAT_CONTROLLER_SINGLE or HUMIDISTAT_CONTROLLER_CASCADE. In the latter case, flow sensors
+/// must be connected to PIN_F1 and PIN_F2.
+//#define HUMIDISTAT_CONTROLLER_SINGLE
+//#define HUMIDISTAT_CONTROLLER_CASCADE
+
 /// Define either HUMIDISTAT_DHT (for DHT22/AM2302 sensors) or HUMIDISTAT_SHT (for Sensirion SHT85 sensors).
 /// In the former case, the data pin of the sensor should be connected to PIN_DHT. In the latter case, the sensor
 /// should be connected to the I2C bus. On the Arduino Uno, these pins (SDA and SCL) are shared with A4 and A5.
-#define HUMIDISTAT_SHT
+//#define HUMIDISTAT_DHT
+//#define HUMIDISTAT_SHT
+
+/// Define either HUMIDISTAT_INPUT_KS0256 or HUMIDISTAT_INPUT_KS0466. In either case, the keypad must be connected to
+/// PIN_BTN specified below.
+//#define HUMIDISTAT_INPUT_KS0256
+//#define HUMIDISTAT_INPUT_KS0466
 
 /// Define either HUMIDISTAT_UI_CHAR HUMIDISTAT_UI_GRAPH for a HD44780 16x02 character display, or a ST7920 graphical
 /// display respectively. In the former case, the display must be connected to the pins specified below (PIN_LCD_x).
 /// in the latter case, the display must be connected to the hardware SPI bus.
-#define HUMIDISTAT_UI_GRAPH
-
-/// Define either HUMIDISTAT_INPUT_KS0256 or HUMIDISTAT_INPUT_KS0466. In either case, the keypad must be connected to
-/// PIN_BTN specified below.
-#define HUMIDISTAT_INPUT_KS0466
-
-/// Define either HUMIDISTAT_CONTROLLER_SINGLE or HUMIDISTAT_CONTROLLER_CASCADE. In the latter case, flow sensors
-/// must be connected to PIN_F1 and PIN_F2.
-#define HUMIDISTAT_CONTROLLER_SINGLE
+//#define HUMIDISTAT_UI_CHAR
+//#define HUMIDISTAT_UI_GRAPH
 
 namespace config {
 	/// Serial communication symbol rate (baud)
@@ -32,20 +36,27 @@ namespace config {
 	const uint8_t EEPROMAddress = 0;
 
 	/// Global interval for PID/logger (based on polling rate of sensor, in millis)
+#ifdef HUMIDISTAT_SHT
 	const uint16_t dt = 250;
+#else
+	const uint16_t dt = 500;
+#endif
 
 	/// @name Humidity controller PID parameters
 	///@{
-	const double HC_Kp = 1.00 / 128;
-	const double HC_Ki = 0.025 / 128;
-	const double HC_Kd = 2.50 / 128;
+	const double HC_Kp = 0.01;
+	const double HC_Ki = 0.001;
+	const double HC_Kd = 0.01;
+	const double HC_Kf = 0.01;
 	///@}
 
 	/// @name Flow controller PID parameters
 	///@{
-	const double FC_Kp = 1.00;
-	const double FC_Ki = 1.00;
-	const double FC_Kd = 1.00;
+	const double FC_Kp = 0.005;
+	const double FC_Ki = 0.05;
+	const double FC_Kd = 0;
+	const double FC_Kf = 0;
+	const uint16_t FC_dt = 100;
 	///@}
 
 	/// Minimum solenoid duty cycle (deadband)
@@ -90,20 +101,20 @@ namespace config {
 	const uint16_t blinkInterval = 500;
 
 	/// Duration for which to show the splash screen (in millis)
-	const uint16_t splashDuration = 1000;
+	const uint16_t splashDuration = 0;
 
 	/// Duration for which to show the info screen (in millis)
-	const uint16_t infoDuration = 3000;
+	const uint16_t infoDuration = 0;
 
 	/// Interval for updating the display (in millis)
 	const uint16_t refreshInterval = 100;
 
 	/// Step size by which to in-/de-crement for coarse adjustment
-	const uint8_t adjustStep = 5;
+	const uint8_t adjustStep = 10;
 
 	/// Tolerance in difference between process variable and setpoint outside which the setpoint blinks (in
 	/// percentage points)
-	const uint8_t tolerance = 1;
+	const double tolerance = 0.01;
 	///@}
 
 	/// @name For GraphicalDisplayUI:
@@ -117,5 +128,6 @@ namespace config {
 	///@}
 }
 
+#include "config_assert.h"
 
 #endif //HUMIDISTAT_CONFIG_H

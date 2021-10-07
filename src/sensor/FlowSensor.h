@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#include "ipow.h"
+#include "imath.h"
 
 /// Read flow rate using a Omron D6F-P0010 MEMS flow sensor.
 class FlowSensor {

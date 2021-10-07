@@ -1,8 +1,8 @@
 #include "Humidistat.h"
 
-Humidistat::Humidistat(const ConfigStore *cs, HumiditySensor *hs, double kp, double ki, double kd, uint16_t dt,
-                       double cvMin, double cvMax)
-		: Controller(cs, kp, ki, kd, dt, cvMin, cvMax, 50, (cvMin + cvMax) / 2), hs(*hs) {}
+Humidistat::Humidistat(const ConfigStore *cs, HumiditySensor *hs, double Kp, double Ki, double Kd, double Kf, uint16_t
+                       dt, double cvMin, double cvMax)
+		: Controller(cs, Kp, Ki, Kd, Kf, dt, cvMin, cvMax, 50, (cvMin + cvMax) / 2), hs(*hs) {}
 
 double Humidistat::getHumidity() const {
 	return hs.getHumidity();

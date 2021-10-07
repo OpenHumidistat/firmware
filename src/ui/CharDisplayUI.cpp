@@ -13,7 +13,7 @@ void CharDisplayUI::draw() {
 	// Setpoint
 	{
 		char *buf = asprintf("%3.0f%%", humidistat.sp);
-		if (abs(humidistat.sp - humidistat.getHumidity()) > tolerance) {
+		if (abs(humidistat.sp - humidistat.getHumidity())/100 > tolerance) {
 			blink(7, 0, buf);
 		} else {
 			liquidCrystal.setCursor(7, 0);
@@ -23,7 +23,7 @@ void CharDisplayUI::draw() {
 	}
 
 	// Control value
-	printf(12, 0, "%3.0f", humidistat.cv);
+	printf(12, 0, "%3.0f%%", humidistat.cv*100);
 
 	// Active status
 	liquidCrystal.setCursor(0, 0);
@@ -55,12 +55,12 @@ void CharDisplayUI::drawSplash() {
 
 void CharDisplayUI::drawInfo() {
 	liquidCrystal.clear();
-	printf(0, 0, "dt %4u lv %f",
+	printf(0, 0, "%4u %3.2f %4.3f",
 	       humidistat.getConfigStore()->dt,
-	       humidistat.getConfigStore()->S_lowValue
+	       humidistat.getConfigStore()->S_lowValue,
+	       humidistat.getConfigStore()->HC_Kp
 	);
-	printf(0, 1, "%3.2f %4.3f %3.2f",
-	       humidistat.getConfigStore()->HC_Kp,
+	printf(0, 1, "%4.3f %4.3f",
 	       humidistat.getConfigStore()->HC_Ki,
 	       humidistat.getConfigStore()->HC_Kd
 	);
@@ -96,7 +96,7 @@ bool CharDisplayUI::handleInput(Buttons state, uint16_t pressedFor) {
 	if (humidistat.active) {
 		adjustValue(delta, humidistat.sp, 0, 100);
 	} else {
-		adjustValue(delta, humidistat.cv, humidistat.getCvMin(), 255);
+		adjustValue(delta*0.01, humidistat.cv, humidistat.getCvMin(), humidistat.getCvMax());
 	}
 	return true;
 }
