@@ -10,7 +10,7 @@ class SHTHumiditySensor {
 private:
 	SHTSensor &sht;
 
-	double t, h = NAN;
+	double t = NAN, h = NAN;
 public:
 	explicit SHTHumiditySensor(SHTSensor *sht);
 	double getHumidity() const;
