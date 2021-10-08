@@ -37,7 +37,7 @@ stability and performance, but requires flow sensors to provide feedback to the 
 
 To use the single-loop control, uncomment the line that defines `HUMIDISTAT_CONTROLLER_SINGLE`. To use cascade control, 
 uncomment the line that defines `HUMIDISTAT_CONTROLLER_CASCADE`. In the latter case, Omron D6F-P0010 flow sensors must 
-be connected to the pins defined by `PIN_F1` and `PIN_F1`.
+be connected to (analog input) pins defined by `PIN_F1` and `PIN_F2`.
 
 #### Humidity sensor type
 Two types of humidity sensors are supported: the DHT22/AM2302 sensors, and the Sensirion SHT85. The former uses an 
@@ -45,7 +45,7 @@ ad-hoc single-wire protocol, and can be connected to any digital input pin (as d
 communicates over I2C, and as such must be connected to the MCU's hardware I2C bus.
 
 To use the DHT22/AM2302 sensor, uncomment the line that defines `HUMIDISTAT_DHT`. For the SHT85, uncomment the line 
-that defines `HUMIDISTAT_DHT`.
+that defines `HUMIDISTAT_SHT`.
 
 #### Keypad type
 For input, two keypads are supported: the keypad integrated on the Keyestudio Ks0256 LCD1602 Expansion Shield, and the 
@@ -61,7 +61,7 @@ and a more elaborate UI for a (ST7920) 128x64 graphical display called `Graphica
 
 For the `GraphicalDisplayUI`, in turn two variants exist (implemented as specialisations of the templatised class): 
 one for the aforementioned `SingleHumidistat` and `CascadeHumidistat`. This makes for a grand total of three 
-existing UI variants. (due to its limiting size, there is no UI for the `CascadeHumidistat` for the 16x2 character 
+existing UI variants. (due to its limited space, there is no UI for the `CascadeHumidistat` for the 16x2 character 
 display)
 
 To use the 16x2 character display, uncomment the line that defines `HUMIDISTAT_UI_CHAR`. For the 128x64 graphical 
@@ -73,7 +73,8 @@ display, uncomment the line that defines `HUMIDISTAT_UI_GRAPH`.
 
 #### Constants
 Besides the macros discussed above, `config.h` contains a list of compile-time constants that you want to check and 
-possible modify. Some of these are customisable by the operator on the device itself, using the EEPROM.
+possible modify. Some of these are customisable by the operator on the device itself, using the EEPROM, if the 
+`GraphicalDisplayUI` is used.
 
 - Serial symbol rate
 - EEPROM settings
