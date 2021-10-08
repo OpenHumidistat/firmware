@@ -138,6 +138,8 @@ select the digit to adjust with :arrow_up_down:`up`/`down`. Press :black_circle:
 With :arrow_right:`right`, the menu can be reached. In this menu, the current settings can be applied and saved to 
 EEPROM, or reset from the defaults stored in flash memory.
 
+![](docs/state_diagram.svg)
+
 ## Serial monitor
 The humidistat can operate fully in a standalone manner, but it is possible to connect it to a PC over serial (USB)
 running a Python script for real-time monitoring and recording of data.
