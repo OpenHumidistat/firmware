@@ -132,7 +132,7 @@ In the config tab, a number of controller parameters can be adjusted from the de
 h`, and saved in EEPROM.
 
 In this tab, the :arrow_up_down:`up`/`down` buttons scroll through the list of parameters. 
-To edit a parameter, press :black_circle:`select`. Now, the :arrow_left_right:`left`/`right` buttons can be used to 
+To edit a parameter, press :black_circle:`select`. Now, the :left_right_arrow:`left`/`right` buttons can be used to 
 select the digit to adjust with :arrow_up_down:`up`/`down`. Press :black_circle:`select` again to confirm.
 
 With :arrow_right:`right`, the menu can be reached. In this menu, the current settings can be applied and saved to 
