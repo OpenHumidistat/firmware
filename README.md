@@ -115,9 +115,28 @@ controller into auto mode. Press LEFT/RIGHT for coarse adjustment of the setpoin
 manual mode, the same buttons are used to adjust the control variable.
 
 #### GraphicalDisplayUI
-##### SingleHumidistat
+The GraphicalDisplayUI is a modal UI with two tabs: `Main` and `Config` (shown in the bar at the very top of the 
+screen). The `Main` tab is open by default. In this tab, the :arrow_up_down:`up`/`down` buttons adjust the currently 
+selected variable. Long presses give faster repeat speed.
 
-##### CascadeHumidistat
+![](docs/UI_graph_main.jpg)
+
+When the controller is in `manual`, the control variable (`CV`) is the selected variable. In `auto`, the setpoint 
+(`SP`) is the selected variable. To toggle between `manual` and `auto` mode, press the :black_circle:`select` button.
+
+To switch to the other tab, press the :arrow_left:`left` button.
+
+![](docs/UI_graph_config.jpg)
+
+In the config tab, a number of controller parameters can be adjusted from the defaults as configured in `src/config.
+h`, and saved in EEPROM.
+
+In this tab, the :arrow_up_down:`up`/`down` buttons scroll through the list of parameters. 
+To edit a parameter, press :black_circle:`select`. Now, the :arrow_left_right:`left`/`right` buttons can be used to 
+select the digit to adjust with :arrow_up_down:`up`/`down`. Press :black_circle:`select` again to confirm.
+
+With :arrow_right:`right`, the menu can be reached. In this menu, the current settings can be applied and saved to 
+EEPROM, or reset from the defaults stored in flash memory.
 
 ## Serial monitor
 The humidistat can operate fully in a standalone manner, but it is possible to connect it to a PC over serial (USB)
