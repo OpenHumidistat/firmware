@@ -71,12 +71,13 @@ SerialLogger<cHumidistat> serialLogger(&humidistat, trsp, eepromConfig.configSto
 
 void setup() {
 #ifdef ARDUINO_AVR_UNO
-	// Set PWM frequency on D3 and D11 to 245.10 Hz
-	TCCR2B = TCCR2B & B11111000 | B00000101;
+	// Set PWM frequency on D3 and D11 to 490.20 Hz
+	// See: https://arduinoinfo.mywikis.net/wiki/Arduino-PWM-Frequency
+	TCCR2B = TCCR2B & B11111000 | B00000100;
 #endif
 #ifdef ARDUINO_TEENSYLC
 	// Set PWM frequency to 250 Hz
-	analogWriteFrequency(config::PIN_S1, 250);
+	analogWriteFrequency(config::PIN_S1, 500);
 	// Increase PWM resolution from default 8-bits
 	analogWriteResolution(pwmRes);
 #endif
