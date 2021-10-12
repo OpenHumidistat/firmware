@@ -81,7 +81,7 @@ void SerialLogger<SingleHumidistat>::log() {
 	double pTerm, iTerm, dTerm;
 	humidistat.getTerms(pTerm, iTerm, dTerm);
 
-	char *buf = asprintf("%lu %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f",
+	char *buf = asprintf("%lu %.2f %.2f %.2f %.4f %.2f %.2f %.2f %.2f %.4f %.4f %.4f",
 	                     lastTime,
 	                     humidistat.getHumidity(),
 	                     humidistat.sp,
@@ -109,7 +109,7 @@ void SerialLogger<CascadeHumidistat>::log() {
 	humidistat.getInner(0)->getTerms(innerPTerms[0], innerITerms[0], innerDTerms[0]);
 	humidistat.getInner(1)->getTerms(innerPTerms[1], innerITerms[1], innerDTerms[1]);
 
-	char *buf = asprintf("%lu %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f",
+	char *buf = asprintf("%lu %.2f %.2f %.2f %.4f %.3f %.4f %.3f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f",
 	                     lastTime,
 	                     humidistat.getHumidity(),
 	                     humidistat.sp,
