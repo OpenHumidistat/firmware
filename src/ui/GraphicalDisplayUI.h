@@ -352,10 +352,10 @@ private:
 				return true;
 			}
 			if (state == Buttons::SELECT) {
+				humidistat.updatePIDParameters();
 				if (currentAction == Action::save) {
 					if (configSaveTimer == 0) {
 						eepromConfig.save();
-						humidistat.updatePIDParameters();
 						configSaveTimer = configSaveCooldown;
 					}
 					return true;
