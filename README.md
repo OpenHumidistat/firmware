@@ -22,7 +22,7 @@ with the MCU over serial.
 
 ### Configuration
 The firmware is written in a modular way in order to ensure compatibility with multiple MCUs, sensors, controller 
-types, and even UIs, while still keeping to a single codebase. In order to configure the firmware, edit `src/config.h`.
+types, and even UIs, while still keeping to a single shared codebase and avoiding code duplication. In order to configure the firmware, edit `src/config.h`.
 This file contains macros that control which modules are used, and a number of configurable constants.
 
 #### Humidistat type
@@ -106,8 +106,8 @@ The values shown on the display are:
 - Mode: 0 for manual, 1 for auto.
 - PV: Process variable, i.e. the current, measured humidity in the chamber.
 - SP: Setpoint, i.e. the desired humidity. This blinks if it is too far from the PV.
-- CV: Control variable, representing the state of the valves from lowValue to 255.
-- MOSFET/Solenoid temperature in Celsius.
+- CV: Control variable, representing the state of the valves from 0 to 100%.
+- MOSFET/Solenoid temperatures in Celsius.
 - Chamber temperature in Celsius.
 
 It starts in manual (open-loop) mode by default. Press SELECT to switch the
