@@ -1,4 +1,4 @@
-# Humidistat
+# OpenHumidistat
 ![GitHub license](https://img.shields.io/github/license/Compizfox/Humidistat)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Compizfox/Humidistat)
 [![DOI](https://zenodo.org/badge/288475918.svg)](https://zenodo.org/badge/latestdoi/288475918)
@@ -141,19 +141,19 @@ EEPROM, or reset from the defaults stored in flash memory.
 ![](docs/state_diagram.svg)
 
 ## Serial monitor
-The humidistat can operate fully in a standalone manner, but it is possible to connect it to a PC over serial (USB)
+The device can operate fully in a standalone manner, but it is possible to connect it to a PC over serial (USB)
 running a Python script for real-time monitoring and recording of data.
 
 ### Dependencies
 The serial monitor requires at least Python 3.6. It depends on Numpy and Pandas for data structures, on PySerial for
-communicating with the Humidistat MCU, and on Matplotlib and PyQt5 for plotting.
+communicating with the OpenHumidistat MCU, and on Matplotlib and PyQt5 for plotting.
 
 The dependencies can be installed in a virtualenv using Pipenv:
 
 ```console
 foo@bar:~$ pipenv install
 foo@bar:~$ pipenv shell
-(Humidistat) foo@bar:~$ 
+(OpenHumidistat) foo@bar:~$ 
 ```
 
 If you do not have Pipenv, you can install with `pip install pipenv`.
@@ -163,7 +163,7 @@ With the Arduino connected over USB, run the serial monitor:
 
 ```console
 foo@bar:~$ pipenv shell
-(Humidistat) foo@bar:~$ utils/monitor.py
+(OpenHumidistat) foo@bar:~$ utils/monitor.py
 ```
 
 The Arduino will reset when the serial port is opened. After connection is established, a window will open in which the
@@ -172,7 +172,7 @@ data is plotted in real-time.
 When the serial monitor is closed (by SIGINT), it will save the data to file, in (gzipped) CSV format.
 
 ## Developer documentation
-Developer documentation is available at https://compizfox.github.io/Humidistat/.
+Developer documentation is available at https://compizfox.github.io/OpenHumidistat/.
 
 ## Publication
 The device for which this firmware is intended, is described in the following paper:
