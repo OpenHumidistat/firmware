@@ -1,4 +1,4 @@
-# Humidistat
+# OpenHumidistat
 ![GitHub license](https://img.shields.io/github/license/Compizfox/Humidistat)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Compizfox/Humidistat)
 [![DOI](https://zenodo.org/badge/288475918.svg)](https://zenodo.org/badge/latestdoi/288475918)
@@ -22,7 +22,7 @@ with the MCU over serial.
 
 ### Configuration
 The firmware is written in a modular way in order to ensure compatibility with multiple MCUs, sensors, controller 
-types, and even UIs, while still keeping to a single codebase. In order to configure the firmware, edit `src/config.h`.
+types, and even UIs, while still keeping to a single shared codebase and avoiding code duplication. In order to configure the firmware, edit `src/config.h`.
 This file contains macros that control which modules are used, and a number of configurable constants.
 
 #### Humidistat type
@@ -106,8 +106,8 @@ The values shown on the display are:
 - Mode: 0 for manual, 1 for auto.
 - PV: Process variable, i.e. the current, measured humidity in the chamber.
 - SP: Setpoint, i.e. the desired humidity. This blinks if it is too far from the PV.
-- CV: Control variable, representing the state of the valves from lowValue to 255.
-- MOSFET/Solenoid temperature in Celsius.
+- CV: Control variable, representing the state of the valves from 0 to 100%.
+- MOSFET/Solenoid temperatures in Celsius.
 - Chamber temperature in Celsius.
 
 It starts in manual (open-loop) mode by default. Press SELECT to switch the
@@ -141,19 +141,19 @@ EEPROM, or reset from the defaults stored in flash memory.
 ![](docs/state_diagram.svg)
 
 ## Serial monitor
-The humidistat can operate fully in a standalone manner, but it is possible to connect it to a PC over serial (USB)
+The device can operate fully in a standalone manner, but it is possible to connect it to a PC over serial (USB)
 running a Python script for real-time monitoring and recording of data.
 
 ### Dependencies
 The serial monitor requires at least Python 3.6. It depends on Numpy and Pandas for data structures, on PySerial for
-communicating with the Humidistat MCU, and on Matplotlib and PyQt5 for plotting.
+communicating with the OpenHumidistat MCU, and on Matplotlib and PyQt5 for plotting.
 
 The dependencies can be installed in a virtualenv using Pipenv:
 
 ```console
 foo@bar:~$ pipenv install
 foo@bar:~$ pipenv shell
-(Humidistat) foo@bar:~$ 
+(OpenHumidistat) foo@bar:~$ 
 ```
 
 If you do not have Pipenv, you can install with `pip install pipenv`.
@@ -163,7 +163,7 @@ With the Arduino connected over USB, run the serial monitor:
 
 ```console
 foo@bar:~$ pipenv shell
-(Humidistat) foo@bar:~$ utils/monitor.py
+(OpenHumidistat) foo@bar:~$ utils/monitor.py
 ```
 
 The Arduino will reset when the serial port is opened. After connection is established, a window will open in which the
@@ -172,7 +172,7 @@ data is plotted in real-time.
 When the serial monitor is closed (by SIGINT), it will save the data to file, in (gzipped) CSV format.
 
 ## Developer documentation
-Developer documentation is available at https://compizfox.github.io/Humidistat/.
+Developer documentation is available at https://compizfox.github.io/OpenHumidistat/.
 
 ## Publication
 The device for which this firmware is intended, is described in the following paper:
