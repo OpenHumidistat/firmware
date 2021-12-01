@@ -165,8 +165,7 @@ private:
 		u8g2.setFont(u8g2_font_6x12_tr);
 
 		// Humidity box
-		u8g2.drawFrame(-1, 13, 52, 33);
-		u8g2.drawVLine(13, 27, 19);
+		u8g2.drawVLine(13, 27, 29);
 		u8g2.drawStr(0, 23, "Humidity");
 		u8g2.drawHLine(0, 26, 51);
 
@@ -191,12 +190,12 @@ private:
 
 		// CV
 		if (!humidistat.active) {
-			u8g2.drawBox(0, 46, 15, 9);
+			u8g2.drawBox(0, 45, 13, 9);
 			u8g2.setDrawColor(0);
 		}
-		u8g2.drawStr(0, 54, "CV: ");
+		u8g2.drawStr(0, 53, "CV");
 		u8g2.setDrawColor(1);
-		printf(20, 54, "%3.0f%%", humidistat.cv * 100);
+		printf(20, 53, "%3.0f%%", humidistat.cv * 100);
 
 		// Mode
 		if (humidistat.active)
@@ -487,7 +486,7 @@ void GraphicalDisplayUI<CascadeHumidistat>::drawMain() {
 	DrawMainCommon();
 
 	// Flow box
-	u8g2.drawFrame(50, 13, 65, 33);
+	u8g2.drawFrame(50, 13, 65, 42);
 	u8g2.drawStr(55, 23, "F");
 
 	{
@@ -508,8 +507,8 @@ void GraphicalDisplayUI<CascadeHumidistat>::drawMain() {
 	}
 
 	u8g2.drawHLine(50, 26, 64);
-	u8g2.drawVLine(64, 13, 33);
-	u8g2.drawVLine(89, 13, 33);
+	u8g2.drawVLine(64, 13, 42);
+	u8g2.drawVLine(89, 13, 42);
 
 	u8g2.drawStr(52, 35, "PV");
 	u8g2.drawStr(52, 44, "CV");
