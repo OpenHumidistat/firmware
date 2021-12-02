@@ -125,7 +125,7 @@ namespace config {
 	const uint16_t blinkInterval = 500;
 
 	/// Duration for which to show the splash screen (in millis)
-	const uint16_t splashDuration = 0;
+	const uint16_t splashDuration = 2000;
 
 	/// Duration for which to show the info screen (in millis)
 	const uint16_t infoDuration = 0;
