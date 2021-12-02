@@ -22,6 +22,7 @@ private:
 	/// Tab definitions
 	enum class Tab {
 		main,
+		info,
 		config,
 		_last = config,
 	};
@@ -64,9 +65,56 @@ private:
 	// (declaration, implementation specialised)
 	void drawMain();
 
+	void drawTabInfo() {
+		u8g2.setFont(u8g2_font_6x12_tr);
+
+		// Tab bar
+		u8g2.drawBox(12, 1, 26, 12);
+		u8g2.setDrawColor(0);
+		u8g2.drawStr(13, 10, "Info");
+		u8g2.setDrawColor(1);
+
+		u8g2.drawStr(2, 10, "C.");
+		u8g2.drawStr(40, 10, "C.");
+
+		// Temperature box
+		u8g2.drawVLine(67, 27, 28);
+		u8g2.drawStr(0, 23, "Temperatures");
+		u8g2.drawHLine(0, 26, 128);
+		u8g2.drawStr(0, 35, "Chamber");
+		printf(70, 35, "%3.1f", humidistat.getTemperature());
+		u8g2.drawStr(0, 43, "Thermistors");
+		u8g2.drawHLine(68, 44, 60);
+
+		// Thermistors
+		for (size_t i = 0; i < trs.size(); ++i) {
+			if (trs[i]) {
+				printf(70 + 15*i, 43, "%1u", i + 1);
+				printNTC(70 + 15*i, 53, i);
+			}
+		}
+
+		// Bottom bar
+		u8g2.drawHLine(0, 54, 128);
+		u8g2.setFont(u8g2_font_unifont_t_symbols);
+		u8g2.drawGlyph(0, 66, 9664);
+		u8g2.setFont(u8g2_font_6x12_tr);
+		u8g2.drawStr(10, 62, "tab");
+	}
+
 	/// Draw the Config tab
 	void drawConfig() {
 		u8g2.setFont(u8g2_font_6x12_tr);
+
+		// Tab bar
+		u8g2.drawBox(25, 1, 38, 12);
+		u8g2.setDrawColor(0);
+		u8g2.drawStr(26, 10, "Config");
+		u8g2.setDrawColor(1);
+
+		u8g2.drawStr(2, 10, "C.");
+		u8g2.drawVLine(12, 1, 12);
+		u8g2.drawStr(14, 10, "I.");
 
 		// Print config parameters in scrolling menu
 		for (uint8_t i = 0; i < 3; i++) {
@@ -136,6 +184,7 @@ private:
 
 		// Bottom bar
 		u8g2.setFont(u8g2_font_unifont_t_symbols);
+		u8g2.drawHLine(0, 54, 128);
 		u8g2.drawGlyph(0, 66, 9664);
 		u8g2.drawGlyph(30, 66, 9650);
 		u8g2.drawGlyph(36, 66, 9660);
@@ -163,6 +212,17 @@ private:
 	/// Draw common elements in Main tab
 	void DrawMainCommon() {
 		u8g2.setFont(u8g2_font_6x12_tr);
+
+		// Tab bar
+		u8g2.drawBox(1, 1, 42, 12);
+		u8g2.setDrawColor(0);
+		u8g2.drawStr(1, 10, "Control");
+		u8g2.setDrawColor(1);
+
+		u8g2.drawStr(44, 10, "I.");
+		u8g2.drawVLine(55, 1, 12);
+		u8g2.drawStr(57, 10, "C.");
+		u8g2.drawVLine(70, 1, 12);
 
 		// Humidity box
 		u8g2.drawVLine(13, 27, 29);
@@ -221,22 +281,6 @@ private:
 		u8g2.setFont(u8g2_font_6x12_tr);
 		u8g2.drawFrame(0, 0, 128, 14);
 
-		if (currentTab == Tab::main) {
-			u8g2.drawBox(1, 1, 32, 12);
-			u8g2.setDrawColor(0);
-		}
-		u8g2.drawStr(5, 10, "Main");
-		u8g2.setDrawColor(1);
-
-		if (currentTab == Tab::config) {
-			u8g2.drawBox(32, 1, 46, 12);
-			u8g2.setDrawColor(0);
-		}
-
-		u8g2.drawStr(38, 10, "Config");
-		u8g2.setDrawColor(1);
-		u8g2.drawVLine(78, 1, 12);
-
 		// Spinning indicator
 		u8g2.setFont(u8g2_font_unifont_t_symbols);
 		uint8_t i = (frame / 2) % 4;
@@ -253,6 +297,8 @@ private:
 		switch (currentTab) {
 			case Tab::main:
 				return handleInputMain(state, pressedFor);
+			case Tab::info:
+				return handleInputInfo(state, pressedFor);
 			case Tab::config:
 				return handleInputConfig(state, pressedFor);
 		}
@@ -286,6 +332,14 @@ private:
 			adjustValue(delta*0.01, humidistat.cv, humidistat.getCvMin(), humidistat.getCvMax());
 		}
 		return true;
+	}
+
+	bool handleInputInfo(Buttons state, uint16_t pressedFor) {
+		if (state == Buttons::LEFT) {
+			advanceEnum(currentTab);
+			return true;
+		}
+		return false;
 	}
 
 	/// Handle input on the Config tab
@@ -375,6 +429,9 @@ private:
 		switch (currentTab) {
 			case Tab::main:
 				drawMain();
+				break;
+			case Tab::info:
+				drawTabInfo();
 				break;
 			case Tab::config:
 				drawConfig();
