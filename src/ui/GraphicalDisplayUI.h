@@ -448,9 +448,16 @@ private:
 	}
 
 	void drawSplash() override {
-		u8g2.setCursor(0, 24);
-		u8g2.setFont(u8g2_font_helvR14_tr);
-		u8g2.print("Humidistat");
+		u8g2.setFont(u8g2_font_helvB12_tr);
+		u8g2.drawStr(0, 24, "OpenHumidistat");
+
+		u8g2.setFont(u8g2_font_6x12_tr);
+		u8g2.drawStr(0, 40, "Lars Veldscholte");
+
+		u8g2.setFont(u8g2_font_5x7_tr);
+		u8g2.drawStr(0, 50, "https://github.com/");
+		u8g2.drawStr(0, 60, "Compizfox/OpenHumidistat");
+
 		u8g2.sendBuffer();
 	}
 
