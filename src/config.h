@@ -67,13 +67,11 @@ namespace config {
 
 	/// @name Pins
 	///@{
+#ifdef ARDUINO_AVR_UNO
 	const uint8_t PIN_DHT = 2;
 	const uint8_t PIN_BTN = A0;
 	const uint8_t PIN_S1 = 3;
-	const uint8_t PIN_S2 = 4;
-	const uint8_t PIN_F1 = A1;
-	const uint8_t PIN_F2 = A2;
-	///@}
+	const uint8_t PIN_S2 = 11;
 
 	/// @name 16x2 LCD pins
 	///@{
@@ -85,8 +83,34 @@ namespace config {
 	const uint8_t PIN_LCD_D3 = 7;
 	///@}
 
+	/// @name Thermistor pins
+	///@{
+	const uint8_t PIN_T1 = A1;
+	const uint8_t PIN_T2 = A2;
+	const uint8_t PIN_T3 = A3;
+	const uint8_t PIN_T4 = A4;
+	///@}
+#endif
+#ifdef ARDUINO_TEENSYLC
+	const uint8_t PIN_DHT = 17;
+	const uint8_t PIN_BTN = A0;
+	const uint8_t PIN_S1 = 3;
+	const uint8_t PIN_S2 = 4;
+	const uint8_t PIN_F1 = A1;
+	const uint8_t PIN_F2 = A2;
+
 	/// ST7920 LCD pins
 	const uint8_t PIN_LCD_CS = 10;
+
+	/// @name Thermistor pins
+	///@{
+	const uint8_t PIN_T1 = A6;
+	const uint8_t PIN_T2 = A7;
+	const uint8_t PIN_T3 = A8;
+	const uint8_t PIN_T4 = A9;
+	///@}
+#endif
+	///@}
 
 	/// @name UI
 	///@{

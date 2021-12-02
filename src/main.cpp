@@ -15,15 +15,16 @@
 #ifdef HUMIDISTAT_DHT
 DHT dht(config::PIN_DHT, DHT22);
 DHTHumiditySensor hs(&dht);
-//                        NTC pins
-ThermistorReader trs[] = {ThermistorReader(1), ThermistorReader(2), ThermistorReader(3), ThermistorReader(4)};
-Array<ThermistorReader*, 4> trsp{{&trs[0], &trs[1], &trs[2], &trs[3]}};
 #endif
 #ifdef HUMIDISTAT_SHT
 SHTSensor sht;
 SHTHumiditySensor hs(&sht);
-Array<ThermistorReader *, 4> trsp{{}};
 #endif
+
+// Thermistors
+ThermistorReader trs[] = {ThermistorReader(config::PIN_T1), ThermistorReader(config::PIN_T2), ThermistorReader
+						  (config::PIN_T3), ThermistorReader(config::PIN_T4)};
+Array<ThermistorReader*, 4> trsp{{&trs[0], &trs[1], &trs[2], &trs[3]}};
 
 // Input
 VoltLadder voltLadder;
