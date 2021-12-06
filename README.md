@@ -1,6 +1,6 @@
-# OpenHumidistat
-![GitHub license](https://img.shields.io/github/license/Compizfox/Humidistat)
-![GitHub last commit](https://img.shields.io/github/last-commit/Compizfox/Humidistat)
+# OpenHumidistat firmware
+![GitHub license](https://img.shields.io/github/license/OpenHumidistat/firmware)
+![GitHub last commit](https://img.shields.io/github/last-commit/OpenHumidistat/firmware)
 [![DOI](https://zenodo.org/badge/288475918.svg)](https://zenodo.org/badge/latestdoi/288475918)
 
 This repository contains the Arduino firmware that implements a humidistat (humidity controller) by actuating two
