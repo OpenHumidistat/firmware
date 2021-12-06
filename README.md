@@ -172,7 +172,7 @@ data is plotted in real-time.
 When the serial monitor is closed (by SIGINT), it will save the data to file, in (gzipped) CSV format.
 
 ## Developer documentation
-Developer documentation is available at https://compizfox.github.io/OpenHumidistat/.
+Developer documentation is available at https://openhumidistat.github.io/firmware/.
 
 ## Publication
 The device for which this firmware is intended, is described in the following paper:
