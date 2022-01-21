@@ -1,5 +1,4 @@
 #include <Arduino.h>
-#include <Array.h>
 
 #include CONFIG_HEADER
 #include "aliases.h"
@@ -8,6 +7,7 @@
 #include "SerialLogger.h"
 #include "input/ButtonReader.h"
 #include "sensor/ThermistorReader.h"
+#include "SetpointProfileRunner.h"
 
 // Beware: Lots of preprocessor fuckery to get conditional compilation based on config settings below
 
@@ -22,9 +22,12 @@ SHTHumiditySensor hs(&sht);
 #endif
 
 // Thermistors
-ThermistorReader trs[] = {ThermistorReader(config::PIN_T1), ThermistorReader(config::PIN_T2), ThermistorReader
-						  (config::PIN_T3), ThermistorReader(config::PIN_T4)};
-Array<ThermistorReader*, 4> trsp{{&trs[0], &trs[1], &trs[2], &trs[3]}};
+ThermistorReader trs[] = {
+		ThermistorReader(config::PIN_T1),
+		ThermistorReader(config::PIN_T2),
+		ThermistorReader(config::PIN_T3),
+		ThermistorReader(config::PIN_T4)
+};
 
 // Input
 VoltLadder voltLadder;
@@ -49,8 +52,7 @@ using cHumidistat = SingleHumidistat;
 #include "sensor/FlowSensor.h"
 #include "control/CascadeHumidistat.h"
 FlowSensor flowSensors[] = {FlowSensor(config::PIN_F1), FlowSensor(config::PIN_F2)};
-CascadeHumidistat humidistat(&hs, &eepromConfig.configStore, {{&flowSensors[0], &flowSensors[1]}},
-							 {{config::PIN_S1, config::PIN_S2}}, pwmRes);
+CascadeHumidistat humidistat(&hs, &eepromConfig.configStore, flowSensors, {config::PIN_S1, config::PIN_S2}, pwmRes);
 using cHumidistat = CascadeHumidistat;
 #endif
 
@@ -58,17 +60,37 @@ using cHumidistat = CascadeHumidistat;
 #ifdef HUMIDISTAT_UI_CHAR
 #include <LiquidCrystal.h>
 #include "ui/CharDisplayUI.h"
-LiquidCrystal liquidCrystal(config::PIN_LCD_RS, config::PIN_LCD_ENABLE, config::PIN_LCD_D0, config::PIN_LCD_D1, config::PIN_LCD_D2, config::PIN_LCD_D3);
-CharDisplayUI ui(&liquidCrystal, &buttonReader, &humidistat, trsp);
+LiquidCrystal liquidCrystal(config::PIN_LCD_RS, config::PIN_LCD_ENABLE, config::PIN_LCD_D0, config::PIN_LCD_D1,
+							config::PIN_LCD_D2, config::PIN_LCD_D3);
+CharDisplayUI ui(&liquidCrystal, &buttonReader, &humidistat, trs);
 #endif
 #ifdef HUMIDISTAT_UI_GRAPH
 #include <U8g2lib.h>
 #include "ui/GraphicalDisplayUI.h"
+
+const uint8_t interval = 100; // seconds
+Point points[] = {
+		{0, 10},
+		{1*interval, 20},
+		{2*interval, 30},
+		{3*interval, 40},
+		{4*interval, 50},
+		{5*interval, 60},
+		{6*interval, 65},
+		{7*interval, 70},
+		{8*interval, 75},
+		{9*interval, 80},
+		{10*interval, 85},
+		{11*interval, 90},
+		{12*interval, 95},
+};
+SetpointProfileRunner spr(&humidistat, points);
+
 U8G2_ST7920_128X64_F_HW_SPI u8g2(U8G2_R0, config::PIN_LCD_CS);
-GraphicalDisplayUI<cHumidistat> ui(&u8g2, &buttonReader, &humidistat, trsp, &eepromConfig);
+GraphicalDisplayUI<cHumidistat> ui(&u8g2, &buttonReader, &humidistat, trs, &eepromConfig, &spr);
 #endif
 
-SerialLogger<cHumidistat> serialLogger(&humidistat, trsp, eepromConfig.configStore.dt);
+SerialLogger<cHumidistat> serialLogger(&humidistat, trs, eepromConfig.configStore.dt);
 
 void setup() {
 #ifdef ARDUINO_AVR_UNO
@@ -93,4 +115,7 @@ void loop() {
 	ui.update();
 	humidistat.update();
 	serialLogger.update();
+#ifdef HUMIDISTAT_UI_GRAPH
+	spr.update();
+#endif
 }

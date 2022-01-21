@@ -1,6 +1,6 @@
 #include "ControllerUI.h"
 
-ControllerUI::ControllerUI(Print *display, const ButtonReader *buttonReader, Array<const ThermistorReader *, 4> trs)
+ControllerUI::ControllerUI(Print *display, const ButtonReader *buttonReader, etl::span<const ThermistorReader, 4> trs)
 	: display(*display), buttonReader(*buttonReader), trs(trs) {}
 
 void ControllerUI::update() {
@@ -56,7 +56,7 @@ void ControllerUI::blink(uint8_t col, uint8_t row, const char *buf) {
 }
 
 void ControllerUI::printNTC(uint8_t col, uint8_t row, uint8_t i) {
-	double temp = trs[i]->readTemp();
+	double temp = trs[i].readTemp();
 	if (isnan(temp)) {
 		printf(col, row, "%2u", 0);
 	} else {

@@ -2,7 +2,7 @@
 #define HUMIDISTAT_SERIALLOGGER_H
 
 #include <stdint.h>
-#include <Array.h>
+#include <etl/span.h>
 
 #include "asprintf.h"
 #include "control/SingleHumidistat.h"
@@ -15,7 +15,7 @@ template<class Humidistat_t>
 class SerialLogger {
 private:
 	const Humidistat_t &humidistat;
-	const Array<const ThermistorReader *, 4> trs;
+	const etl::span<const ThermistorReader, 4> trs;
 
 	// Can't specialize constexpr...
 	static const char header[];
@@ -32,7 +32,7 @@ public:
 	/// \param humidistat Pointer to a Humidistat instance
 	/// \param trs        Array of 4 pointers to ThermistorReader instances
 	/// \param interval   Logging interval (in ms)
-	explicit SerialLogger(const Humidistat_t *humidistat, Array<const ThermistorReader *, 4> trs, uint16_t interval)
+	explicit SerialLogger(const Humidistat_t *humidistat, etl::span<const ThermistorReader, 4> trs, uint16_t interval)
 			: humidistat(*humidistat), trs(trs), interval(interval) {}
 
 	/// Setup the serial interface
@@ -87,10 +87,10 @@ void SerialLogger<SingleHumidistat>::log() {
 	                     humidistat.sp,
 	                     humidistat.getTemperature(),
 	                     humidistat.cv,
-	                     trs[0] ? trs[0]->readTemp() : NAN,
-	                     trs[1] ? trs[1]->readTemp() : NAN,
-	                     trs[2] ? trs[2]->readTemp() : NAN,
-	                     trs[3] ? trs[3]->readTemp() : NAN,
+	                     trs[0].readTemp(),
+	                     trs[1].readTemp(),
+	                     trs[2].readTemp(),
+	                     trs[3].readTemp(),
 	                     pTerm,
 	                     iTerm,
 	                     dTerm

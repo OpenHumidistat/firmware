@@ -3,6 +3,7 @@
 
 #include <U8g2lib.h>
 #include <SPI.h>
+#include <etl/span.h>
 
 #include CONFIG_HEADER
 #include "ConfigPar.h"
@@ -11,6 +12,7 @@
 #include "EEPROMConfig.h"
 #include "../control/SingleHumidistat.h"
 #include "../control/CascadeHumidistat.h"
+#include "SetpointProfileRunner.h"
 
 /// TUI for 128*64 px graphical display using U8g2.
 /// Holds references to a U8g2lib instance for writing to display, an EEPROMConfig instance to edit the config, and
@@ -44,6 +46,7 @@ private:
 	U8G2 &u8g2;
 	EEPROMConfig &eepromConfig;
 	Humidistat_t &humidistat;
+	SetpointProfileRunner &spr;
 
 	// States
 	Tab currentTab = Tab::main;     //!< Currently active tab
@@ -88,10 +91,8 @@ private:
 
 		// Thermistors
 		for (size_t i = 0; i < trs.size(); ++i) {
-			if (trs[i]) {
-				printf(70 + 15*i, 43, "%1u", i + 1);
-				printNTC(70 + 15*i, 53, i);
-			}
+			printf(70 + 15*i, 43, "%1u", i + 1);
+			printNTC(70 + 15*i, 53, i);
 		}
 
 		// Bottom bar
@@ -310,6 +311,8 @@ private:
 		if (state == Buttons::LEFT) {
 			advanceEnum(currentTab);
 			return true;
+		} else if (state == Buttons::RIGHT) {
+			spr.toggle();
 		} else if (state == Buttons::UP) {
 			delta = 1;
 		} else if (state == Buttons::DOWN) {
@@ -480,9 +483,10 @@ public:
 	/// \param trs          Array of 4 pointers to ThermistorReader instances
 	/// \param eepromConfig Pointer to a EEPROMConfig instance
 	explicit GraphicalDisplayUI(U8G2 *u8g2, const ButtonReader *buttonReader, SingleHumidistat *humidistat,
-	                            Array<const ThermistorReader *, 4> trs, EEPROMConfig *eepromConfig)
+	                            etl::span<const ThermistorReader, 4> trs, EEPROMConfig *eepromConfig,
+								SetpointProfileRunner *spr)
 			: ControllerUI(u8g2, buttonReader, trs), u8g2(*u8g2), eepromConfig(*eepromConfig),
-			  humidistat(*humidistat), nConfigPars(5), configPars{
+			  humidistat(*humidistat), spr(*spr), nConfigPars(5), configPars{
 					{&eepromConfig->configStore.HC_Kp,      "Kp"},
 					{&eepromConfig->configStore.HC_Ki,      "Ki"},
 					{&eepromConfig->configStore.HC_Kd,      "Kd"},
@@ -491,9 +495,10 @@ public:
 			} {}
 
 	explicit GraphicalDisplayUI(U8G2 *u8g2, const ButtonReader *buttonReader, CascadeHumidistat *humidistat,
-	                            Array<const ThermistorReader *, 4> trs, EEPROMConfig *eepromConfig)
+	                            etl::span<const ThermistorReader, 4> trs, EEPROMConfig *eepromConfig,
+			                    SetpointProfileRunner *spr)
 			: ControllerUI(u8g2, buttonReader, trs), u8g2(*u8g2), eepromConfig(*eepromConfig),
-			  humidistat(*humidistat), nConfigPars(12), configPars{
+			  humidistat(*humidistat), spr(*spr), nConfigPars(12), configPars{
 					{&eepromConfig->configStore.HC_Kp, "HC Kp"},
 					{&eepromConfig->configStore.HC_Ki, "HC Ki"},
 					{&eepromConfig->configStore.HC_Kd, "HC Kd"},
@@ -539,9 +544,7 @@ void GraphicalDisplayUI<SingleHumidistat>::drawMain() {
 
 	// Thermistors
 	for (size_t i = 0; i < trs.size(); ++i) {
-		if (trs[i]) {
-			printNTC(105, 23 - 9 * i, i);
-		}
+		printNTC(105, 23 - 9 * i, i);
 	}
 }
 
