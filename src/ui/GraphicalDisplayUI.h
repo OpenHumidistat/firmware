@@ -97,7 +97,7 @@ private:
 
 		// Bottom bar
 		u8g2.drawHLine(0, 54, 128);
-		u8g2.setFont(u8g2_font_unifont_t_symbols);
+		u8g2.setFont(u8g2_font_unifont_t_75);
 		u8g2.drawGlyph(0, 66, 9664);
 		u8g2.setFont(u8g2_font_6x12_tr);
 		u8g2.drawStr(10, 62, "tab");
@@ -184,7 +184,7 @@ private:
 
 
 		// Bottom bar
-		u8g2.setFont(u8g2_font_unifont_t_symbols);
+		u8g2.setFont(u8g2_font_unifont_t_75);
 		u8g2.drawHLine(0, 54, 128);
 		u8g2.drawGlyph(0, 66, 9664);
 		u8g2.drawGlyph(30, 66, 9650);
@@ -266,7 +266,7 @@ private:
 
 		// Bottom bar
 		u8g2.drawHLine(0, 54, 128);
-		u8g2.setFont(u8g2_font_unifont_t_symbols);
+		u8g2.setFont(u8g2_font_unifont_t_75);
 		u8g2.drawGlyph(0, 66, 9664);
 		u8g2.drawGlyph(40, 66, 9650);
 		u8g2.drawGlyph(50, 66, 9660);
@@ -283,7 +283,7 @@ private:
 		u8g2.drawFrame(0, 0, 128, 14);
 
 		// Spinning indicator
-		u8g2.setFont(u8g2_font_unifont_t_symbols);
+		u8g2.setFont(u8g2_font_unifont_t_75);
 		uint8_t i = (frame / 2) % 4;
 		u8g2.drawGlyph(118, 10, 0x25f3 - i);
 	}
