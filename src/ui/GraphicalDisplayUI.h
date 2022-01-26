@@ -4,6 +4,7 @@
 #include <U8g2lib.h>
 #include <SPI.h>
 #include <etl/span.h>
+#include <cmath>
 
 #include CONFIG_HEADER
 #include "ConfigPar.h"
@@ -558,7 +559,7 @@ void GraphicalDisplayUI<CascadeHumidistat>::drawMain() {
 
 	{
 		char buf[] = "wet";
-		if (abs(humidistat.getInner(0)->pv - humidistat.getInner(0)->sp) > tolerance * 2) {
+		if (std::abs(humidistat.getInner(0)->pv - humidistat.getInner(0)->sp) > tolerance * 2) {
 			blink(66, 23, buf);
 		} else {
 			u8g2.drawStr(66, 23, buf);
@@ -566,7 +567,7 @@ void GraphicalDisplayUI<CascadeHumidistat>::drawMain() {
 	}
 	{
 		char buf[] = "dry";
-		if (abs(humidistat.getInner(1)->pv - humidistat.getInner(1)->sp) > tolerance * 2) {
+		if (std::abs(humidistat.getInner(1)->pv - humidistat.getInner(1)->sp) > tolerance * 2) {
 			blink(91, 23, buf);
 		} else {
 			u8g2.drawStr(91, 23, buf);
