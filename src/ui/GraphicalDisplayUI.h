@@ -54,7 +54,7 @@ private:
 	uint8_t currentPar = 0;         //!< Currently active config parameter
 	Selection currentSelection = Selection::par;
 	Action currentAction = Action::save;
-	uint8_t currentDigit = 3;
+	uint8_t currentDigit = NUM_DIGITS - 1;
 
 	uint8_t frame = 0;              //!< Frame counter (overflows, but that's OK)
 	uint8_t configSaveTimer = 0;    //!< Timer containing the current value of the cooldown on saving config to EEPROM
@@ -119,13 +119,14 @@ private:
 		u8g2.drawStr(14, 10, "I.");
 
 		// Print config parameters in scrolling menu
-		for (uint8_t i = 0; i < 3; i++) {
+		for (uint8_t i = 0; i < 4; i++) {
 			// Index of parameter to draw
 			int8_t nPar = currentPar + i - 1;
 
-			// Handling for first and last parameter
+			// Handling for first and last two parameters
 			if (currentPar == 0) nPar++;
-			if (currentPar == nConfigPars - 1) nPar--;
+			if (currentPar == nConfigPars - 2) nPar -= 1;
+			if (currentPar == nConfigPars - 1) nPar -= 2;
 
 			uint8_t row = 22 + i * 10;
 
@@ -140,11 +141,12 @@ private:
 					x = 0;
 					w = 40;
 				} else if (currentSelection == Selection::number) {
-					x = 60 + currentDigit * 6;
-					// Skip the decimal separator
+					x = 66 + currentDigit * 6;
+					// Take into account the decimal separator:
+					// if the current parameter is a float and we're left of the decimal separator, move one block left
 					if (configPars[currentPar].var.type == ConfigPar::ConfigParType::d &&
-					    currentDigit > configPars[currentPar].magnitude())
-						x += 6;
+					    currentDigit < configPars[currentPar].magnitude())
+						x -= 6;
 					w = 6;
 				}
 
@@ -378,11 +380,11 @@ private:
 			// Move selected digit left/right
 			if (state == Buttons::LEFT) {
 				currentDigit--;
-				if (currentDigit == 255) currentDigit = 3;
+				if (currentDigit == 255) currentDigit = NUM_DIGITS - 1;
 				return true;
 			}
 			if (state == Buttons::RIGHT) {
-				currentDigit = (currentDigit + 1) % 4;
+				currentDigit = (currentDigit + 1) % (NUM_DIGITS);
 				return true;
 			}
 			// Go back to parameter selection
@@ -392,11 +394,11 @@ private:
 			}
 			// Adjust digit up/down
 			if (state == Buttons::UP) {
-				configPars[currentPar].adjust(ipow(10, 3 - currentDigit));
+				configPars[currentPar].adjust(ipow(10, NUM_DECIMALS - currentDigit));
 				return true;
 			}
 			if (state == Buttons::DOWN) {
-				configPars[currentPar].adjust(-ipow(10, 3 - currentDigit));
+				configPars[currentPar].adjust(-ipow(10, NUM_DECIMALS - currentDigit));
 				return true;
 			}
 		} else if (currentSelection == Selection::actions) {
