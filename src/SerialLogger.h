@@ -71,9 +71,8 @@ const char SerialLogger<SingleHumidistat>::header[] = "Time Humidity Setpoint Te
 													  "pTerm iTerm dTerm";
 
 template<>
-const char SerialLogger<CascadeHumidistat>::header[] = "Time PV SP T CV inner0PV inner0CV inner1PV inner1CV "
-													   "pTerm iTerm dTerm "
-                                                       "inner0pTerm inner0iTerm inner0dTerm "
+const char SerialLogger<CascadeHumidistat>::header[] = "Time PV SP T CV inner0PV inner0SP inner0CV inner1PV inner1SP "
+													   "inner1CV pTerm iTerm dTerm inner0pTerm inner0iTerm inner0dTerm "
                                                        "inner1pTerm inner1iTerm inner1dTerm";
 
 template<>
@@ -109,15 +108,17 @@ void SerialLogger<CascadeHumidistat>::log() {
 	humidistat.getInner(0)->getTerms(innerPTerms[0], innerITerms[0], innerDTerms[0]);
 	humidistat.getInner(1)->getTerms(innerPTerms[1], innerITerms[1], innerDTerms[1]);
 
-	char *buf = asprintf("%lu %.2f %.2f %.2f %.4f %.3f %.4f %.3f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f",
+	char *buf = asprintf("%lu %.2f %.2f %.2f %.4f %.3f %.4f %.3f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f",
 	                     lastTime,
 	                     humidistat.getHumidity(),
 	                     humidistat.sp,
 	                     humidistat.getTemperature(),
 	                     humidistat.cv,
 	                     humidistat.getInner(0)->pv,
+	                     humidistat.getInner(0)->sp,
 	                     humidistat.getInner(0)->cv,
 	                     humidistat.getInner(1)->pv,
+	                     humidistat.getInner(1)->sp,
 	                     humidistat.getInner(1)->cv,
 	                     outerPTerm,
 	                     outerITerm,

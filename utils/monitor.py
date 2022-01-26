@@ -49,19 +49,30 @@ ax_dist = {
 	'iTerm': 1,
 	'dTerm': 1,
 	'inner0PV': 3,
-	'inner0CV': 4,
-	'inner1PV': 3,
-	'inner1CV': 4,
-	'inner0pTerm': 4,
-	'inner0iTerm': 4,
-	'inner0dTerm': 4,
-	'inner1pTerm': 4,
-	'inner1iTerm': 4,
-	'inner1dTerm': 4,
+	'inner0SP': 3,
+	'inner0CV': 5,
+	'inner1PV': 4,
+	'inner1SP': 4,
+	'inner1CV': 6,
+	'inner0pTerm': 5,
+	'inner0iTerm': 5,
+	'inner0dTerm': 5,
+	'inner1pTerm': 6,
+	'inner1iTerm': 6,
+	'inner1dTerm': 6,
 }
 
+mosaic = '''
+AA
+BB
+CC
+DE
+FG
+'''
+
 plt.ion()
-fig, axs = plt.subplots(max(ax_dist.values()) + 1, sharex=True)
+fig, axd = plt.subplot_mosaic(mosaic, sharex=True)
+axs = list(axd.values())
 axs[-1].set_xlabel('Time (s)')
 fig.show()
 
