@@ -70,14 +70,19 @@ DE
 FG
 '''
 
-plt.ion()
 fig, axd = plt.subplot_mosaic(mosaic, sharex=True)
 axs = list(axd.values())
+axs[2].set_xlabel('Time (s)')
 axs[-1].set_xlabel('Time (s)')
+axs[2].xaxis.set_tick_params(which='both', labelbottom=True)
+for ax in axs:
+	ax.minorticks_on()
 fig.show()
+plt.ion()
 
 with SerialReader(args.port, args.baud) as sr:
 	# Setup list of lists using number of columns deduced from header
+	# Data is column-major: inner lists are appended to for every line of data received
 	data = [[] for column in sr.header]
 
 	# Setup empty plot
@@ -90,15 +95,18 @@ with SerialReader(args.port, args.baud) as sr:
 	# Synchronous loop consisting of reading lines from serial and subsequently plotting them
 	while True:
 		# Read all lines in the receive buffer and append them to the data list
+		read = False
 		while sr.available():
 			row = sr.readline()
 			for i, column in enumerate(row):
 				data[i].append(column)
+			read = True
 
-		# Update the data associated with the lines
-		for i, line in enumerate(lines):
-			line.set_xdata(np.array(data[0])/1000)
-			line.set_ydata(data[i+1])
+		if read:
+			# Update the data associated with the lines
+			for i, line in enumerate(lines):
+				line.set_xdata((np.array(data[0])-data[0][0])/1000)
+				line.set_ydata(data[i+1])
 
 		# We need both statements for the axes to auto-scale
 		for ax in axs:
