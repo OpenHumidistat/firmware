@@ -68,23 +68,7 @@ CharDisplayUI ui(&liquidCrystal, &buttonReader, &humidistat, trs);
 #include <U8g2lib.h>
 #include "ui/GraphicalDisplayUI.h"
 
-const uint8_t interval = 100; // seconds
-Point points[] = {
-		{0, 10},
-		{1*interval, 20},
-		{2*interval, 30},
-		{3*interval, 40},
-		{4*interval, 50},
-		{5*interval, 60},
-		{6*interval, 65},
-		{7*interval, 70},
-		{8*interval, 75},
-		{9*interval, 80},
-		{10*interval, 85},
-		{11*interval, 90},
-		{12*interval, 95},
-};
-SetpointProfileRunner spr(&humidistat, points);
+SetpointProfileRunner spr(&humidistat);
 
 U8G2_ST7920_128X64_F_HW_SPI u8g2(U8G2_R0, config::PIN_LCD_CS);
 GraphicalDisplayUI<cHumidistat> ui(&u8g2, &buttonReader, &humidistat, trs, &eepromConfig, &spr);

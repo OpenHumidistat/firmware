@@ -2,6 +2,9 @@
 #define HUMIDISTAT_CONFIG_H
 
 #include <Arduino.h>
+#include <etl/span.h>
+
+#include "Point.h"
 
 /// Define either HUMIDISTAT_CONTROLLER_SINGLE or HUMIDISTAT_CONTROLLER_CASCADE. In the latter case, flow sensors
 /// must be connected to PIN_F1 and PIN_F2.
@@ -110,6 +113,27 @@ namespace config {
 	const uint8_t PIN_T4 = A9;
 	///@}
 #endif
+	///@}
+
+	/// @name Setpoint profiles
+	/// Here you can define setpoint profiles (arrays of `Point`s, which are pairs of a time and setpoint value). The
+	/// `Point` arrays must be sorted in time.
+	/// Enter the profiles in `profiles`, which is an array of `SPProfile`s (which takes a pair of a label string and
+	/// span of `Point`s)
+	///@{
+	const uint8_t interval = 20; // seconds
+	const Point profile_tuningtest[] = {
+			{0 * interval, 50},
+			{1 * interval, 30},
+			{2 * interval, 60},
+			{3 * interval, 70},
+			{4 * interval, 20},
+	};
+
+	/// Setpoint profile definitions
+	const SPProfile profiles[] = {
+			{"Tuning test", etl::span<const Point>(profile_tuningtest)},
+	};
 	///@}
 
 	/// @name UI

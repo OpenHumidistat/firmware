@@ -3,13 +3,10 @@
 
 #include <etl/span.h>
 
+#include "Point.h"
 #include "control/Humidistat.h"
 
-struct Point {
-	const uint16_t time;
-	const double sp;
-};
-
+/// 'Runs' a setpoint profile.
 class SetpointProfileRunner {
 private:
 	Humidistat& humidistat;
@@ -17,10 +14,28 @@ private:
 	uint32_t timeStart;
 	bool running = false;
 public:
-	SetpointProfileRunner(Humidistat* humidistat, etl::span<const Point> profile);
+	/// Constructor.
+	/// \param humidistat Pointer to a Humidistat instance
+	explicit SetpointProfileRunner(Humidistat* humidistat);
 
+	/// Toggle the run state.
 	void toggle();
+
+	/// Set the profile.
+	/// \param profile Span over Points
+	void setProfile(const etl::span<const Point>& profile);
+
+	/// Run the profile (if running).
+	/// Call this periodically.
 	void update();
+
+	/// Get the run state.
+	/// \return True if running
+	[[nodiscard]] bool isRunning() const;
+
+	/// Get the index of the current Point in the profile.
+	/// \return index
+	[[nodiscard]] size_t getCurrentPoint() const;
 };
 
 

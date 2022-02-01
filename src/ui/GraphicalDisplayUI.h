@@ -55,6 +55,7 @@ private:
 	Selection currentSelection = Selection::par;
 	Action currentAction = Action::save;
 	uint8_t currentDigit = NUM_DIGITS - 1;
+	uint8_t currentSPProfile = 0;
 
 	uint8_t frame = 0;              //!< Frame counter (overflows, but that's OK)
 	uint8_t configSaveTimer = 0;    //!< Timer containing the current value of the cooldown on saving config to EEPROM
@@ -82,26 +83,37 @@ private:
 		u8g2.drawStr(40, 10, "C.");
 
 		// Temperature box
-		u8g2.drawVLine(67, 27, 28);
+		u8g2.drawVLine(67, 27, 18);
 		u8g2.drawStr(0, 23, "Temperatures");
 		u8g2.drawHLine(0, 26, 128);
 		u8g2.drawStr(0, 35, "Chamber");
 		printf(70, 35, "%3.1f", humidistat.getTemperature());
 		u8g2.drawStr(0, 43, "Thermistors");
-		u8g2.drawHLine(68, 44, 60);
+		u8g2.drawHLine(0, 44, 128);
 
 		// Thermistors
 		for (size_t i = 0; i < trs.size(); ++i) {
-			printf(70 + 15*i, 43, "%1u", i + 1);
-			printNTC(70 + 15*i, 53, i);
+			printNTC(70 + 15*i, 43, i);
 		}
+
+		// Setpoint profiles
+		u8g2.drawBox(0, 44, 65, 10);
+		u8g2.setDrawColor(0);
+		u8g2.drawStr(0, 52, "SP profile:");
+		u8g2.setDrawColor(1);
+		u8g2.drawStr(70, 53, config::profiles[currentSPProfile].label);
+
 
 		// Bottom bar
 		u8g2.drawHLine(0, 54, 128);
 		u8g2.setFont(u8g2_font_unifont_t_75);
 		u8g2.drawGlyph(0, 66, 9664);
+		u8g2.drawGlyph(40, 66, 9650);
+		u8g2.drawGlyph(50, 66, 9660);
+		u8g2.setFont(u8g2_font_5x7_tr);
+		u8g2.drawStr(10, 63, "tab");
+		u8g2.drawStr(60, 63, "adj");
 		u8g2.setFont(u8g2_font_6x12_tr);
-		u8g2.drawStr(10, 62, "tab");
 	}
 
 	/// Draw the Config tab
@@ -193,24 +205,25 @@ private:
 		u8g2.drawGlyph(30, 66, 9650);
 		u8g2.drawGlyph(36, 66, 9660);
 		u8g2.drawGlyph(65, 66, 9654);
-		u8g2.drawGlyph(95, 66, 9679);
-		u8g2.setFont(u8g2_font_6x12_tr);
+		u8g2.drawGlyph(98, 66, 9679);
+		u8g2.setFont(u8g2_font_5x7_tr);
 		if (currentSelection == Selection::par) {
-			u8g2.drawStr(10, 62, "tab");
-			u8g2.drawStr(45, 62, "par");
-			u8g2.drawStr(75, 62, "menu");
-			u8g2.drawStr(105, 62, "edit");
+			u8g2.drawStr(10, 63, "tab");
+			u8g2.drawStr(45, 63, "par");
+			u8g2.drawStr(75, 63, "menu");
+			u8g2.drawStr(108, 63, "edit");
 		}
 		if (currentSelection == Selection::number) {
-			u8g2.drawStr(45, 62, "adj");
-			u8g2.drawStr(105, 62, "OK");
+			u8g2.drawStr(45, 63, "adj");
+			u8g2.drawStr(108, 63, "OK");
 		}
 		if (currentSelection == Selection::actions) {
-			u8g2.drawStr(10, 62, "back");
-			u8g2.drawStr(45, 62, "");
-			u8g2.drawStr(75, 62, "back");
-			u8g2.drawStr(105, 62, "OK");
+			u8g2.drawStr(10, 63, "back");
+			u8g2.drawStr(45, 63, "");
+			u8g2.drawStr(75, 63, "back");
+			u8g2.drawStr(108, 63, "OK");
 		}
+		u8g2.setFont(u8g2_font_6x12_tr);
 	}
 
 	/// Draw common elements in Main tab
@@ -229,7 +242,7 @@ private:
 		u8g2.drawVLine(70, 1, 12);
 
 		// Humidity box
-		u8g2.drawVLine(13, 27, 29);
+		u8g2.drawVLine(13, 27, 28);
 		u8g2.drawStr(0, 23, "Humidity");
 		u8g2.drawHLine(0, 26, 51);
 
@@ -267,17 +280,27 @@ private:
 		else
 			u8g2.drawStr(80, 10, "manual");
 
+		// Setpoint profiles
+		if(spr.isRunning()) {
+			u8g2.setFont(u8g2_font_5x7_tr);
+			printf(52, 53, "Prof: %u/%u", spr.getCurrentPoint(), config::profiles[currentSPProfile].profile.size() - 1);
+			u8g2.setFont(u8g2_font_6x12_tr);
+		}
+
 		// Bottom bar
 		u8g2.drawHLine(0, 54, 128);
 		u8g2.setFont(u8g2_font_unifont_t_75);
 		u8g2.drawGlyph(0, 66, 9664);
-		u8g2.drawGlyph(40, 66, 9650);
-		u8g2.drawGlyph(50, 66, 9660);
-		u8g2.drawGlyph(90, 66, 9679);
+		u8g2.drawGlyph(30, 66, 9650);
+		u8g2.drawGlyph(36, 66, 9660);
+		u8g2.drawGlyph(65, 66, 9654);
+		u8g2.drawGlyph(98, 66, 9679);
+		u8g2.setFont(u8g2_font_5x7_tr);
+		u8g2.drawStr(10, 63, "tab");
+		u8g2.drawStr(45, 63, "adj");
+		u8g2.drawStr(75, 63, "prof");
+		u8g2.drawStr(108, 63, "mode");
 		u8g2.setFont(u8g2_font_6x12_tr);
-		u8g2.drawStr(10, 62, "tab");
-		u8g2.drawStr(60, 62, "adj");
-		u8g2.drawStr(100, 62, "mode");
 	}
 
 	/// Draw the tab bar
@@ -315,6 +338,7 @@ private:
 			advanceEnum(currentTab);
 			return true;
 		} else if (state == Buttons::RIGHT) {
+			spr.setProfile(config::profiles[currentSPProfile].profile);
 			spr.toggle();
 		} else if (state == Buttons::UP) {
 			delta = 1;
@@ -340,9 +364,16 @@ private:
 		return true;
 	}
 
+	/// Handle input on the Info tab
 	bool handleInputInfo(Buttons state, uint16_t pressedFor) {
 		if (state == Buttons::LEFT) {
 			advanceEnum(currentTab);
+			return true;
+		} else if (state == Buttons::UP) {
+			currentSPProfile = (currentSPProfile + 1) % (sizeof(config::profiles)/sizeof(config::profiles[0]));
+			return true;
+		} else if (state == Buttons::DOWN) {
+			currentSPProfile = (currentSPProfile - 1) % (sizeof(config::profiles)/sizeof(config::profiles[0]));
 			return true;
 		}
 		return false;
@@ -532,11 +563,11 @@ void GraphicalDisplayUI<SingleHumidistat>::drawMain() {
 	double pTerm, iTerm, dTerm;
 	humidistat.getTerms(pTerm, iTerm, dTerm);
 
-	u8g2.drawFrame(52, 13, 47, 33);
+	u8g2.drawFrame(52, 13, 47, 31);
 	u8g2.drawStr(54, 23, "P");
 	u8g2.drawStr(54, 32, "I");
 	u8g2.drawStr(54, 41, "D");
-	u8g2.drawVLine(60, 13, 33);
+	u8g2.drawVLine(60, 13, 31);
 
 	printf(62, 23, "%6.2f", pTerm);
 	printf(62, 32, "%6.2f", iTerm);
@@ -545,11 +576,6 @@ void GraphicalDisplayUI<SingleHumidistat>::drawMain() {
 	// Temperature box
 	u8g2.setCursor(105, 23);
 	u8g2.print(humidistat.getTemperature(), 1);
-
-	// Thermistors
-	for (size_t i = 0; i < trs.size(); ++i) {
-		printNTC(105, 23 - 9 * i, i);
-	}
 }
 
 template<>
@@ -578,8 +604,9 @@ void GraphicalDisplayUI<CascadeHumidistat>::drawMain() {
 	}
 
 	u8g2.drawHLine(50, 26, 64);
-	u8g2.drawVLine(64, 13, 42);
-	u8g2.drawVLine(89, 13, 42);
+	u8g2.drawVLine(64, 13, 32);
+	u8g2.drawVLine(89, 13, 32);
+	u8g2.drawHLine(50, 45, 64);
 
 	u8g2.drawStr(52, 35, "PV");
 	u8g2.drawStr(52, 44, "CV");
