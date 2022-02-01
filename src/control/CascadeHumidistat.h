@@ -18,9 +18,9 @@ private:
 
 public:
 	/// Constructor.
-	/// \param cs            Pointer to a ConfigStore instance
 	/// \param hs            Pointer to a HumiditySensor instance
-	/// \param flowSensors   Array of 2 pointers to FlowSensor instances
+	/// \param cs            Pointer to a ConfigStore instance
+	/// \param flowSensors   Span over 2 FlowSensor instances
 	/// \param pins_solenoid Array of 2 integers corresponding to the solenoid pins
 	/// \param pwmRes        PWM resolution (bits)
 	CascadeHumidistat(HumiditySensor *hs, const ConfigStore *cs, etl::span<const FlowSensor, 2> flowSensors,
@@ -29,7 +29,7 @@ public:
 	/// Get a pointer to a inner FlowController instance.
 	/// \param n the index of the FlowController (0 or 1)
 	/// \return pointer to the FlowController instance.
-	const FlowController* getInner(uint8_t n) const;
+	[[nodiscard]] const FlowController* getInner(uint8_t n) const;
 
 	// Overridden from Controller
 	void update();

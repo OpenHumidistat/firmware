@@ -24,11 +24,11 @@ private:
 	bool handleInput(Buttons state, uint16_t pressedFor) override;
 
 public:
-	/// Contructor.
+	/// Constructor.
 	/// \param liquidCrystal Pointer to a LiquidCrystal instance
 	/// \param buttonReader  Pointer to a ButtonReader instance
 	/// \param humidistat    Pointer to a SingleHumidistat instance
-	/// \param trs           Array of 4 pointers to ThermistorReader instances
+	/// \param trs           Span over 4 ThermistorReader instances
 	explicit CharDisplayUI(LiquidCrystal *liquidCrystal, const ButtonReader *buttonReader, SingleHumidistat *humidistat,
 	                       etl::span<const ThermistorReader, 4> trs);
 

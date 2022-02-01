@@ -30,7 +30,7 @@ private:
 public:
 	/// Constructor.
 	/// \param humidistat Pointer to a Humidistat instance
-	/// \param trs        Array of 4 pointers to ThermistorReader instances
+	/// \param trs        Span over 4 ThermistorReader instances
 	/// \param interval   Logging interval (in ms)
 	explicit SerialLogger(const Humidistat_t *humidistat, etl::span<const ThermistorReader, 4> trs, uint16_t interval)
 			: humidistat(*humidistat), trs(trs), interval(interval) {}

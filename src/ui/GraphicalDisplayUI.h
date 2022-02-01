@@ -462,7 +462,7 @@ private:
 
 		u8g2.setFont(u8g2_font_5x7_tr);
 		u8g2.drawStr(0, 50, "https://github.com/");
-		u8g2.drawStr(0, 60, "Compizfox/OpenHumidistat");
+		u8g2.drawStr(0, 60, "OpenHumidistat");
 
 		u8g2.sendBuffer();
 	}
@@ -483,8 +483,9 @@ public:
 	/// \param u8g2         Pointer to a U8G2 instance
 	/// \param buttonReader Pointer to a ButtonReader instance
 	/// \param humidistat   Pointer to a Humidistat instance
-	/// \param trs          Array of 4 pointers to ThermistorReader instances
+	/// \param trs          Span over 4 ThermistorReader instances
 	/// \param eepromConfig Pointer to a EEPROMConfig instance
+	/// \param spr          Pointer to a SetpointProfileRunner instance
 	explicit GraphicalDisplayUI(U8G2 *u8g2, const ButtonReader *buttonReader, SingleHumidistat *humidistat,
 	                            etl::span<const ThermistorReader, 4> trs, EEPROMConfig *eepromConfig,
 								SetpointProfileRunner *spr)

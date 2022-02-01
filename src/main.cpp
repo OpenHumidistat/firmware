@@ -45,7 +45,7 @@ const uint8_t pwmRes = 8;
 // Humidity controller
 #ifdef HUMIDISTAT_CONTROLLER_SINGLE
 #include "control/SingleHumidistat.h"
-SingleHumidistat humidistat(&eepromConfig.configStore, &hs, {{config::PIN_S1, config::PIN_S2}}, pwmRes);
+SingleHumidistat humidistat(&hs, &eepromConfig.configStore, {{config::PIN_S1, config::PIN_S2}}, pwmRes);
 using cHumidistat = SingleHumidistat;
 #endif
 #ifdef HUMIDISTAT_CONTROLLER_CASCADE

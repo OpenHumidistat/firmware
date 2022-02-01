@@ -61,7 +61,7 @@ protected:
 	/// Constructor.
 	/// \param display      Pointer to a Print instance
 	/// \param buttonReader Pointer to a ButtonReader instance
-	/// \param trs          Array of 4 pointers to ThermistorReader instances
+	/// \param trs          Span over 4 ThermistorReader instances
 	explicit ControllerUI(Print *display, const ButtonReader *buttonReader, etl::span<const ThermistorReader, 4> trs);
 
 	/// Print blinking text.
