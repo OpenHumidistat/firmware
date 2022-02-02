@@ -2,7 +2,7 @@
 #define HUMIDISTAT_CONTROLLERUI_H
 
 #include <stdint.h>
-#include <Array.h>
+#include <etl/span.h>
 #include <Print.h>
 
 #include CONFIG_HEADER
@@ -50,7 +50,7 @@ private:
 	virtual bool handleInput(Buttons state, uint16_t pressedFor) = 0;
 
 protected:
-	Array<const ThermistorReader*, 4> trs;
+	etl::span<const ThermistorReader, 4> trs;
 
 	unsigned long lastRefreshed = 0; //!< Last time display was updated (in millis)
 
@@ -61,8 +61,8 @@ protected:
 	/// Constructor.
 	/// \param display      Pointer to a Print instance
 	/// \param buttonReader Pointer to a ButtonReader instance
-	/// \param trs          Array of 4 pointers to ThermistorReader instances
-	explicit ControllerUI(Print *display, const ButtonReader *buttonReader, Array<const ThermistorReader *, 4> trs);
+	/// \param trs          Span over 4 ThermistorReader instances
+	explicit ControllerUI(Print *display, const ButtonReader *buttonReader, etl::span<const ThermistorReader, 4> trs);
 
 	/// Print blinking text.
 	/// \param col LCD column

@@ -1,6 +1,12 @@
 #ifndef HUMIDISTAT_CONFIGPAR_H
 #define HUMIDISTAT_CONFIGPAR_H
 
+#define XSTR(s) STR(s)
+#define STR(s) #s
+#define WIDTH 7
+#define NUM_DIGITS WIDTH - 2
+#define NUM_DECIMALS 4
+
 /// A class for storing references to variables of various types (uint8_t, uint16_t, or double).
 class ConfigPar {
 public:

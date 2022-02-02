@@ -49,24 +49,40 @@ ax_dist = {
 	'iTerm': 1,
 	'dTerm': 1,
 	'inner0PV': 3,
-	'inner0CV': 4,
-	'inner1PV': 3,
-	'inner1CV': 4,
-	'inner0pTerm': 4,
-	'inner0iTerm': 4,
-	'inner0dTerm': 4,
-	'inner1pTerm': 4,
-	'inner1iTerm': 4,
-	'inner1dTerm': 4,
+	'inner0SP': 3,
+	'inner0CV': 5,
+	'inner1PV': 4,
+	'inner1SP': 4,
+	'inner1CV': 6,
+	'inner0pTerm': 5,
+	'inner0iTerm': 5,
+	'inner0dTerm': 5,
+	'inner1pTerm': 6,
+	'inner1iTerm': 6,
+	'inner1dTerm': 6,
 }
 
-plt.ion()
-fig, axs = plt.subplots(max(ax_dist.values()) + 1, sharex=True)
+mosaic = '''
+AA
+BB
+CC
+DE
+FG
+'''
+
+fig, axd = plt.subplot_mosaic(mosaic, sharex=True)
+axs = list(axd.values())
+axs[2].set_xlabel('Time (s)')
 axs[-1].set_xlabel('Time (s)')
+axs[2].xaxis.set_tick_params(which='both', labelbottom=True)
+for ax in axs:
+	ax.minorticks_on()
 fig.show()
+plt.ion()
 
 with SerialReader(args.port, args.baud) as sr:
 	# Setup list of lists using number of columns deduced from header
+	# Data is column-major: inner lists are appended to for every line of data received
 	data = [[] for column in sr.header]
 
 	# Setup empty plot
@@ -79,15 +95,18 @@ with SerialReader(args.port, args.baud) as sr:
 	# Synchronous loop consisting of reading lines from serial and subsequently plotting them
 	while True:
 		# Read all lines in the receive buffer and append them to the data list
+		read = False
 		while sr.available():
 			row = sr.readline()
 			for i, column in enumerate(row):
 				data[i].append(column)
+			read = True
 
-		# Update the data associated with the lines
-		for i, line in enumerate(lines):
-			line.set_xdata(np.array(data[0])/1000)
-			line.set_ydata(data[i+1])
+		if read:
+			# Update the data associated with the lines
+			for i, line in enumerate(lines):
+				line.set_xdata((np.array(data[0])-data[0][0])/1000)
+				line.set_ydata(data[i+1])
 
 		# We need both statements for the axes to auto-scale
 		for ax in axs:

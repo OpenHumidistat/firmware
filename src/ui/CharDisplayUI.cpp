@@ -1,7 +1,7 @@
 #include "CharDisplayUI.h"
 
 CharDisplayUI::CharDisplayUI(LiquidCrystal *liquidCrystal, const ButtonReader *buttonReader,
-                             SingleHumidistat *humidistat, Array<const ThermistorReader *, 4> trs)
+                             SingleHumidistat *humidistat, etl::span<const ThermistorReader, 4> trs)
 		: ControllerUI(liquidCrystal, buttonReader, trs), liquidCrystal(*liquidCrystal), humidistat(*humidistat) {}
 
 void CharDisplayUI::draw() {
@@ -31,9 +31,7 @@ void CharDisplayUI::draw() {
 
 	// Thermistors
 	for (size_t i = 0; i < trs.size(); ++i) {
-		if (trs[i]) {
-			printNTC(3 * i, 1, i);
-		}
+		printNTC(3 * i, 1, i);
 	}
 }
 

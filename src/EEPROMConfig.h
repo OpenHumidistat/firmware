@@ -32,6 +32,9 @@ struct ConfigStore {
 
 	/// Total flowrate (for cascade controller) (L/min)
 	double HC_totalFlowrate;
+
+	/// Smoothing factor of EMA filter for derivative
+	double a;
 } const defaultConfigStore = {
 	"hum2",
 	false,
@@ -49,7 +52,8 @@ struct ConfigStore {
 	config::FC_dt,
 
 	config::S_lowValue,
-	config::HC_totalFlowrate
+	config::HC_totalFlowrate,
+	config::a,
 };
 
 /// Load/save an (internal) ConfigStore in EEPROM.

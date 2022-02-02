@@ -2,7 +2,7 @@
 #define HUMIDISTAT_SERIALLOGGER_H
 
 #include <stdint.h>
-#include <Array.h>
+#include <etl/span.h>
 
 #include "asprintf.h"
 #include "control/SingleHumidistat.h"
@@ -15,7 +15,7 @@ template<class Humidistat_t>
 class SerialLogger {
 private:
 	const Humidistat_t &humidistat;
-	const Array<const ThermistorReader *, 4> trs;
+	const etl::span<const ThermistorReader, 4> trs;
 
 	// Can't specialize constexpr...
 	static const char header[];
@@ -30,9 +30,9 @@ private:
 public:
 	/// Constructor.
 	/// \param humidistat Pointer to a Humidistat instance
-	/// \param trs        Array of 4 pointers to ThermistorReader instances
+	/// \param trs        Span over 4 ThermistorReader instances
 	/// \param interval   Logging interval (in ms)
-	explicit SerialLogger(const Humidistat_t *humidistat, Array<const ThermistorReader *, 4> trs, uint16_t interval)
+	explicit SerialLogger(const Humidistat_t *humidistat, etl::span<const ThermistorReader, 4> trs, uint16_t interval)
 			: humidistat(*humidistat), trs(trs), interval(interval) {}
 
 	/// Setup the serial interface
@@ -71,9 +71,8 @@ const char SerialLogger<SingleHumidistat>::header[] = "Time Humidity Setpoint Te
 													  "pTerm iTerm dTerm";
 
 template<>
-const char SerialLogger<CascadeHumidistat>::header[] = "Time PV SP T CV inner0PV inner0CV inner1PV inner1CV "
-													   "pTerm iTerm dTerm "
-                                                       "inner0pTerm inner0iTerm inner0dTerm "
+const char SerialLogger<CascadeHumidistat>::header[] = "Time PV SP T CV inner0PV inner0SP inner0CV inner1PV inner1SP "
+													   "inner1CV pTerm iTerm dTerm inner0pTerm inner0iTerm inner0dTerm "
                                                        "inner1pTerm inner1iTerm inner1dTerm";
 
 template<>
@@ -87,10 +86,10 @@ void SerialLogger<SingleHumidistat>::log() {
 	                     humidistat.sp,
 	                     humidistat.getTemperature(),
 	                     humidistat.cv,
-	                     trs[0] ? trs[0]->readTemp() : NAN,
-	                     trs[1] ? trs[1]->readTemp() : NAN,
-	                     trs[2] ? trs[2]->readTemp() : NAN,
-	                     trs[3] ? trs[3]->readTemp() : NAN,
+	                     trs[0].readTemp(),
+	                     trs[1].readTemp(),
+	                     trs[2].readTemp(),
+	                     trs[3].readTemp(),
 	                     pTerm,
 	                     iTerm,
 	                     dTerm
@@ -109,15 +108,17 @@ void SerialLogger<CascadeHumidistat>::log() {
 	humidistat.getInner(0)->getTerms(innerPTerms[0], innerITerms[0], innerDTerms[0]);
 	humidistat.getInner(1)->getTerms(innerPTerms[1], innerITerms[1], innerDTerms[1]);
 
-	char *buf = asprintf("%lu %.2f %.2f %.2f %.4f %.3f %.4f %.3f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f",
+	char *buf = asprintf("%lu %.2f %.2f %.2f %.4f %.3f %.4f %.3f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f",
 	                     lastTime,
 	                     humidistat.getHumidity(),
 	                     humidistat.sp,
 	                     humidistat.getTemperature(),
 	                     humidistat.cv,
 	                     humidistat.getInner(0)->pv,
+	                     humidistat.getInner(0)->sp,
 	                     humidistat.getInner(0)->cv,
 	                     humidistat.getInner(1)->pv,
+	                     humidistat.getInner(1)->sp,
 	                     humidistat.getInner(1)->cv,
 	                     outerPTerm,
 	                     outerITerm,

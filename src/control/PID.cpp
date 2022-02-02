@@ -1,8 +1,8 @@
 #include "PID.h"
 
 PID::PID(const double *pv, double *cv, const double *sp, double Kp, double Ki, double Kd, double Kf, uint16_t dt,
-		 double cvMin, double cvMax)
-	: pv(*pv), cv(*cv), sp(*sp), cvMin(cvMin), cvMax(cvMax) {
+         double cvMin, double cvMax, double a)
+	: pv(*pv), cv(*cv), sp(*sp), a(a), cvMin(cvMin), cvMax(cvMax) {
 	setGains(Kp, Ki, Kd, Kf, dt);
 }
 
@@ -22,7 +22,7 @@ bool PID::compute() {
 	// Proportional error
 	double e = sp - pv;
 	// Derivative (Derivative on Measurement)
-	double dPv = pv - lastPv; // Backwards difference
+	double dPv = (1-a) * lastDPV + a * (pv - lastPv); // Backwards difference, EWA smoothed
 	// Integral error
 	double delta = (lastE + e) / 2; // Trapezoidal integration
 	if ((cv < cvMax || delta < 0) && (cv > cvMin || delta > 0)) // Anti-windup through conditional integration
@@ -37,6 +37,7 @@ bool PID::compute() {
 
 	lastPv = pv;
 	lastE = e;
+	lastDPV = dPv;
 	return true;
 }
 

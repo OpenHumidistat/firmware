@@ -2,6 +2,8 @@
 #define HUMIDISTAT_CHARDISPLAYUI_H
 
 #include <LiquidCrystal.h>
+#include <etl/span.h>
+
 #include "ControllerUI.h"
 #include "control/SingleHumidistat.h"
 
@@ -22,13 +24,13 @@ private:
 	bool handleInput(Buttons state, uint16_t pressedFor) override;
 
 public:
-	/// Contructor.
+	/// Constructor.
 	/// \param liquidCrystal Pointer to a LiquidCrystal instance
 	/// \param buttonReader  Pointer to a ButtonReader instance
 	/// \param humidistat    Pointer to a SingleHumidistat instance
-	/// \param trs           Array of 4 pointers to ThermistorReader instances
+	/// \param trs           Span over 4 ThermistorReader instances
 	explicit CharDisplayUI(LiquidCrystal *liquidCrystal, const ButtonReader *buttonReader, SingleHumidistat *humidistat,
-	                       Array<const ThermistorReader *, 4> trs);
+	                       etl::span<const ThermistorReader, 4> trs);
 
 	void begin() override;
 };

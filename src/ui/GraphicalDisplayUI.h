@@ -3,6 +3,8 @@
 
 #include <U8g2lib.h>
 #include <SPI.h>
+#include <etl/span.h>
+#include <cmath>
 
 #include CONFIG_HEADER
 #include "ConfigPar.h"
@@ -11,6 +13,7 @@
 #include "EEPROMConfig.h"
 #include "../control/SingleHumidistat.h"
 #include "../control/CascadeHumidistat.h"
+#include "SetpointProfileRunner.h"
 
 /// TUI for 128*64 px graphical display using U8g2.
 /// Holds references to a U8g2lib instance for writing to display, an EEPROMConfig instance to edit the config, and
@@ -44,13 +47,15 @@ private:
 	U8G2 &u8g2;
 	EEPROMConfig &eepromConfig;
 	Humidistat_t &humidistat;
+	SetpointProfileRunner &spr;
 
 	// States
 	Tab currentTab = Tab::main;     //!< Currently active tab
 	uint8_t currentPar = 0;         //!< Currently active config parameter
 	Selection currentSelection = Selection::par;
 	Action currentAction = Action::save;
-	uint8_t currentDigit = 3;
+	uint8_t currentDigit = NUM_DIGITS - 1;
+	uint8_t currentSPProfile = 0;
 
 	uint8_t frame = 0;              //!< Frame counter (overflows, but that's OK)
 	uint8_t configSaveTimer = 0;    //!< Timer containing the current value of the cooldown on saving config to EEPROM
@@ -59,7 +64,7 @@ private:
 	const uint8_t configSaveCooldown = config::configSaveCooldown;
 
 	const uint8_t nConfigPars;     //!< Total number of config parameters
-	const ConfigPar configPars[12]; //!< Array of config parameters
+	const ConfigPar configPars[13]; //!< Array of config parameters
 
 	/// Draw the Main tab
 	// (declaration, implementation specialised)
@@ -78,28 +83,37 @@ private:
 		u8g2.drawStr(40, 10, "C.");
 
 		// Temperature box
-		u8g2.drawVLine(67, 27, 28);
+		u8g2.drawVLine(67, 27, 18);
 		u8g2.drawStr(0, 23, "Temperatures");
 		u8g2.drawHLine(0, 26, 128);
 		u8g2.drawStr(0, 35, "Chamber");
 		printf(70, 35, "%3.1f", humidistat.getTemperature());
 		u8g2.drawStr(0, 43, "Thermistors");
-		u8g2.drawHLine(68, 44, 60);
+		u8g2.drawHLine(0, 44, 128);
 
 		// Thermistors
 		for (size_t i = 0; i < trs.size(); ++i) {
-			if (trs[i]) {
-				printf(70 + 15*i, 43, "%1u", i + 1);
-				printNTC(70 + 15*i, 53, i);
-			}
+			printNTC(70 + 15*i, 43, i);
 		}
+
+		// Setpoint profiles
+		u8g2.drawBox(0, 44, 65, 10);
+		u8g2.setDrawColor(0);
+		u8g2.drawStr(0, 52, "SP profile:");
+		u8g2.setDrawColor(1);
+		u8g2.drawStr(70, 53, config::profiles[currentSPProfile].label);
+
 
 		// Bottom bar
 		u8g2.drawHLine(0, 54, 128);
-		u8g2.setFont(u8g2_font_unifont_t_symbols);
+		u8g2.setFont(u8g2_font_unifont_t_75);
 		u8g2.drawGlyph(0, 66, 9664);
+		u8g2.drawGlyph(40, 66, 9650);
+		u8g2.drawGlyph(50, 66, 9660);
+		u8g2.setFont(u8g2_font_5x7_tr);
+		u8g2.drawStr(10, 63, "tab");
+		u8g2.drawStr(60, 63, "adj");
 		u8g2.setFont(u8g2_font_6x12_tr);
-		u8g2.drawStr(10, 62, "tab");
 	}
 
 	/// Draw the Config tab
@@ -117,13 +131,14 @@ private:
 		u8g2.drawStr(14, 10, "I.");
 
 		// Print config parameters in scrolling menu
-		for (uint8_t i = 0; i < 3; i++) {
+		for (uint8_t i = 0; i < 4; i++) {
 			// Index of parameter to draw
 			int8_t nPar = currentPar + i - 1;
 
-			// Handling for first and last parameter
+			// Handling for first and last two parameters
 			if (currentPar == 0) nPar++;
-			if (currentPar == nConfigPars - 1) nPar--;
+			if (currentPar == nConfigPars - 2) nPar -= 1;
+			if (currentPar == nConfigPars - 1) nPar -= 2;
 
 			uint8_t row = 22 + i * 10;
 
@@ -138,11 +153,12 @@ private:
 					x = 0;
 					w = 40;
 				} else if (currentSelection == Selection::number) {
-					x = 60 + currentDigit * 6;
-					// Skip the decimal separator
+					x = 66 + currentDigit * 6;
+					// Take into account the decimal separator:
+					// if the current parameter is a float and we're left of the decimal separator, move one block left
 					if (configPars[currentPar].var.type == ConfigPar::ConfigParType::d &&
-					    currentDigit > configPars[currentPar].magnitude())
-						x += 6;
+					    currentDigit < configPars[currentPar].magnitude())
+						x -= 6;
 					w = 6;
 				}
 
@@ -183,30 +199,31 @@ private:
 
 
 		// Bottom bar
-		u8g2.setFont(u8g2_font_unifont_t_symbols);
+		u8g2.setFont(u8g2_font_unifont_t_75);
 		u8g2.drawHLine(0, 54, 128);
 		u8g2.drawGlyph(0, 66, 9664);
 		u8g2.drawGlyph(30, 66, 9650);
 		u8g2.drawGlyph(36, 66, 9660);
 		u8g2.drawGlyph(65, 66, 9654);
-		u8g2.drawGlyph(95, 66, 9679);
-		u8g2.setFont(u8g2_font_6x12_tr);
+		u8g2.drawGlyph(98, 66, 9679);
+		u8g2.setFont(u8g2_font_5x7_tr);
 		if (currentSelection == Selection::par) {
-			u8g2.drawStr(10, 62, "tab");
-			u8g2.drawStr(45, 62, "par");
-			u8g2.drawStr(75, 62, "menu");
-			u8g2.drawStr(105, 62, "edit");
+			u8g2.drawStr(10, 63, "tab");
+			u8g2.drawStr(45, 63, "par");
+			u8g2.drawStr(75, 63, "menu");
+			u8g2.drawStr(108, 63, "edit");
 		}
 		if (currentSelection == Selection::number) {
-			u8g2.drawStr(45, 62, "adj");
-			u8g2.drawStr(105, 62, "OK");
+			u8g2.drawStr(45, 63, "adj");
+			u8g2.drawStr(108, 63, "OK");
 		}
 		if (currentSelection == Selection::actions) {
-			u8g2.drawStr(10, 62, "back");
-			u8g2.drawStr(45, 62, "");
-			u8g2.drawStr(75, 62, "back");
-			u8g2.drawStr(105, 62, "OK");
+			u8g2.drawStr(10, 63, "back");
+			u8g2.drawStr(45, 63, "");
+			u8g2.drawStr(75, 63, "back");
+			u8g2.drawStr(108, 63, "OK");
 		}
+		u8g2.setFont(u8g2_font_6x12_tr);
 	}
 
 	/// Draw common elements in Main tab
@@ -225,7 +242,7 @@ private:
 		u8g2.drawVLine(70, 1, 12);
 
 		// Humidity box
-		u8g2.drawVLine(13, 27, 29);
+		u8g2.drawVLine(13, 27, 28);
 		u8g2.drawStr(0, 23, "Humidity");
 		u8g2.drawHLine(0, 26, 51);
 
@@ -263,17 +280,27 @@ private:
 		else
 			u8g2.drawStr(80, 10, "manual");
 
+		// Setpoint profiles
+		if(spr.isRunning()) {
+			u8g2.setFont(u8g2_font_5x7_tr);
+			printf(52, 53, "Prof: %u/%u", spr.getCurrentPoint(), config::profiles[currentSPProfile].profile.size() - 1);
+			u8g2.setFont(u8g2_font_6x12_tr);
+		}
+
 		// Bottom bar
 		u8g2.drawHLine(0, 54, 128);
-		u8g2.setFont(u8g2_font_unifont_t_symbols);
+		u8g2.setFont(u8g2_font_unifont_t_75);
 		u8g2.drawGlyph(0, 66, 9664);
-		u8g2.drawGlyph(40, 66, 9650);
-		u8g2.drawGlyph(50, 66, 9660);
-		u8g2.drawGlyph(90, 66, 9679);
+		u8g2.drawGlyph(30, 66, 9650);
+		u8g2.drawGlyph(36, 66, 9660);
+		u8g2.drawGlyph(65, 66, 9654);
+		u8g2.drawGlyph(98, 66, 9679);
+		u8g2.setFont(u8g2_font_5x7_tr);
+		u8g2.drawStr(10, 63, "tab");
+		u8g2.drawStr(45, 63, "adj");
+		u8g2.drawStr(75, 63, "prof");
+		u8g2.drawStr(108, 63, "mode");
 		u8g2.setFont(u8g2_font_6x12_tr);
-		u8g2.drawStr(10, 62, "tab");
-		u8g2.drawStr(60, 62, "adj");
-		u8g2.drawStr(100, 62, "mode");
 	}
 
 	/// Draw the tab bar
@@ -282,7 +309,7 @@ private:
 		u8g2.drawFrame(0, 0, 128, 14);
 
 		// Spinning indicator
-		u8g2.setFont(u8g2_font_unifont_t_symbols);
+		u8g2.setFont(u8g2_font_unifont_t_75);
 		uint8_t i = (frame / 2) % 4;
 		u8g2.drawGlyph(118, 10, 0x25f3 - i);
 	}
@@ -310,6 +337,9 @@ private:
 		if (state == Buttons::LEFT) {
 			advanceEnum(currentTab);
 			return true;
+		} else if (state == Buttons::RIGHT) {
+			spr.setProfile(config::profiles[currentSPProfile].profile);
+			spr.toggle();
 		} else if (state == Buttons::UP) {
 			delta = 1;
 		} else if (state == Buttons::DOWN) {
@@ -334,9 +364,16 @@ private:
 		return true;
 	}
 
+	/// Handle input on the Info tab
 	bool handleInputInfo(Buttons state, uint16_t pressedFor) {
 		if (state == Buttons::LEFT) {
 			advanceEnum(currentTab);
+			return true;
+		} else if (state == Buttons::UP) {
+			currentSPProfile = (currentSPProfile + 1) % (sizeof(config::profiles)/sizeof(config::profiles[0]));
+			return true;
+		} else if (state == Buttons::DOWN) {
+			currentSPProfile = (currentSPProfile - 1) % (sizeof(config::profiles)/sizeof(config::profiles[0]));
 			return true;
 		}
 		return false;
@@ -374,11 +411,11 @@ private:
 			// Move selected digit left/right
 			if (state == Buttons::LEFT) {
 				currentDigit--;
-				if (currentDigit == 255) currentDigit = 3;
+				if (currentDigit == 255) currentDigit = NUM_DIGITS - 1;
 				return true;
 			}
 			if (state == Buttons::RIGHT) {
-				currentDigit = (currentDigit + 1) % 4;
+				currentDigit = (currentDigit + 1) % (NUM_DIGITS);
 				return true;
 			}
 			// Go back to parameter selection
@@ -388,11 +425,11 @@ private:
 			}
 			// Adjust digit up/down
 			if (state == Buttons::UP) {
-				configPars[currentPar].adjust(ipow(10, 3 - currentDigit));
+				configPars[currentPar].adjust(ipow(10, NUM_DECIMALS - currentDigit));
 				return true;
 			}
 			if (state == Buttons::DOWN) {
-				configPars[currentPar].adjust(-ipow(10, 3 - currentDigit));
+				configPars[currentPar].adjust(-ipow(10, NUM_DECIMALS - currentDigit));
 				return true;
 			}
 		} else if (currentSelection == Selection::actions) {
@@ -456,7 +493,7 @@ private:
 
 		u8g2.setFont(u8g2_font_5x7_tr);
 		u8g2.drawStr(0, 50, "https://github.com/");
-		u8g2.drawStr(0, 60, "Compizfox/OpenHumidistat");
+		u8g2.drawStr(0, 60, "OpenHumidistat");
 
 		u8g2.sendBuffer();
 	}
@@ -477,23 +514,27 @@ public:
 	/// \param u8g2         Pointer to a U8G2 instance
 	/// \param buttonReader Pointer to a ButtonReader instance
 	/// \param humidistat   Pointer to a Humidistat instance
-	/// \param trs          Array of 4 pointers to ThermistorReader instances
+	/// \param trs          Span over 4 ThermistorReader instances
 	/// \param eepromConfig Pointer to a EEPROMConfig instance
+	/// \param spr          Pointer to a SetpointProfileRunner instance
 	explicit GraphicalDisplayUI(U8G2 *u8g2, const ButtonReader *buttonReader, SingleHumidistat *humidistat,
-	                            Array<const ThermistorReader *, 4> trs, EEPROMConfig *eepromConfig)
+	                            etl::span<const ThermistorReader, 4> trs, EEPROMConfig *eepromConfig,
+								SetpointProfileRunner *spr)
 			: ControllerUI(u8g2, buttonReader, trs), u8g2(*u8g2), eepromConfig(*eepromConfig),
-			  humidistat(*humidistat), nConfigPars(5), configPars{
+			  humidistat(*humidistat), spr(*spr), nConfigPars(6), configPars{
 					{&eepromConfig->configStore.HC_Kp,      "Kp"},
 					{&eepromConfig->configStore.HC_Ki,      "Ki"},
 					{&eepromConfig->configStore.HC_Kd,      "Kd"},
 					{&eepromConfig->configStore.dt,         "dt"},
 					{&eepromConfig->configStore.S_lowValue, "LV"},
+					{&eepromConfig->configStore.a, "a"},
 			} {}
 
 	explicit GraphicalDisplayUI(U8G2 *u8g2, const ButtonReader *buttonReader, CascadeHumidistat *humidistat,
-	                            Array<const ThermistorReader *, 4> trs, EEPROMConfig *eepromConfig)
+	                            etl::span<const ThermistorReader, 4> trs, EEPROMConfig *eepromConfig,
+			                    SetpointProfileRunner *spr)
 			: ControllerUI(u8g2, buttonReader, trs), u8g2(*u8g2), eepromConfig(*eepromConfig),
-			  humidistat(*humidistat), nConfigPars(12), configPars{
+			  humidistat(*humidistat), spr(*spr), nConfigPars(13), configPars{
 					{&eepromConfig->configStore.HC_Kp, "HC Kp"},
 					{&eepromConfig->configStore.HC_Ki, "HC Ki"},
 					{&eepromConfig->configStore.HC_Kd, "HC Kd"},
@@ -506,6 +547,7 @@ public:
 					{&eepromConfig->configStore.HC_totalFlowrate, "Total FR"},
 					{&eepromConfig->configStore.dt, "dt"},
 					{&eepromConfig->configStore.S_lowValue, "LV"},
+					{&eepromConfig->configStore.a, "a"},
 			} {}
 	///@}
 
@@ -523,11 +565,11 @@ void GraphicalDisplayUI<SingleHumidistat>::drawMain() {
 	double pTerm, iTerm, dTerm;
 	humidistat.getTerms(pTerm, iTerm, dTerm);
 
-	u8g2.drawFrame(52, 13, 47, 33);
+	u8g2.drawFrame(52, 13, 47, 31);
 	u8g2.drawStr(54, 23, "P");
 	u8g2.drawStr(54, 32, "I");
 	u8g2.drawStr(54, 41, "D");
-	u8g2.drawVLine(60, 13, 33);
+	u8g2.drawVLine(60, 13, 31);
 
 	printf(62, 23, "%6.2f", pTerm);
 	printf(62, 32, "%6.2f", iTerm);
@@ -536,13 +578,6 @@ void GraphicalDisplayUI<SingleHumidistat>::drawMain() {
 	// Temperature box
 	u8g2.setCursor(105, 23);
 	u8g2.print(humidistat.getTemperature(), 1);
-
-	// Thermistors
-	for (size_t i = 0; i < trs.size(); ++i) {
-		if (trs[i]) {
-			printNTC(105, 23 - 9 * i, i);
-		}
-	}
 }
 
 template<>
@@ -555,7 +590,7 @@ void GraphicalDisplayUI<CascadeHumidistat>::drawMain() {
 
 	{
 		char buf[] = "wet";
-		if (abs(humidistat.getInner(0)->pv - humidistat.getInner(0)->sp) > tolerance * 2) {
+		if (std::abs(humidistat.getInner(0)->pv - humidistat.getInner(0)->sp) > tolerance * 2) {
 			blink(66, 23, buf);
 		} else {
 			u8g2.drawStr(66, 23, buf);
@@ -563,7 +598,7 @@ void GraphicalDisplayUI<CascadeHumidistat>::drawMain() {
 	}
 	{
 		char buf[] = "dry";
-		if (abs(humidistat.getInner(1)->pv - humidistat.getInner(1)->sp) > tolerance * 2) {
+		if (std::abs(humidistat.getInner(1)->pv - humidistat.getInner(1)->sp) > tolerance * 2) {
 			blink(91, 23, buf);
 		} else {
 			u8g2.drawStr(91, 23, buf);
@@ -571,8 +606,9 @@ void GraphicalDisplayUI<CascadeHumidistat>::drawMain() {
 	}
 
 	u8g2.drawHLine(50, 26, 64);
-	u8g2.drawVLine(64, 13, 42);
-	u8g2.drawVLine(89, 13, 42);
+	u8g2.drawVLine(64, 13, 32);
+	u8g2.drawVLine(89, 13, 32);
+	u8g2.drawHLine(50, 45, 64);
 
 	u8g2.drawStr(52, 35, "PV");
 	u8g2.drawStr(52, 44, "CV");

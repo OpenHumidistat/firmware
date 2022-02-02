@@ -5,7 +5,7 @@ import numpy as np
 
 class SerialReader:
 	"""
-	Connect to the Humidistat Arduino and read CRLF-terminated, fixed-width formatted data.
+	Connect to the OpenHumidistat MCU and read CRLF-terminated, fixed-width formatted data.
 	Is a context manager for the connection.
 	"""
 	def __init__(self, port: str, baud_rate: int = 9600):
@@ -20,23 +20,30 @@ class SerialReader:
 		rec = self.serial.readline()
 		print('< ' + rec.decode())
 
-		while True:
-			# Indicate that we're ready
-			self.serial.write(b'RDY\r\n')
-			print('> RDY')
-
-			# Receive header
-			self.header = self.serial.readline().decode().split()
-			if self.header:
-				print('< ' + ' '.join(self.header))
-				print("Connected.")
-				break
+		self._handshake()
 
 	def __enter__(self):
 		return self
 
 	def __exit__(self, exc_type, exc_val, exc_tb):
 		self.serial.close()
+
+	"""
+	Perform handshake with the MCU and receive the header.
+	"""
+	def _handshake(self):
+		while True:
+			# Indicate that we're ready
+			self.serial.write(b'RDY\r\n')
+			print('> RDY')
+
+			# Receive header
+			line = self.serial.readline().decode()
+			print('< ' + line)
+			if line.startswith("Time"):
+				self.header = line.split()
+				print("Connected.")
+				return
 
 	def readline(self) -> np.ndarray:
 		"""

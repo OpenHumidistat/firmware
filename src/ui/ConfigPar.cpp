@@ -14,7 +14,7 @@ void ConfigPar::adjust(int16_t delta) const {
 			*var.ui16 += delta;
 			return;
 		case ConfigParType::d:
-			*var.d += static_cast<double>(delta) / 1000;
+			*var.d += static_cast<double>(delta) / ipow(10, NUM_DECIMALS);
 			return;
 	}
 }
@@ -22,11 +22,11 @@ void ConfigPar::adjust(int16_t delta) const {
 char *ConfigPar::asprint() const {
 	switch (var.type) {
 		case ConfigParType::ui8:
-			return asprintf("%-8s % 5u", label, *var.ui8);
+			return asprintf("%-8s % " XSTR(WIDTH) "u", label, *var.ui8);
 		case ConfigParType::ui16:
-			return asprintf("%-8s % 5u", label, *var.ui16);
+			return asprintf("%-8s % " XSTR(WIDTH) "u", label, *var.ui16);
 		case ConfigParType::d:
-			return asprintf("%-8s % 6.3f", label, *var.d);
+			return asprintf("%-8s % " XSTR(WIDTH) "." XSTR(NUM_DECIMALS) "f", label, *var.d);
 	}
 }
 
