@@ -68,6 +68,9 @@ namespace config {
 	/// Total flowrate (for cascade controller) (L/min)
 	const double HC_totalFlowrate = 2;
 
+	/// Smoothing factor of EMA filter for derivative
+	const double a = 0.75;
+
 	/// @name Pins
 	///@{
 #ifdef ARDUINO_AVR_UNO

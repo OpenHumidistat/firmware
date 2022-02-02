@@ -64,7 +64,7 @@ private:
 	const uint8_t configSaveCooldown = config::configSaveCooldown;
 
 	const uint8_t nConfigPars;     //!< Total number of config parameters
-	const ConfigPar configPars[12]; //!< Array of config parameters
+	const ConfigPar configPars[13]; //!< Array of config parameters
 
 	/// Draw the Main tab
 	// (declaration, implementation specialised)
@@ -521,19 +521,20 @@ public:
 	                            etl::span<const ThermistorReader, 4> trs, EEPROMConfig *eepromConfig,
 								SetpointProfileRunner *spr)
 			: ControllerUI(u8g2, buttonReader, trs), u8g2(*u8g2), eepromConfig(*eepromConfig),
-			  humidistat(*humidistat), spr(*spr), nConfigPars(5), configPars{
+			  humidistat(*humidistat), spr(*spr), nConfigPars(6), configPars{
 					{&eepromConfig->configStore.HC_Kp,      "Kp"},
 					{&eepromConfig->configStore.HC_Ki,      "Ki"},
 					{&eepromConfig->configStore.HC_Kd,      "Kd"},
 					{&eepromConfig->configStore.dt,         "dt"},
 					{&eepromConfig->configStore.S_lowValue, "LV"},
+					{&eepromConfig->configStore.a, "a"},
 			} {}
 
 	explicit GraphicalDisplayUI(U8G2 *u8g2, const ButtonReader *buttonReader, CascadeHumidistat *humidistat,
 	                            etl::span<const ThermistorReader, 4> trs, EEPROMConfig *eepromConfig,
 			                    SetpointProfileRunner *spr)
 			: ControllerUI(u8g2, buttonReader, trs), u8g2(*u8g2), eepromConfig(*eepromConfig),
-			  humidistat(*humidistat), spr(*spr), nConfigPars(12), configPars{
+			  humidistat(*humidistat), spr(*spr), nConfigPars(13), configPars{
 					{&eepromConfig->configStore.HC_Kp, "HC Kp"},
 					{&eepromConfig->configStore.HC_Ki, "HC Ki"},
 					{&eepromConfig->configStore.HC_Kd, "HC Kd"},
@@ -546,6 +547,7 @@ public:
 					{&eepromConfig->configStore.HC_totalFlowrate, "Total FR"},
 					{&eepromConfig->configStore.dt, "dt"},
 					{&eepromConfig->configStore.S_lowValue, "LV"},
+					{&eepromConfig->configStore.a, "a"},
 			} {}
 	///@}
 

@@ -12,11 +12,13 @@ private:
 	const double &sp; //!< Setpoint
 
 	double Kp, Ki, Kd, Kf; //!< Gains
+	double a;              //!< Smoothing factor for EWA filter for derivative
 	uint16_t dt;           //!< Timestep
 
 	bool inAuto = false; //!< Mode
 	double lastPv;       //!< Last value of pv
 	double lastE;        //!< Last value of error
+	double lastDPV;        //!< Last value of derivative term
 	double integral;     //!< Integral of pv
 
 	/// Method to be called when the controller goes from manual to auto mode for proper bumpless transfer.
@@ -42,8 +44,9 @@ public:
 	/// \param dt Timestep (in ms)
 	/// \param cvMin Lower limit for control value
 	/// \param cvMax Upper limit for control value
+	/// \param a Smoothing factor for EWA filter for derivative
 	PID(const double *pv, double *cv, const double *sp, double Kp, double Ki, double Kd, double Kf, uint16_t dt,
-		double cvMin, double cvMax);
+	    double cvMin, double cvMax, double a);
 
 	/// Run a cycle of the PID loop.
 	/// \return True if a PID step was run, and false if not.
