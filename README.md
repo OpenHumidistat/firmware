@@ -83,6 +83,8 @@ possible modify. Some of these are customisable by the operator on the device it
 - PID parameters:
   - Low CV value (deadband)
   - Gains (Kp, Ki, Kd, Kf)
+  - Smoothing factor of EMA filter for derivative
+- Setpoint profiles
 - UI/input settings
 
 Make sure to set these parameters to their appropriate values before compilation.
@@ -91,7 +93,7 @@ Make sure to set these parameters to their appropriate values before compilation
 With the MCU board connected over USB, compile the firmware and upload it to the MCU:
 
 ```console
-foo@bar:~$ platformio run --target upload
+~/OpenHumidistat/ $ platformio run --target upload
 ```
 
 ### Usage
@@ -115,8 +117,8 @@ controller into auto mode. Press LEFT/RIGHT for coarse adjustment of the setpoin
 manual mode, the same buttons are used to adjust the control variable.
 
 #### GraphicalDisplayUI
-The GraphicalDisplayUI is a modal UI with two tabs: `Main` and `Config` (shown in the bar at the very top of the 
-screen). The `Main` tab is open by default. In this tab, the :arrow_up_down:`up`/`down` buttons adjust the currently 
+The GraphicalDisplayUI is a modal UI with three tabs: `Main`, `Info`, and `Config` (shown in the bar at the very top of 
+the screen). The `Main` tab is open by default. In this tab, the :arrow_up_down:`up`/`down` buttons adjust the currently 
 selected variable. Long presses give faster repeat speed.
 
 ![](docs/UI_graph_main.jpg)
@@ -124,7 +126,13 @@ selected variable. Long presses give faster repeat speed.
 When the controller is in `manual`, the control variable (`CV`) is the selected variable. In `auto`, the setpoint 
 (`SP`) is the selected variable. To toggle between `manual` and `auto` mode, press the :black_circle:`select` button.
 
+To start/stop the setpoint profile, press the :arrow_right:`right` button. The setpoint profile can be selected in 
+the `Info` tab.
+
 To switch to the other tab, press the :arrow_left:`left` button.
+
+In the info tab, temperatures of the chamber and thermistors are printed. The :arrow_up_down:`up`/`down` buttons 
+select the setpoint profiles.
 
 ![](docs/UI_graph_config.jpg)
 
@@ -151,9 +159,9 @@ communicating with the OpenHumidistat MCU, and on Matplotlib and PyQt5 for plott
 The dependencies can be installed in a virtualenv using Pipenv:
 
 ```console
-foo@bar:~$ pipenv install
-foo@bar:~$ pipenv shell
-(OpenHumidistat) foo@bar:~$ 
+~/OpenHumidistat/ $ pipenv install
+~/OpenHumidistat/ $ pipenv shell
+(OpenHumidistat) ~/OpenHumidistat/ $ 
 ```
 
 If you do not have Pipenv, you can install with `pip install pipenv`.
@@ -162,8 +170,8 @@ If you do not have Pipenv, you can install with `pip install pipenv`.
 With the Arduino connected over USB, run the serial monitor:
 
 ```console
-foo@bar:~$ pipenv shell
-(OpenHumidistat) foo@bar:~$ utils/monitor.py
+~/OpenHumidistat/ $ pipenv shell
+(OpenHumidistat) ~/OpenHumidistat/ $ utils/monitor.py
 ```
 
 The Arduino will reset when the serial port is opened. After connection is established, a window will open in which the
