@@ -183,12 +183,23 @@ When the serial monitor is closed (by SIGINT), it will save the data to file, in
 Developer documentation is available at https://openhumidistat.github.io/firmware/.
 
 ## Publication
-The device for which this firmware is intended, is described in the following paper:
+The device for which this firmware is intended, is described in the following papers:
+
+First version, using Arduino Uno, single-loop PID controller, DHT22/AM2302 humidity sensor, and 16x2 character display:
 
 Veldscholte, L.B., Horst, R.J. & de Beer, S.  
 Design, construction, and testing of an accurate low-cost humidistat for laboratory-scale applications.  
 Eur. Phys. J. E 44, 48 (2021).  
 https://doi.org/10.1140/epje/s10189-021-00062-5
+
+Second, improved version, using Teensy LC, cascade PID controller, SHT85 humidity sensor, and 128x64 graphical display:
+
+Veldscholte, L. B., de Beer, S.  
+OpenHumidistat: Humidity-controlled experiments for everyone.  
+HardwareX 11, e00288 (2022).  
+https://doi.org/10.1016/j.ohx.2022.e00288
+
+If you are using OpenHumidistat in your research, it is much appreciated if you cite the relevant paper(s).
 
 ## License
 This project is free software licensed under the GPL. See [LICENSE](LICENSE) for details.
