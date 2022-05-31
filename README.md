@@ -146,7 +146,43 @@ select the digit to adjust with :arrow_up_down:`up`/`down`. Press :black_circle:
 With :arrow_right:`right`, the menu can be reached. In this menu, the current settings can be applied and saved to 
 EEPROM, or reset from the defaults stored in flash memory.
 
-![](docs/state_diagram.svg)
+```mermaid
+stateDiagram-v2
+	direction LR
+    [*] --> tab_main
+    state tab_main {
+        [*] --> manual
+        auto: Auto\n ↕️ adjust SP
+        manual: Manual\n ↕️ adjust CV
+        manual --> auto : ⚫
+        auto --> manual : ⚫
+
+        spp_stopped: Setpoint profile\n stopped
+        spp_running: Setpoint profile\n running
+
+        spp_stopped --> spp_running: ➡️
+        spp_running --> spp_stopped: ➡️
+    }
+    state tab_config {
+        [*] --> select_parameter
+        select_parameter: Select parameter\n ↕️ scroll through parameter list
+        edit_parameter_value: Edit parameter value\n ↔️ select digit\n ↕️ adjust digit
+        actions_menu: Actions menu\n ↕️ scroll through menu\n ⚫ OK
+        select_parameter --> edit_parameter_value: ⚫
+        select_parameter --> actions_menu: ➡️
+        actions_menu --> select_parameter: ➡️
+        actions_menu --> select_parameter: ⬅️
+        edit_parameter_value --> select_parameter: ⚫
+    }
+    state tab_info {
+        [*] --> select_setpoint_profile
+        select_setpoint_profile: Select setpoint profile\n ↕️ scroll through setpoint profile list
+    }
+
+    tab_main --> tab_info: ⬅️
+    tab_info --> tab_config: ⬅️
+    tab_config --> tab_main: ⬅️
+```
 
 ## Serial monitor
 The device can operate fully in a standalone manner, but it is possible to connect it to a PC over serial (USB)
