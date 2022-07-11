@@ -19,7 +19,7 @@ def saveto_sigint_handler(filename: str):
 
 		# Write data to text file
 		print(f"Saving to {filename}...")
-		np.savetxt(filename, np.array(data).transpose(), header=' '.join(sr.header), comments='')
+		np.savetxt(filename, np.array(data).transpose(), fmt='%i'+' %.4f'*(len(data) - 1), header=' '.join(sr.header), comments='')
 
 		sys.exit(0)
 	return sigint_handler
