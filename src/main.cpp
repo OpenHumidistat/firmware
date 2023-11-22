@@ -36,7 +36,7 @@ ButtonReader buttonReader(config::PIN_BTN, &voltLadder);
 EEPROMConfig eepromConfig;
 
 // PWM frequency and resolution: MCU-dependent
-#ifdef ARDUINO_TEENSYLC
+#if defined(ARDUINO_TEENSYLC) || defined(ARDUINO_TEENSY40)
 const uint8_t pwmRes = 16;
 #else
 const uint8_t pwmRes = 8;
@@ -82,7 +82,7 @@ void setup() {
 	// See: https://arduinoinfo.mywikis.net/wiki/Arduino-PWM-Frequency
 	TCCR2B = TCCR2B & B11111000 | B00000100;
 #endif
-#ifdef ARDUINO_TEENSYLC
+#if defined(ARDUINO_TEENSYLC) || defined(ARDUINO_TEENSY40)
 	// Set PWM frequency to 250 Hz
 	analogWriteFrequency(config::PIN_S1, 500);
 	// Increase PWM resolution from default 8-bits

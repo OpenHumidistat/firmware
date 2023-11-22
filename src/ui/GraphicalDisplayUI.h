@@ -4,6 +4,7 @@
 #include <U8g2lib.h>
 #include <SPI.h>
 #include <etl/span.h>
+#undef abs
 #include <cmath>
 
 #include CONFIG_HEADER

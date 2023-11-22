@@ -97,7 +97,7 @@ namespace config {
 	const uint8_t PIN_T4 = A4;
 	///@}
 #endif
-#ifdef ARDUINO_TEENSYLC
+#if defined(ARDUINO_TEENSYLC) || defined(ARDUINO_TEENSY40)
 	const uint8_t PIN_DHT = 17;
 	const uint8_t PIN_BTN = A0;
 	const uint8_t PIN_S1 = 3;
