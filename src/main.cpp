@@ -70,7 +70,12 @@ CharDisplayUI ui(&liquidCrystal, &buttonReader, &humidistat, trs);
 
 SetpointProfileRunner spr(&humidistat);
 
+#ifdef ARDUINO_TEENSYLC
 U8G2_ST7920_128X64_F_HW_SPI u8g2(U8G2_R0, config::PIN_LCD_CS);
+#endif
+#ifdef ARDUINO_TEENSY40
+U8G2_ST7920_128X64_F_SW_SPI u8g2(U8G2_R0, config::PIN_LCD_SCLK, config::PIN_LCD_MOSI, config::PIN_LCD_CS);
+#endif
 GraphicalDisplayUI<cHumidistat> ui(&u8g2, &buttonReader, &humidistat, trs, &eepromConfig, &spr);
 #endif
 

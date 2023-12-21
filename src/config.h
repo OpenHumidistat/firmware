@@ -107,6 +107,8 @@ namespace config {
 
 	/// ST7920 LCD pins
 	const uint8_t PIN_LCD_CS = 10;
+	const uint8_t PIN_LCD_MOSI = 11;
+	const uint8_t PIN_LCD_SCLK = 13;
 
 	/// @name Thermistor pins
 	///@{
