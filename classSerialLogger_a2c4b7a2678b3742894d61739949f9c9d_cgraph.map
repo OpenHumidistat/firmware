@@ -1,0 +1,5 @@
+<map id="SerialLogger::update" name="SerialLogger::update">
+<area shape="rect" id="Node000001" title="Log a line every interval, once data has been received." alt="" coords="5,5,145,31"/>
+<area shape="rect" id="Node000002" href="$classSerialLogger.html#a1ea6568a47741b504452e921382ef04e" title="Write a line to serial." alt="" coords="193,5,310,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,16,177,16,177,21,145,21"/>
+</map>

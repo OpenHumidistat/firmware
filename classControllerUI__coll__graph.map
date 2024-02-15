@@ -1,0 +1,5 @@
+<map id="ControllerUI" name="ControllerUI">
+<area shape="rect" id="Node000001" title="User interface (display and input) for humidistat. Hold references to ButtonReader for keypad input,..." alt="" coords="10,94,101,120"/>
+<area shape="rect" id="Node000002" href="$classButtonReader.html" title="Read button state from a voltage ladder&#45;style keypad." alt="" coords="5,5,106,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="58,47,58,94,53,94,53,47"/>
+</map>

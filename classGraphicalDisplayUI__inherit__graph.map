@@ -1,0 +1,5 @@
+<map id="GraphicalDisplayUI&lt; Humidistat_t &gt;" name="GraphicalDisplayUI&lt; Humidistat_t &gt;">
+<area shape="rect" id="Node000001" title="TUI for 128*64 px graphical display using U8g2. Holds references to a U8g2lib instance for writing to..." alt="" coords="5,79,138,120"/>
+<area shape="rect" id="Node000002" href="$classControllerUI.html" title="User interface (display and input) for humidistat. Hold references to ButtonReader for keypad input,..." alt="" coords="26,5,117,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="74,46,74,79,69,79,69,46"/>
+</map>

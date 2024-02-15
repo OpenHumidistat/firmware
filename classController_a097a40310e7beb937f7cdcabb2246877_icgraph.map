@@ -1,0 +1,5 @@
+<map id="Controller::getConfigStore" name="Controller::getConfigStore">
+<area shape="rect" id="Node000001" title="Get a pointer to the ConfigStore instance." alt="" coords="214,5,381,31"/>
+<area shape="rect" id="Node000002" href="$classCharDisplayUI.html#ae63b61a0868ed1e42d48567a0621a13a" title="Draw info screen." alt="" coords="5,5,166,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,21,166,21,166,16,198,16"/>
+</map>

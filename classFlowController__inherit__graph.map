@@ -1,0 +1,5 @@
+<map id="FlowController" name="FlowController">
+<area shape="rect" id="Node000001" title="Controls flow. Holds a reference to a FlowSensor instance." alt="" coords="5,79,110,105"/>
+<area shape="rect" id="Node000002" href="$classController.html" title="Base class for a controller. Owns a PID instance, and holds a reference to a ConfigStore instance." alt="" coords="19,5,96,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,46,60,79,55,79,55,46"/>
+</map>

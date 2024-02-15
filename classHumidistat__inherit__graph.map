@@ -1,0 +1,9 @@
+<map id="Humidistat" name="Humidistat">
+<area shape="rect" id="Node000001" title="Base class for a humidistat. Holds a reference to a HumiditySensor instance." alt="" coords="107,79,191,105"/>
+<area shape="rect" id="Node000003" href="$classCascadeHumidistat.html" title="Control humidity using cascade PID: outer PID loop sets setpoints of two inner flow controllers,..." alt="" coords="5,153,141,178"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="127,117,88,154,84,150,123,114"/>
+<area shape="rect" id="Node000004" href="$classSingleHumidistat.html" title="Control humidity using PID by driving two solenoid valves. Adjust the public setpoint variable and ca..." alt="" coords="165,153,285,178"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="175,114,214,150,210,154,171,117"/>
+<area shape="rect" id="Node000002" href="$classController.html" title="Base class for a controller. Owns a PID instance, and holds a reference to a ConfigStore instance." alt="" coords="111,5,187,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,46,152,79,146,79,146,46"/>
+</map>

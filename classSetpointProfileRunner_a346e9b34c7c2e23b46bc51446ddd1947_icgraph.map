@@ -1,0 +1,5 @@
+<map id="SetpointProfileRunner::isRunning" name="SetpointProfileRunner::isRunning">
+<area shape="rect" id="Node000001" title="Get the run state." alt="" coords="191,5,337,46"/>
+<area shape="rect" id="Node000002" href="$classGraphicalDisplayUI.html#af69808890fcfb2bd088ac73aa6f7563c" title="Draw common elements in Main tab." alt="" coords="5,5,143,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,28,143,28,143,23,175,23"/>
+</map>

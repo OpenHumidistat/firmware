@@ -1,0 +1,6 @@
+<map id="ConfigPar::magnitude" name="ConfigPar::magnitude">
+<area shape="rect" id="Node000001" title="Get magnitude (number of digits before the decimal separator) of variable." alt="" coords="5,29,149,55"/>
+<area shape="rect" id="Node000002" href="$imath_8h.html#a1b826c7311037e4e89052d8f5d59afe6" title="Constexpr integer base&#45;10 logarithm." alt="" coords="197,29,252,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="149,40,181,40,181,45,149,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="199,30,194,21,197,11,207,5,224,3,242,5,252,12,249,16,241,10,224,8,209,10,201,14,199,20,204,28"/>
+</map>

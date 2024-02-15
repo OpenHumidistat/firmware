@@ -1,0 +1,17 @@
+<map id="ControllerUI::printf" name="ControllerUI::printf">
+<area shape="rect" id="Node000001" title="Print formatted data to display, at (col, row). Calculates lengths and creates appropriate buffer int..." alt="" coords="580,89,706,115"/>
+<area shape="rect" id="Node000002" href="$classCharDisplayUI.html#aef739ad8856b975fdd25ffdf9fa86601" title="Draw main interface (main loop)." alt="" coords="186,48,324,73"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="618,80,579,47,556,33,531,22,488,10,453,9,373,22,326,34,286,49,284,45,325,29,371,16,453,3,489,5,533,17,559,28,583,43,621,76"/>
+<area shape="rect" id="Node000003" href="$classCharDisplayUI.html#ae63b61a0868ed1e42d48567a0621a13a" title="Draw info screen." alt="" coords="372,32,532,57"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="582,86,497,60,498,55,584,81"/>
+<area shape="rect" id="Node000004" href="$classGraphicalDisplayUI.html#af69808890fcfb2bd088ac73aa6f7563c" title="Draw common elements in Main tab." alt="" coords="384,81,521,122"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="565,104,521,104,521,99,565,99"/>
+<area shape="rect" id="Node000005" href="$classGraphicalDisplayUI.html#a41ae47f8e4d0bd909b6d2be9765cdbc4" title=" " alt="" coords="189,164,321,205"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="621,128,583,160,559,176,533,187,479,200,423,204,369,203,321,199,322,193,369,198,422,199,478,194,531,182,556,171,579,156,618,124"/>
+<area shape="rect" id="Node000007" href="$classControllerUI.html#abfabf4c49c12dcb8ee5e8b5a899cc920" title="Print temperature read from thermistors. Handles NaN values as 0." alt="" coords="378,146,526,172"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="584,122,498,148,497,143,582,117"/>
+<area shape="rect" id="Node000006" href="$classGraphicalDisplayUI.html#aa73a9c30736b609bcef2b75c7aed1970" title="Draw main interface (main loop)." alt="" coords="5,164,138,205"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="173,187,138,187,138,182,173,182"/>
+<area shape="poly" id="edge7_Node000007_Node000002" title=" " alt="" coords="387,143,371,136,316,106,273,76,276,72,319,101,373,131,390,138"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="363,173,322,179,321,173,362,168"/>
+</map>

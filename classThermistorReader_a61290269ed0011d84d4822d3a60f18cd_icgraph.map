@@ -1,0 +1,5 @@
+<map id="ThermistorReader::readTemp" name="ThermistorReader::readTemp">
+<area shape="rect" id="Node000001" title="Get the temperature of the thermistor." alt="" coords="171,5,359,31"/>
+<area shape="rect" id="Node000002" href="$classSerialLogger.html#a19892d82447f8504faf4ddace7a56877" title=" " alt="" coords="5,5,123,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="155,21,123,21,123,16,155,16"/>
+</map>

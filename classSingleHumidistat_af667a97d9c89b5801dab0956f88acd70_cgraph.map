@@ -1,0 +1,16 @@
+<map id="SingleHumidistat::update" name="SingleHumidistat::update">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,55,171,80"/>
+<area shape="rect" id="Node000002" href="$imath_8h.html#aa86632c19b4d57acb96ac9e9cd3e13e1" title="Constexpr function for computing integer power." alt="" coords="265,29,313,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,54,249,44,250,50,171,60"/>
+<area shape="rect" id="Node000003" href="$classHumidistat.html#ae30511d6477f5996de05996bdf221730" title="Run a cycle of the controller. Reads a sample from the humidity controller and runs PID." alt="" coords="219,79,359,104"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="171,75,204,79,203,84,171,80"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="262,32,255,22,257,12,269,5,289,3,312,6,322,15,318,19,310,11,289,8,271,10,262,15,260,21,266,29"/>
+<area shape="rect" id="Node000004" href="$classPID.html#a742098de1dc845731f9bc86ebf01fb01" title="Run a cycle of the PID loop." alt="" coords="407,53,506,79"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="359,78,391,73,392,79,360,84"/>
+<area shape="rect" id="Node000006" href="$classPID.html#a05e62644ef9b7c0f3b1bb34631150ab4" title="Set the mode of the controller." alt="" coords="410,103,504,128"/>
+<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="360,99,394,104,394,109,359,104"/>
+<area shape="rect" id="Node000005" href="$classPID.html#a0e64deb10d189ef873ec4e672a1c79f2" title="Clip value to [cvMin, cvMax]." alt="" coords="554,53,624,79"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="507,64,538,64,538,69,507,69"/>
+<area shape="rect" id="Node000007" href="$classPID.html#a0ccd3a3e6e64a2560077ea76bf71e417" title="Method to be called when the controller goes from manual to auto mode for proper bumpless transfer." alt="" coords="556,103,622,128"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="504,113,540,113,540,118,504,118"/>
+</map>
