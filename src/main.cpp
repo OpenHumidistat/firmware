@@ -36,8 +36,10 @@ ButtonReader buttonReader(config::PIN_BTN, &voltLadder);
 EEPROMConfig eepromConfig;
 
 // PWM frequency and resolution: MCU-dependent
-#if defined(ARDUINO_TEENSYLC) || defined(ARDUINO_TEENSY40)
+#if defined(ARDUINO_TEENSYLC)
 const uint8_t pwmRes = 16;
+#elif defined(ARDUINO_TEENSY40)
+const uint8_t pwmRes = 15;
 #else
 const uint8_t pwmRes = 8;
 #endif
