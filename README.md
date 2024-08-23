@@ -6,10 +6,11 @@
 This repository contains the Arduino firmware that implements a humidistat (humidity controller) by actuating two
 solenoid valves. The firmware can be used on a variety of 
 [Arduino-compatible boards](https://docs.platformio.org/en/latest/frameworks/arduino.html#boards), but is developed for
- and tested on the following two MCU boards:
+ and tested on the following MCU boards:
 
 - Arduino Uno (AVR ATmega328P)
 - Teensy LC (ARM Cortex-M0+)
+- Teensy 4.0 (ARM Cortex-M7)
 
 ![](docs/pic.jpg)
 
