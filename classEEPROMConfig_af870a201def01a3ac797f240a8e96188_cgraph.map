@@ -1,0 +1,9 @@
+<map id="EEPROMConfig::EEPROMConfig" name="EEPROMConfig::EEPROMConfig">
+<area shape="rect" id="Node000001" title="Constructor." alt="" coords="5,31,215,56"/>
+<area shape="rect" id="Node000002" href="$classEEPROMConfig.html#a88ca7504a4c1d8ed44e3c37ed2764ba3" title="Load config values from EEPROM into configStore." alt="" coords="263,31,405,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="215,41,247,41,247,46,215,46"/>
+<area shape="rect" id="Node000003" href="$classEEPROMConfig.html#a389d1170c790427a9d5fb6643c340b21" title="Reset the config store: overwrite the configStore with the default values." alt="" coords="453,5,600,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="405,31,437,27,438,32,406,37"/>
+<area shape="rect" id="Node000004" href="$classEEPROMConfig.html#a3ccccd29dcfe0a56152c2d9382fa2f0d" title="Saves current content of configStore into EEPROM." alt="" coords="454,55,600,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="406,50,439,54,438,59,405,55"/>
+</map>

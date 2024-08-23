@@ -1,0 +1,5 @@
+<map id="ConfigPar" name="ConfigPar">
+<area shape="rect" id="Node000001" title="A class for storing references to variables of various types (uint8_t, uint16_t, or double)." alt="" coords="18,94,96,120"/>
+<area shape="rect" id="Node000002" href="$structConfigPar_1_1Var.html" title=" " alt="" coords="5,5,109,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,47,60,94,54,94,54,47"/>
+</map>

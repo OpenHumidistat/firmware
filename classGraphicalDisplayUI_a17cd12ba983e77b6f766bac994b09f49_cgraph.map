@@ -1,0 +1,15 @@
+<map id="GraphicalDisplayUI::handleInputConfig" name="GraphicalDisplayUI::handleInputConfig">
+<area shape="rect" id="Node000001" title="Handle input on the Config tab." alt="" coords="5,99,138,140"/>
+<area shape="rect" id="Node000002" href="$classConfigPar.html#aab5ed0b09b040eba98bc05d76e89c4ca" title="Add delta to the variable." alt="" coords="200,5,318,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,96,184,48,211,35,213,40,187,53,106,101"/>
+<area shape="rect" id="Node000003" href="$imath_8h.html#aa86632c19b4d57acb96ac9e9cd3e13e1" title="Constexpr function for computing integer power." alt="" coords="381,31,429,56"/>
+<area shape="poly" id="edge5_Node000001_Node000003" title=" " alt="" coords="138,102,365,50,367,55,139,107"/>
+<area shape="rect" id="Node000004" href="$advanceEnum_8h.html#a4c6cbb4b80fa575a2819ca1d5e7cc1a2" title="Cycle through (advance) an enum." alt="" coords="208,107,311,132"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="138,117,192,117,192,122,138,122"/>
+<area shape="rect" id="Node000005" href="$classEEPROMConfig.html#a389d1170c790427a9d5fb6643c340b21" title="Reset the config store: overwrite the configStore with the default values." alt="" coords="186,156,333,182"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="139,134,194,149,193,154,137,139"/>
+<area shape="rect" id="Node000006" href="$classEEPROMConfig.html#a3ccccd29dcfe0a56152c2d9382fa2f0d" title="Saves current content of configStore into EEPROM." alt="" coords="186,205,332,231"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="101,138,141,165,187,192,198,197,196,202,184,197,138,170,98,143"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="319,26,366,34,365,39,318,31"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="380,32,375,22,378,13,388,6,405,4,423,7,433,13,430,18,421,12,405,9,390,11,382,16,381,22,385,29"/>
+</map>

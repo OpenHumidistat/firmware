@@ -1,0 +1,29 @@
+<map id="GraphicalDisplayUI::handleInput" name="GraphicalDisplayUI::handleInput">
+<area shape="rect" id="Node000001" title="Handle input." alt="" coords="5,190,138,230"/>
+<area shape="rect" id="Node000002" href="$classGraphicalDisplayUI.html#a17cd12ba983e77b6f766bac994b09f49" title="Handle input on the Config tab." alt="" coords="186,108,318,149"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,187,190,153,192,158,120,192"/>
+<area shape="rect" id="Node000008" href="$classGraphicalDisplayUI.html#a8f0f20c1ddf3b647f42ed92492fc959c" title="Handle input on the Info tab." alt="" coords="186,190,318,230"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="138,208,170,208,170,213,138,213"/>
+<area shape="rect" id="Node000009" href="$classGraphicalDisplayUI.html#a948cf32243a585b1a88c0989efd9d474" title="Handle input on the Main tab." alt="" coords="186,255,318,296"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="130,229,180,247,179,252,129,234"/>
+<area shape="rect" id="Node000003" href="$classConfigPar.html#aab5ed0b09b040eba98bc05d76e89c4ca" title="Add delta to the variable." alt="" coords="389,5,507,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="278,106,318,77,365,48,393,35,395,39,367,53,321,81,281,110"/>
+<area shape="rect" id="Node000004" href="$imath_8h.html#aa86632c19b4d57acb96ac9e9cd3e13e1" title="Constexpr function for computing integer power." alt="" coords="578,31,627,56"/>
+<area shape="poly" id="edge6_Node000002_Node000004" title=" " alt="" coords="317,105,365,92,472,66,562,48,564,53,473,72,367,97,319,110"/>
+<area shape="rect" id="Node000005" href="$advanceEnum_8h.html#a4c6cbb4b80fa575a2819ca1d5e7cc1a2" title="Cycle through (advance) an enum." alt="" coords="396,205,500,231"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="286,148,324,170,367,192,383,198,381,203,365,197,322,175,283,152"/>
+<area shape="rect" id="Node000006" href="$classEEPROMConfig.html#a389d1170c790427a9d5fb6643c340b21" title="Reset the config store: overwrite the configStore with the default values." alt="" coords="374,107,522,132"/>
+<area shape="poly" id="edge7_Node000002_Node000006" title=" " alt="" coords="318,123,359,121,359,126,318,128"/>
+<area shape="rect" id="Node000007" href="$classEEPROMConfig.html#a3ccccd29dcfe0a56152c2d9382fa2f0d" title="Saves current content of configStore into EEPROM." alt="" coords="375,156,521,182"/>
+<area shape="poly" id="edge8_Node000002_Node000007" title=" " alt="" coords="319,140,368,150,366,155,318,145"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="508,25,563,34,562,40,507,31"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="576,32,571,22,574,12,585,6,603,4,621,7,631,13,628,18,620,12,602,9,587,11,578,16,576,22,581,29"/>
+<area shape="poly" id="edge10_Node000008_Node000005" title=" " alt="" coords="318,210,381,213,381,218,318,216"/>
+<area shape="poly" id="edge13_Node000009_Node000005" title=" " alt="" coords="317,254,386,233,387,239,319,259"/>
+<area shape="rect" id="Node000010" href="$classControllerUI.html#a227e9eb131da08502bf707ac33bccab3" title="In&#45;/de&#45;crement a variable, while clipping it to [min, max]." alt="" coords="366,255,530,280"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="318,270,350,269,350,274,318,275"/>
+<area shape="rect" id="Node000011" href="$classSetpointProfileRunner.html#a1c11d6fe1d34db313e8bc78cc08ab19f" title="Set the profile." alt="" coords="375,304,521,345"/>
+<area shape="poly" id="edge14_Node000009_Node000011" title=" " alt="" coords="319,289,361,300,359,305,318,295"/>
+<area shape="rect" id="Node000012" href="$classSetpointProfileRunner.html#ace14da515f49645e5901523d0864dd23" title="Toggle the run state." alt="" coords="375,370,521,410"/>
+<area shape="poly" id="edge15_Node000009_Node000012" title=" " alt="" coords="280,294,320,324,367,355,379,361,376,365,365,359,317,329,277,299"/>
+</map>

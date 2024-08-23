@@ -1,0 +1,24 @@
+<map id="GraphicalDisplayUI&lt; Humidistat_t &gt;" name="GraphicalDisplayUI&lt; Humidistat_t &gt;">
+<area shape="rect" id="Node000001" title="TUI for 128*64 px graphical display using U8g2. Holds references to a U8g2lib instance for writing to..." alt="" coords="139,371,271,411"/>
+<area shape="rect" id="Node000002" href="$classControllerUI.html" title="User interface (display and input) for humidistat. Hold references to ButtonReader for keypad input,..." alt="" coords="25,282,115,308"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,314,178,368,175,372,98,319"/>
+<area shape="rect" id="Node000003" href="$classButtonReader.html" title="Read button state from a voltage ladder&#45;style keypad." alt="" coords="5,193,106,219"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="57,234,59,257,67,281,62,283,54,259,52,235"/>
+<area shape="rect" id="Node000004" href="$classEEPROMConfig.html" title="Load/save an (internal) ConfigStore in EEPROM." alt="" coords="110,144,222,169"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="173,184,204,370,199,371,168,185"/>
+<area shape="rect" id="Node000005" href="$structConfigStore.html" title="Config store containing variables, which can be stored in EEPROM." alt="" coords="151,5,240,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="172,44,165,56,159,79,159,103,165,143,160,144,153,104,154,79,160,54,167,41"/>
+<area shape="rect" id="Node000008" href="$classController.html" title="Base class for a controller. Owns a PID instance, and holds a reference to a ConfigStore instance." alt="" coords="241,94,318,120"/>
+<area shape="poly" id="edge9_Node000008_Node000005" title=" " alt="" coords="223,40,237,53,272,92,268,95,234,57,220,44"/>
+<area shape="rect" id="Node000006" href="$classSetpointProfileRunner.html" title="&#39;Runs&#39; a setpoint profile." alt="" coords="204,282,350,308"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="261,321,222,372,218,368,257,318"/>
+<area shape="rect" id="Node000007" href="$classHumidistat.html" title="Base class for a humidistat. Holds a reference to a HumiditySensor instance." alt="" coords="237,193,322,219"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="281,234,280,282,275,282,276,234"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="282,135,282,193,277,193,277,135"/>
+<area shape="rect" id="Node000009" href="$classPID.html" title="PID controller in parallel form implemented in floating&#45;point arithmetic. Features Derivative&#45;on&#45;Meas..." alt="" coords="291,5,334,31"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="305,46,287,95,282,93,300,44"/>
+<area shape="rect" id="Node000010" href="$classConfigPar.html" title="A class for storing references to variables of various types (uint8_t, uint16_t, or double)." alt="" coords="374,282,452,308"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="373,317,250,372,247,368,371,312"/>
+<area shape="rect" id="Node000011" href="$structConfigPar_1_1Var.html" title=" " alt="" coords="361,193,464,219"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="416,235,416,282,410,282,410,235"/>
+</map>

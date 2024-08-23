@@ -1,0 +1,25 @@
+<map id="PID::init" name="PID::init">
+<area shape="rect" id="Node000001" title="Method to be called when the controller goes from manual to auto mode for proper bumpless transfer." alt="" coords="654,113,721,138"/>
+<area shape="rect" id="Node000002" href="$classPID.html#a05e62644ef9b7c0f3b1bb34631150ab4" title="Set the mode of the controller." alt="" coords="508,62,603,88"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="639,110,590,91,592,86,641,105"/>
+<area shape="rect" id="Node000007" href="$classPID.html#ae3f4eed49d68435cc1b77e137ac31920" title="Set the gains and timestep." alt="" coords="505,162,606,188"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="641,146,593,164,591,159,639,141"/>
+<area shape="rect" id="Node000003" href="$classHumidistat.html#ae30511d6477f5996de05996bdf221730" title="Run a cycle of the controller. Reads a sample from the humidity controller and runs PID." alt="" coords="268,62,408,88"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="493,78,409,78,409,72,493,72"/>
+<area shape="rect" id="Node000006" href="$classFlowController.html#a67e791323a0cd95c97266135ba2ecde2" title=" " alt="" coords="263,13,412,38"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="493,61,456,52,408,42,409,37,458,47,494,56"/>
+<area shape="rect" id="Node000004" href="$classCascadeHumidistat.html#a5a4f6ad4f30f5f033462af46d47cf959" title=" " alt="" coords="17,5,159,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="254,61,158,42,159,37,255,56"/>
+<area shape="rect" id="Node000005" href="$classSingleHumidistat.html#af667a97d9c89b5801dab0956f88acd70" title=" " alt="" coords="5,70,171,96"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="253,80,171,83,171,78,252,75"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="248,28,159,28,159,23,248,23"/>
+<area shape="rect" id="Node000008" href="$classPID.html#a5cc06605b7c3778f132838314136f292" title="Constructor." alt="" coords="302,112,374,137"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="489,162,373,135,375,130,490,157"/>
+<area shape="rect" id="Node000009" href="$classCascadeHumidistat.html#ad3b4c342c985955ba465a1ee85249eee" title=" " alt="" coords="13,180,163,221"/>
+<area shape="poly" id="edge9_Node000007_Node000009" title=" " alt="" coords="489,181,163,199,163,194,489,176"/>
+<area shape="rect" id="Node000010" href="$classFlowController.html#a20a5cb870095042fc47e60866675bc07" title=" " alt="" coords="219,213,457,238"/>
+<area shape="poly" id="edge10_Node000007_Node000010" title=" " alt="" coords="490,193,397,215,396,210,489,188"/>
+<area shape="rect" id="Node000011" href="$classSingleHumidistat.html#ae8f19856e617b83e1cf21e72e5b9f1d9" title=" " alt="" coords="255,263,420,303"/>
+<area shape="poly" id="edge12_Node000007_Node000011" title=" " alt="" coords="532,200,498,228,458,253,422,268,420,263,456,249,495,224,528,196"/>
+<area shape="poly" id="edge11_Node000010_Node000009" title=" " alt="" coords="203,215,163,211,163,205,204,209"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="ControllerUI::printNTC" name="ControllerUI::printNTC">
+<area shape="rect" id="Node000001" title="Print temperature read from thermistors. Handles NaN values as 0." alt="" coords="5,31,154,56"/>
+<area shape="rect" id="Node000002" href="$classControllerUI.html#aa14a64631f7993d6e22ac9e6f5bf4b44" title="Print formatted data to display, at (col, row). Calculates lengths and creates appropriate buffer int..." alt="" coords="202,31,327,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,41,186,41,186,46,154,46"/>
+<area shape="rect" id="Node000003" href="$asprintf_8h.html#a8e2a40be4816c793857112b1960e912b" title="Print formatted data to string. Automatically allocates string on the heap. Make sure to delete it im..." alt="" coords="419,5,483,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="327,32,403,22,404,27,328,38"/>
+<area shape="rect" id="Node000004" href="$classControllerUI.html#a94aed853c67197d32434244f8941c21e" title="Set cursor to coordinates." alt="" coords="375,55,527,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="328,49,360,53,359,58,327,54"/>
+</map>

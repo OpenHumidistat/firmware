@@ -1,0 +1,7 @@
+<map id="SetpointProfileRunner::getCurrentPoint" name="SetpointProfileRunner::getCurrentPoint">
+<area shape="rect" id="Node000001" title="Get the index of the current Point in the profile." alt="" coords="200,39,346,79"/>
+<area shape="rect" id="Node000002" href="$classGraphicalDisplayUI.html#af69808890fcfb2bd088ac73aa6f7563c" title="Draw common elements in Main tab." alt="" coords="10,5,147,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="184,46,147,40,148,35,185,41"/>
+<area shape="rect" id="Node000003" href="$classSetpointProfileRunner.html#a076b63e4aea6e1ba45c7b28ff714d6b6" title="Run the profile (if running). Call this periodically." alt="" coords="5,71,152,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="184,76,152,82,151,76,184,71"/>
+</map>

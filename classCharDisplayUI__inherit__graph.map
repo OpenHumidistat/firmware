@@ -1,0 +1,5 @@
+<map id="CharDisplayUI" name="CharDisplayUI">
+<area shape="rect" id="Node000001" title="TUI for 16x2 character LCD. Holds a reference to a LiquidCrystal instance for writing to display...." alt="" coords="5,79,110,105"/>
+<area shape="rect" id="Node000002" href="$classControllerUI.html" title="User interface (display and input) for humidistat. Hold references to ButtonReader for keypad input,..." alt="" coords="12,5,103,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,46,60,79,55,79,55,46"/>
+</map>

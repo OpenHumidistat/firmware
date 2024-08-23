@@ -1,0 +1,12 @@
+<map id="GraphicalDisplayUI::drawConfig" name="GraphicalDisplayUI::drawConfig">
+<area shape="rect" id="Node000001" title="Draw the Config tab." alt="" coords="5,35,138,76"/>
+<area shape="rect" id="Node000002" href="$classConfigPar.html#a0bece1a8613c7c8ba8d87e28acf2cb34" title="Print &quot;label: value&quot; to string. Automatically allocates string on the heap. Make sure to delete it im..." alt="" coords="196,12,318,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,42,181,35,182,40,138,47"/>
+<area shape="rect" id="Node000004" href="$classConfigPar.html#a099b55d3836247dc0ebbe2609d3809cd" title="Get magnitude (number of digits before the decimal separator) of variable." alt="" coords="186,67,329,92"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="138,61,171,66,170,71,138,67"/>
+<area shape="rect" id="Node000003" href="$asprintf_8h.html#a8e2a40be4816c793857112b1960e912b" title="Print formatted data to string. Automatically allocates string on the heap. Make sure to delete it im..." alt="" coords="377,5,441,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="319,19,361,18,362,23,319,25"/>
+<area shape="rect" id="Node000005" href="$imath_8h.html#a1b826c7311037e4e89052d8f5d59afe6" title="Constexpr integer base&#45;10 logarithm." alt="" coords="382,79,437,104"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="330,83,366,85,366,91,329,88"/>
+<area shape="poly" id="edge5_Node000005_Node000005" title=" " alt="" coords="383,80,378,70,381,60,392,54,409,52,428,55,438,61,435,66,426,60,409,57,394,59,385,64,383,70,388,77"/>
+</map>

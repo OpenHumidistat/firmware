@@ -1,0 +1,23 @@
+<map id="ControllerUI::setCursor" name="ControllerUI::setCursor">
+<area shape="rect" id="Node000001" title="Set cursor to coordinates." alt="" coords="754,92,906,117"/>
+<area shape="rect" id="Node000002" href="$classControllerUI.html#af385bdf29e1075733d91b845fb771506" title="Print blinking text." alt="" coords="581,37,705,63"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="768,89,689,66,690,61,770,84"/>
+<area shape="rect" id="Node000005" href="$classControllerUI.html#aa14a64631f7993d6e22ac9e6f5bf4b44" title="Print formatted data to display, at (col, row). Calculates lengths and creates appropriate buffer int..." alt="" coords="580,120,706,145"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="739,121,706,126,705,120,738,115"/>
+<area shape="rect" id="Node000003" href="$classCharDisplayUI.html#aef739ad8856b975fdd25ffdf9fa86601" title="Draw main interface (main loop)." alt="" coords="186,94,324,120"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="592,34,545,21,489,11,430,9,401,13,373,20,341,35,312,56,269,96,266,92,308,52,338,31,371,15,400,8,430,4,490,6,546,16,594,29"/>
+<area shape="rect" id="Node000004" href="$classGraphicalDisplayUI.html#af69808890fcfb2bd088ac73aa6f7563c" title="Draw common elements in Main tab." alt="" coords="384,29,521,70"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="566,52,521,52,521,47,566,47"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="565,130,324,114,325,109,565,125"/>
+<area shape="poly" id="edge7_Node000005_Node000004" title=" " alt="" coords="596,115,500,73,502,68,598,110"/>
+<area shape="rect" id="Node000006" href="$classCharDisplayUI.html#ae63b61a0868ed1e42d48567a0621a13a" title="Draw info screen." alt="" coords="372,145,532,171"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="566,145,533,150,532,144,565,140"/>
+<area shape="rect" id="Node000007" href="$classGraphicalDisplayUI.html#a41ae47f8e4d0bd909b6d2be9765cdbc4" title=" " alt="" coords="189,212,321,253"/>
+<area shape="poly" id="edge8_Node000005_Node000007" title=" " alt="" coords="625,159,587,201,561,220,533,235,479,249,423,255,369,253,321,248,321,243,369,248,423,249,478,244,531,230,559,216,583,197,621,156"/>
+<area shape="rect" id="Node000009" href="$classControllerUI.html#abfabf4c49c12dcb8ee5e8b5a899cc920" title="Print temperature read from thermistors. Handles NaN values as 0." alt="" coords="378,194,526,220"/>
+<area shape="poly" id="edge10_Node000005_Node000009" title=" " alt="" coords="603,155,533,186,502,196,501,191,531,181,601,150"/>
+<area shape="rect" id="Node000008" href="$classGraphicalDisplayUI.html#aa73a9c30736b609bcef2b75c7aed1970" title="Draw main interface (main loop)." alt="" coords="5,212,138,253"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="173,235,138,235,138,230,173,230"/>
+<area shape="poly" id="edge11_Node000009_Node000003" title=" " alt="" coords="384,191,371,185,315,153,271,122,274,118,318,149,373,181,386,186"/>
+<area shape="poly" id="edge12_Node000009_Node000007" title=" " alt="" coords="363,221,322,227,321,221,362,216"/>
+</map>

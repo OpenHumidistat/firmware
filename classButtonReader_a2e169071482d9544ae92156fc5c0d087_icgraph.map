@@ -1,0 +1,5 @@
+<map id="ButtonReader::getPressedFor" name="ButtonReader::getPressedFor">
+<area shape="rect" id="Node000001" title="Get the duration the key has been pressed. This can be used for debouncing using a stable interval." alt="" coords="189,5,380,31"/>
+<area shape="rect" id="Node000002" href="$classControllerUI.html#a6f2d7f517a98e9ed393fdded07bbc454" title="Update the display and handle input: set Humidistat&#39;s setpoint." alt="" coords="5,5,141,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="173,21,141,21,141,16,173,16"/>
+</map>

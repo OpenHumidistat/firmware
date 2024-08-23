@@ -1,0 +1,9 @@
+<map id="ControllerUI::adjustValue" name="ControllerUI::adjustValue">
+<area shape="rect" id="Node000001" title="In&#45;/de&#45;crement a variable, while clipping it to [min, max]." alt="" coords="411,35,575,60"/>
+<area shape="rect" id="Node000002" href="$classCharDisplayUI.html#a4fef4976bbeb2197ab3d8bcedc25c2dc" title="Handle input." alt="" coords="186,5,363,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="395,37,363,33,364,27,396,32"/>
+<area shape="rect" id="Node000003" href="$classGraphicalDisplayUI.html#a948cf32243a585b1a88c0989efd9d474" title="Handle input on the Main tab." alt="" coords="208,55,340,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="396,63,341,70,341,64,396,57"/>
+<area shape="rect" id="Node000004" href="$classGraphicalDisplayUI.html#a3e340b5f072ed6a4251069f4a408e4b0" title="Handle input." alt="" coords="5,55,138,96"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="193,78,138,78,138,73,193,73"/>
+</map>

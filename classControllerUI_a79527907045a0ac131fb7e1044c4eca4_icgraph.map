@@ -1,0 +1,5 @@
+<map id="ControllerUI::drawSplash" name="ControllerUI::drawSplash">
+<area shape="rect" id="Node000001" title="Draw splash screen." alt="" coords="189,5,353,31"/>
+<area shape="rect" id="Node000002" href="$classControllerUI.html#a6f2d7f517a98e9ed393fdded07bbc454" title="Update the display and handle input: set Humidistat&#39;s setpoint." alt="" coords="5,5,141,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="173,21,141,21,141,16,173,16"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="Controller" name="Controller">
+<area shape="rect" id="Node000001" title="Base class for a controller. Owns a PID instance, and holds a reference to a ConfigStore instance." alt="" coords="33,94,109,120"/>
+<area shape="rect" id="Node000002" href="$classPID.html" title="PID controller in parallel form implemented in floating&#45;point arithmetic. Features Derivative&#45;on&#45;Meas..." alt="" coords="5,5,49,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="42,44,67,92,63,95,38,46"/>
+<area shape="rect" id="Node000003" href="$structConfigStore.html" title="Config store containing variables, which can be stored in EEPROM." alt="" coords="72,5,160,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="105,46,80,95,75,92,101,44"/>
+</map>

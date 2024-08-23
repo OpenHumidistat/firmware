@@ -1,0 +1,13 @@
+<map id="advanceEnum" name="advanceEnum">
+<area shape="rect" id="Node000001" title="Cycle through (advance) an enum." alt="" coords="366,78,469,104"/>
+<area shape="rect" id="Node000002" href="$classGraphicalDisplayUI.html#a17cd12ba983e77b6f766bac994b09f49" title="Handle input on the Config tab." alt="" coords="186,5,318,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="368,75,304,49,306,44,370,70"/>
+<area shape="rect" id="Node000004" href="$classGraphicalDisplayUI.html#a8f0f20c1ddf3b647f42ed92492fc959c" title="Handle input on the Info tab." alt="" coords="186,71,318,111"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="350,94,318,94,318,88,350,88"/>
+<area shape="rect" id="Node000005" href="$classGraphicalDisplayUI.html#a948cf32243a585b1a88c0989efd9d474" title="Handle input on the Main tab." alt="" coords="186,136,318,177"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="370,112,306,138,304,133,368,107"/>
+<area shape="rect" id="Node000003" href="$classGraphicalDisplayUI.html#a3e340b5f072ed6a4251069f4a408e4b0" title="Handle input." alt="" coords="5,71,138,111"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="180,54,131,73,129,68,179,49"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="170,94,138,94,138,88,170,88"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="179,133,129,114,131,109,180,128"/>
+</map>

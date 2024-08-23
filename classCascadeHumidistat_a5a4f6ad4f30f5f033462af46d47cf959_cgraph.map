@@ -1,0 +1,23 @@
+<map id="CascadeHumidistat::update" name="CascadeHumidistat::update">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,48,147,89"/>
+<area shape="rect" id="Node000002" href="$classHumidistat.html#ae30511d6477f5996de05996bdf221730" title="Run a cycle of the controller. Reads a sample from the humidity controller and runs PID." alt="" coords="199,31,340,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="147,57,183,52,184,57,148,62"/>
+<area shape="rect" id="Node000007" href="$classFlowController.html#a67e791323a0cd95c97266135ba2ecde2" title=" " alt="" coords="195,80,344,106"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="148,75,180,79,179,84,147,80"/>
+<area shape="rect" id="Node000003" href="$classPID.html#a742098de1dc845731f9bc86ebf01fb01" title="Run a cycle of the PID loop." alt="" coords="428,5,527,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="339,32,413,23,413,29,340,38"/>
+<area shape="rect" id="Node000005" href="$classPID.html#a05e62644ef9b7c0f3b1bb34631150ab4" title="Set the mode of the controller." alt="" coords="430,55,525,80"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="340,49,416,58,415,63,339,54"/>
+<area shape="rect" id="Node000004" href="$classPID.html#a0e64deb10d189ef873ec4e672a1c79f2" title="Clip value to [cvMin, cvMax]." alt="" coords="611,5,681,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="528,16,596,16,596,21,528,21"/>
+<area shape="rect" id="Node000006" href="$classPID.html#a0ccd3a3e6e64a2560077ea76bf71e417" title="Method to be called when the controller goes from manual to auto mode for proper bumpless transfer." alt="" coords="613,55,679,80"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="525,65,598,65,598,70,525,70"/>
+<area shape="poly" id="edge7_Node000007_Node000003" title=" " alt="" coords="315,77,343,66,367,53,391,40,412,32,414,37,393,45,369,58,345,71,317,82"/>
+<area shape="poly" id="edge12_Node000007_Node000005" title=" " alt="" coords="344,81,415,72,416,78,345,86"/>
+<area shape="rect" id="Node000008" href="$imath_8h.html#aa86632c19b4d57acb96ac9e9cd3e13e1" title="Constexpr function for computing integer power." alt="" coords="622,141,670,167"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="345,102,607,145,606,151,344,108"/>
+<area shape="rect" id="Node000009" href="$classFlowSensor.html#af13c74f7fd6fed9e163292e2b840ca8e" title="Read the flow rate." alt="" coords="392,156,563,182"/>
+<area shape="poly" id="edge10_Node000007_Node000009" title=" " alt="" coords="308,104,427,148,425,153,306,109"/>
+<area shape="poly" id="edge9_Node000008_Node000008" title=" " alt="" coords="619,144,612,134,615,124,626,117,646,115,669,118,679,127,675,131,667,123,646,120,628,122,619,127,617,133,624,141"/>
+<area shape="poly" id="edge11_Node000009_Node000008" title=" " alt="" coords="564,159,606,155,607,160,564,164"/>
+</map>

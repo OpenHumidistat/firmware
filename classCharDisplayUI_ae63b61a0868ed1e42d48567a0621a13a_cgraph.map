@@ -1,0 +1,11 @@
+<map id="CharDisplayUI::drawInfo" name="CharDisplayUI::drawInfo">
+<area shape="rect" id="Node000001" title="Draw info screen." alt="" coords="5,31,166,56"/>
+<area shape="rect" id="Node000002" href="$classController.html#a097a40310e7beb937f7cdcabb2246877" title="Get a pointer to the ConfigStore instance." alt="" coords="214,5,381,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="166,31,198,27,198,33,166,37"/>
+<area shape="rect" id="Node000003" href="$classControllerUI.html#aa14a64631f7993d6e22ac9e6f5bf4b44" title="Print formatted data to display, at (col, row). Calculates lengths and creates appropriate buffer int..." alt="" coords="235,55,360,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="166,50,220,56,219,61,166,55"/>
+<area shape="rect" id="Node000004" href="$asprintf_8h.html#a8e2a40be4816c793857112b1960e912b" title="Print formatted data to string. Automatically allocates string on the heap. Make sure to delete it im..." alt="" coords="473,29,537,55"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="360,57,457,45,458,51,361,63"/>
+<area shape="rect" id="Node000005" href="$classControllerUI.html#a94aed853c67197d32434244f8941c21e" title="Set cursor to coordinates." alt="" coords="429,79,581,104"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="361,72,414,78,413,84,360,77"/>
+</map>

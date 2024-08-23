@@ -1,0 +1,9 @@
+<map id="ControllerUI::printNTC" name="ControllerUI::printNTC">
+<area shape="rect" id="Node000001" title="Print temperature read from thermistors. Handles NaN values as 0." alt="" coords="372,35,520,60"/>
+<area shape="rect" id="Node000002" href="$classCharDisplayUI.html#aef739ad8856b975fdd25ffdf9fa86601" title="Draw main interface (main loop)." alt="" coords="186,5,324,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="356,36,324,31,325,26,357,31"/>
+<area shape="rect" id="Node000003" href="$classGraphicalDisplayUI.html#a41ae47f8e4d0bd909b6d2be9765cdbc4" title=" " alt="" coords="189,55,321,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="357,63,322,68,321,63,356,58"/>
+<area shape="rect" id="Node000004" href="$classGraphicalDisplayUI.html#aa73a9c30736b609bcef2b75c7aed1970" title="Draw main interface (main loop)." alt="" coords="5,55,138,96"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="173,78,138,78,138,73,173,73"/>
+</map>

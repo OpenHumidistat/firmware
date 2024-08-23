@@ -1,0 +1,11 @@
+<map id="Humidistat::runCycle" name="Humidistat::runCycle">
+<area shape="rect" id="Node000001" title="Run a cycle of the controller. Reads a sample from the humidity controller and runs PID." alt="" coords="5,31,146,56"/>
+<area shape="rect" id="Node000002" href="$classPID.html#a742098de1dc845731f9bc86ebf01fb01" title="Run a cycle of the PID loop." alt="" coords="194,5,293,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,30,178,25,179,31,146,36"/>
+<area shape="rect" id="Node000004" href="$classPID.html#a05e62644ef9b7c0f3b1bb34631150ab4" title="Set the mode of the controller." alt="" coords="196,55,290,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="146,51,181,56,180,61,146,56"/>
+<area shape="rect" id="Node000003" href="$classPID.html#a0e64deb10d189ef873ec4e672a1c79f2" title="Clip value to [cvMin, cvMax]." alt="" coords="341,5,410,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="293,16,325,16,325,21,293,21"/>
+<area shape="rect" id="Node000005" href="$classPID.html#a0ccd3a3e6e64a2560077ea76bf71e417" title="Method to be called when the controller goes from manual to auto mode for proper bumpless transfer." alt="" coords="342,55,409,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="291,65,327,65,327,70,291,70"/>
+</map>

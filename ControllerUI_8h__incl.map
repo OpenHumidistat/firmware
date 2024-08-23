@@ -1,0 +1,25 @@
+<map id="src/ui/ControllerUI.h" name="src/ui/ControllerUI.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="161,5,297,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="268,153,331,178"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,27,99,35,44,50,24,60,12,72,9,86,18,103,33,115,56,125,118,142,189,153,253,159,252,164,188,158,117,147,54,130,30,119,14,106,4,87,7,70,20,56,42,45,98,30,160,21"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="28,79,105,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="202,34,109,75,107,70,200,29"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="129,79,187,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="219,33,183,70,179,66,215,29"/>
+<area shape="rect" id="Node000005" href="$ButtonReader_8h.html" title=" " alt="" coords="412,79,555,105"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="273,29,426,72,425,77,271,34"/>
+<area shape="rect" id="Node000008" href="$ThermistorReader_8h.html" title=" " alt="" coords="211,79,388,105"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="243,29,279,66,275,70,239,33"/>
+<area shape="rect" id="Node000009" href="$asprintf_8h.html" title=" " alt="" coords="578,79,653,105"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="298,28,564,76,563,81,297,33"/>
+<area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="453,108,346,149,344,144,451,103"/>
+<area shape="rect" id="Node000006" href="$aliases_8h.html" title=" " alt="" coords="371,153,444,178"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="473,107,433,144,430,140,469,103"/>
+<area shape="rect" id="Node000007" href="$Buttons_8h.html" title=" " alt="" coords="468,153,544,178"/>
+<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="490,104,500,137,495,138,485,106"/>
+<area shape="poly" id="edge9_Node000008_Node000002" title=" " alt="" coords="302,105,302,137,297,137,297,105"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="576,153,639,178"/>
+<area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="617,105,613,138,608,137,612,105"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="663,153,723,178"/>
+<area shape="poly" id="edge12_Node000009_Node000011" title=" " alt="" coords="631,103,671,140,667,144,627,107"/>
+</map>

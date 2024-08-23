@@ -1,0 +1,20 @@
+<map id="ipow" name="ipow">
+<area shape="rect" id="Node000001" title="Constexpr function for computing integer power." alt="" coords="611,107,660,132"/>
+<area shape="poly" id="edge5_Node000001_Node000001" title=" " alt="" coords="662,94,653,88,635,85,619,87,611,92,609,97,613,105,608,108,603,98,606,88,618,82,636,80,655,83,665,89"/>
+<area shape="rect" id="Node000002" href="$classConfigPar.html#aab5ed0b09b040eba98bc05d76e89c4ca" title="Add delta to the variable." alt="" coords="418,5,537,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="612,97,589,74,562,52,523,34,526,29,565,48,592,70,616,93"/>
+<area shape="rect" id="Node000003" href="$classGraphicalDisplayUI.html#a17cd12ba983e77b6f766bac994b09f49" title="Handle input on the Config tab." alt="" coords="203,32,336,73"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="596,107,563,97,443,74,336,61,336,56,444,69,564,92,598,102"/>
+<area shape="rect" id="Node000005" href="$classFlowSensor.html#af13c74f7fd6fed9e163292e2b840ca8e" title="Read the flow rate." alt="" coords="392,107,563,132"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="596,122,564,122,564,117,596,117"/>
+<area shape="rect" id="Node000006" href="$classFlowController.html#a67e791323a0cd95c97266135ba2ecde2" title=" " alt="" coords="195,123,344,148"/>
+<area shape="poly" id="edge9_Node000001_Node000006" title=" " alt="" coords="598,138,564,147,507,154,449,155,344,149,345,143,449,150,506,149,563,142,596,133"/>
+<area shape="rect" id="Node000008" href="$classSingleHumidistat.html#af667a97d9c89b5801dab0956f88acd70" title=" " alt="" coords="395,208,560,234"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="616,146,592,169,565,191,526,210,523,205,562,187,589,165,612,142"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="404,33,337,44,336,39,403,28"/>
+<area shape="rect" id="Node000004" href="$classGraphicalDisplayUI.html#a3e340b5f072ed6a4251069f4a408e4b0" title="Handle input." alt="" coords="10,32,142,73"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="188,56,143,56,143,50,188,50"/>
+<area shape="poly" id="edge7_Node000005_Node000006" title=" " alt="" coords="376,130,344,132,344,127,376,125"/>
+<area shape="rect" id="Node000007" href="$classCascadeHumidistat.html#a5a4f6ad4f30f5f033462af46d47cf959" title=" " alt="" coords="5,115,147,156"/>
+<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="179,138,147,138,147,133,179,133"/>
+</map>

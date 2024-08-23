@@ -1,0 +1,27 @@
+<map id="asprintf" name="asprintf">
+<area shape="rect" id="Node000001" title="Print formatted data to string. Automatically allocates string on the heap. Make sure to delete it im..." alt="" coords="754,81,818,107"/>
+<area shape="rect" id="Node000002" href="$classConfigPar.html#a0bece1a8613c7c8ba8d87e28acf2cb34" title="Print &quot;label: value&quot; to string. Automatically allocates string on the heap. Make sure to delete it im..." alt="" coords="582,5,704,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="747,76,704,53,669,34,671,29,707,48,749,71"/>
+<area shape="rect" id="Node000005" href="$classCharDisplayUI.html#aef739ad8856b975fdd25ffdf9fa86601" title="Draw main interface (main loop)." alt="" coords="186,107,324,132"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="738,96,580,97,444,105,325,115,324,110,444,100,580,92,738,90"/>
+<area shape="rect" id="Node000006" href="$classSerialLogger.html#a19892d82447f8504faf4ddace7a56877" title=" " alt="" coords="584,107,702,132"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="739,105,703,112,702,106,738,100"/>
+<area shape="rect" id="Node000007" href="$classControllerUI.html#aa14a64631f7993d6e22ac9e6f5bf4b44" title="Print formatted data to display, at (col, row). Calculates lengths and creates appropriate buffer int..." alt="" coords="580,185,706,211"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="756,119,664,187,661,183,753,114"/>
+<area shape="rect" id="Node000003" href="$classGraphicalDisplayUI.html#aa1797798b407f534ccaddf6304ce1a7d" title="Draw the Config tab." alt="" coords="189,20,321,61"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="566,25,321,40,321,34,566,20"/>
+<area shape="rect" id="Node000004" href="$classGraphicalDisplayUI.html#aa73a9c30736b609bcef2b75c7aed1970" title="Draw main interface (main loop)." alt="" coords="5,154,138,194"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="215,73,102,156,99,151,211,69"/>
+<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="606,180,571,162,532,147,478,135,423,128,324,122,325,116,424,122,479,130,533,142,573,157,608,175"/>
+<area shape="rect" id="Node000008" href="$classCharDisplayUI.html#ae63b61a0868ed1e42d48567a0621a13a" title="Draw info screen." alt="" coords="372,157,532,183"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="565,189,532,185,533,179,566,184"/>
+<area shape="rect" id="Node000009" href="$classGraphicalDisplayUI.html#af69808890fcfb2bd088ac73aa6f7563c" title="Draw common elements in Main tab." alt="" coords="384,207,521,248"/>
+<area shape="poly" id="edge9_Node000007_Node000009" title=" " alt="" coords="566,213,522,220,521,214,565,207"/>
+<area shape="rect" id="Node000010" href="$classGraphicalDisplayUI.html#a41ae47f8e4d0bd909b6d2be9765cdbc4" title=" " alt="" coords="189,264,321,305"/>
+<area shape="poly" id="edge10_Node000007_Node000010" title=" " alt="" coords="628,226,589,273,563,295,533,313,506,322,477,327,419,328,363,320,314,308,315,303,364,315,419,323,476,322,504,317,531,308,560,291,585,269,623,223"/>
+<area shape="rect" id="Node000011" href="$classControllerUI.html#abfabf4c49c12dcb8ee5e8b5a899cc920" title="Print temperature read from thermistors. Handles NaN values as 0." alt="" coords="378,272,526,298"/>
+<area shape="poly" id="edge12_Node000007_Node000011" title=" " alt="" coords="609,222,533,262,502,274,500,269,531,257,607,217"/>
+<area shape="poly" id="edge11_Node000010_Node000004" title=" " alt="" coords="205,258,105,197,108,193,208,254"/>
+<area shape="poly" id="edge13_Node000011_Node000005" title=" " alt="" coords="380,267,370,262,334,231,302,195,261,134,266,131,307,192,337,227,374,257,383,263"/>
+<area shape="poly" id="edge14_Node000011_Node000010" title=" " alt="" coords="363,288,321,288,321,282,363,282"/>
+</map>

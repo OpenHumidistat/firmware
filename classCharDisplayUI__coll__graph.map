@@ -1,0 +1,17 @@
+<map id="CharDisplayUI" name="CharDisplayUI">
+<area shape="rect" id="Node000001" title="TUI for 16x2 character LCD. Holds a reference to a LiquidCrystal instance for writing to display...." alt="" coords="67,346,172,372"/>
+<area shape="rect" id="Node000002" href="$classControllerUI.html" title="User interface (display and input) for humidistat. Hold references to ButtonReader for keypad input,..." alt="" coords="10,258,101,283"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,294,113,344,109,348,71,297"/>
+<area shape="rect" id="Node000003" href="$classButtonReader.html" title="Read button state from a voltage ladder&#45;style keypad." alt="" coords="5,169,106,195"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="58,210,58,257,53,257,53,210"/>
+<area shape="rect" id="Node000004" href="$classSingleHumidistat.html" title="Control humidity using PID by driving two solenoid valves. Adjust the public setpoint variable and ca..." alt="" coords="125,258,245,283"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="169,297,131,348,126,344,165,294"/>
+<area shape="rect" id="Node000005" href="$classHumidistat.html" title="Base class for a humidistat. Holds a reference to a HumiditySensor instance." alt="" coords="143,169,227,195"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="188,210,188,257,182,257,182,210"/>
+<area shape="rect" id="Node000006" href="$classController.html" title="Base class for a controller. Owns a PID instance, and holds a reference to a ConfigStore instance." alt="" coords="147,94,223,120"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="188,135,188,169,182,169,182,135"/>
+<area shape="rect" id="Node000007" href="$classPID.html" title="PID controller in parallel form implemented in floating&#45;point arithmetic. Features Derivative&#45;on&#45;Meas..." alt="" coords="119,5,162,31"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="156,44,181,92,176,95,151,46"/>
+<area shape="rect" id="Node000008" href="$structConfigStore.html" title="Config store containing variables, which can be stored in EEPROM." alt="" coords="186,5,274,31"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="219,46,193,95,189,92,214,44"/>
+</map>

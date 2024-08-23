@@ -1,0 +1,20 @@
+<map id="CharDisplayUI::draw" name="CharDisplayUI::draw">
+<area shape="rect" id="Node000001" title="Draw main interface (main loop)." alt="" coords="5,98,144,124"/>
+<area shape="rect" id="Node000002" href="$asprintf_8h.html#a8e2a40be4816c793857112b1960e912b" title="Print formatted data to string. Automatically allocates string on the heap. Make sure to delete it im..." alt="" coords="638,16,703,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,96,132,62,160,45,191,33,250,18,311,9,432,3,541,8,623,18,623,23,540,14,432,8,311,14,251,23,192,38,163,50,135,66,92,100"/>
+<area shape="rect" id="Node000003" href="$classControllerUI.html#af385bdf29e1075733d91b845fb771506" title="Print blinking text." alt="" coords="422,177,545,203"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="88,122,130,167,159,190,193,207,222,216,253,221,315,222,374,215,425,204,426,210,375,221,315,227,252,226,221,221,191,212,156,195,126,171,84,126"/>
+<area shape="rect" id="Node000005" href="$classHumidistat.html#a12c137dcc4218eabce1c78b328bc48b0" title="Read the humidity." alt="" coords="203,73,362,99"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="144,100,187,95,188,100,144,105"/>
+<area shape="rect" id="Node000006" href="$classHumidistat.html#add5923a18abdee988d59e3411d12ba04" title="Read the temperature." alt="" coords="192,122,373,148"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="144,116,176,120,176,125,144,122"/>
+<area shape="rect" id="Node000007" href="$classControllerUI.html#aa14a64631f7993d6e22ac9e6f5bf4b44" title="Print formatted data to display, at (col, row). Calculates lengths and creates appropriate buffer int..." alt="" coords="421,128,546,153"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="98,95,140,75,191,58,242,47,283,42,324,45,374,58,399,69,422,83,461,114,457,119,419,87,397,73,372,63,323,50,283,48,243,53,192,63,142,79,100,100"/>
+<area shape="rect" id="Node000008" href="$classControllerUI.html#abfabf4c49c12dcb8ee5e8b5a899cc920" title="Print temperature read from thermistors. Handles NaN values as 0." alt="" coords="208,172,356,197"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="105,122,193,158,212,164,211,169,191,163,103,127"/>
+<area shape="rect" id="Node000004" href="$classControllerUI.html#a94aed853c67197d32434244f8941c21e" title="Set cursor to coordinates." alt="" coords="594,153,747,179"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="545,179,579,175,580,180,546,184"/>
+<area shape="poly" id="edge7_Node000007_Node000002" title=" " alt="" coords="505,125,633,47,636,52,508,129"/>
+<area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="547,146,579,151,578,156,546,152"/>
+<area shape="poly" id="edge10_Node000008_Node000007" title=" " alt="" coords="344,168,406,155,408,160,345,174"/>
+</map>

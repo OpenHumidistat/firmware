@@ -1,0 +1,11 @@
+<map id="GraphicalDisplayUI::handleInputMain" name="GraphicalDisplayUI::handleInputMain">
+<area shape="rect" id="Node000001" title="Handle input on the Main tab." alt="" coords="5,76,138,117"/>
+<area shape="rect" id="Node000002" href="$classControllerUI.html#a227e9eb131da08502bf707ac33bccab3" title="In&#45;/de&#45;crement a variable, while clipping it to [min, max]." alt="" coords="186,5,350,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,74,185,40,201,34,203,39,187,45,113,78"/>
+<area shape="rect" id="Node000003" href="$advanceEnum_8h.html#a4c6cbb4b80fa575a2819ca1d5e7cc1a2" title="Cycle through (advance) an enum." alt="" coords="216,55,320,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="137,84,201,75,201,80,138,90"/>
+<area shape="rect" id="Node000004" href="$classSetpointProfileRunner.html#a1c11d6fe1d34db313e8bc78cc08ab19f" title="Set the profile." alt="" coords="195,104,341,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="138,104,180,110,179,115,137,109"/>
+<area shape="rect" id="Node000005" href="$classSetpointProfileRunner.html#ace14da515f49645e5901523d0864dd23" title="Toggle the run state." alt="" coords="195,170,341,210"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="111,115,187,154,201,161,199,166,185,159,109,120"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="SingleHumidistat::updatePIDParameters" name="SingleHumidistat::updatePIDParameters">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,171,46"/>
+<area shape="rect" id="Node000002" href="$classPID.html#ae3f4eed49d68435cc1b77e137ac31920" title="Set the gains and timestep." alt="" coords="219,13,320,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,23,203,23,203,28,171,28"/>
+<area shape="rect" id="Node000003" href="$classPID.html#a0ccd3a3e6e64a2560077ea76bf71e417" title="Method to be called when the controller goes from manual to auto mode for proper bumpless transfer." alt="" coords="368,13,434,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="321,23,352,23,352,28,321,28"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="Humidistat::runCycle" name="Humidistat::runCycle">
+<area shape="rect" id="Node000001" title="Run a cycle of the controller. Reads a sample from the humidity controller and runs PID." alt="" coords="219,42,359,68"/>
+<area shape="rect" id="Node000002" href="$classCascadeHumidistat.html#a5a4f6ad4f30f5f033462af46d47cf959" title=" " alt="" coords="17,5,159,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,45,159,39,160,33,204,40"/>
+<area shape="rect" id="Node000003" href="$classSingleHumidistat.html#af667a97d9c89b5801dab0956f88acd70" title=" " alt="" coords="5,70,171,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="204,70,172,74,171,69,203,64"/>
+</map>

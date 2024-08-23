@@ -1,0 +1,5 @@
+<map id="PID::setGains" name="PID::setGains">
+<area shape="rect" id="Node000001" title="Set the gains and timestep." alt="" coords="5,5,107,31"/>
+<area shape="rect" id="Node000002" href="$classPID.html#a0ccd3a3e6e64a2560077ea76bf71e417" title="Method to be called when the controller goes from manual to auto mode for proper bumpless transfer." alt="" coords="155,5,221,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,16,139,16,139,21,107,21"/>
+</map>

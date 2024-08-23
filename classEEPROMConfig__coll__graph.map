@@ -1,0 +1,5 @@
+<map id="EEPROMConfig" name="EEPROMConfig">
+<area shape="rect" id="Node000001" title="Load/save an (internal) ConfigStore in EEPROM." alt="" coords="5,94,118,120"/>
+<area shape="rect" id="Node000002" href="$structConfigStore.html" title="Config store containing variables, which can be stored in EEPROM." alt="" coords="17,5,106,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="64,47,64,94,59,94,59,47"/>
+</map>

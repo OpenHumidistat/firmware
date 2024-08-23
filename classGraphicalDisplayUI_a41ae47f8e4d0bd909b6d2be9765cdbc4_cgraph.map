@@ -1,0 +1,12 @@
+<map id="GraphicalDisplayUI::drawTabInfo" name="GraphicalDisplayUI::drawTabInfo">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,23,138,64"/>
+<area shape="rect" id="Node000002" href="$classControllerUI.html#aa14a64631f7993d6e22ac9e6f5bf4b44" title="Print formatted data to display, at (col, row). Calculates lengths and creates appropriate buffer int..." alt="" coords="382,31,507,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="138,41,366,41,366,46,138,46"/>
+<area shape="rect" id="Node000005" href="$classControllerUI.html#abfabf4c49c12dcb8ee5e8b5a899cc920" title="Print temperature read from thermistors. Handles NaN values as 0." alt="" coords="186,56,334,82"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="139,50,171,54,170,59,138,55"/>
+<area shape="rect" id="Node000003" href="$asprintf_8h.html#a8e2a40be4816c793857112b1960e912b" title="Print formatted data to string. Automatically allocates string on the heap. Make sure to delete it im..." alt="" coords="599,5,664,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="507,32,583,22,584,27,508,38"/>
+<area shape="rect" id="Node000004" href="$classControllerUI.html#a94aed853c67197d32434244f8941c21e" title="Set cursor to coordinates." alt="" coords="555,55,708,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="508,49,540,53,539,58,507,54"/>
+<area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="334,56,366,52,367,57,335,61"/>
+</map>

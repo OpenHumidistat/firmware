@@ -1,0 +1,5 @@
+<map id="ThermistorReader::readTemp" name="ThermistorReader::readTemp">
+<area shape="rect" id="Node000001" title="Get the temperature of the thermistor." alt="" coords="5,13,194,38"/>
+<area shape="rect" id="Node000002" href="$classThermistorReader.html#a0670b7affeba1f06311c917b0d2fe6f4" title="Calculate the resistance of the thermistor in the voltage divider." alt="" coords="242,5,452,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="194,23,226,23,226,28,194,28"/>
+</map>

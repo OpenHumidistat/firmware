@@ -1,0 +1,5 @@
+<map id="Humidistat::getTemperature" name="Humidistat::getTemperature">
+<area shape="rect" id="Node000001" title="Read the temperature." alt="" coords="192,5,373,31"/>
+<area shape="rect" id="Node000002" href="$classCharDisplayUI.html#aef739ad8856b975fdd25ffdf9fa86601" title="Draw main interface (main loop)." alt="" coords="5,5,144,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,21,144,21,144,16,176,16"/>
+</map>

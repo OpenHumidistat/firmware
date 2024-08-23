@@ -1,0 +1,9 @@
+<map id="src/sensor/SHTHumiditySensor.h" name="src/sensor/SHTHumiditySensor.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="10,5,226,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,66,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,34,63,71,59,67,102,30"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="90,79,147,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="121,31,121,63,116,63,116,31"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="171,79,270,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="137,29,193,68,190,72,134,34"/>
+</map>
